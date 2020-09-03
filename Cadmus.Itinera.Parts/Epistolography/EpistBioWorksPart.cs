@@ -8,8 +8,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// List of works connected to a letter-related person's biography.
+    /// Tag: <c>net.fusisoft.epist-bio-works</c>.
     /// </summary>
-    /// <remarks>Tag: <c>net.fusisoft.epist-bio-works</c>.</remarks>
     /// <seealso cref="PartBase" />
     [Tag("net.fusisoft.epist-bio-works")]
     public sealed class EpistBioWorksPart : PartBase
