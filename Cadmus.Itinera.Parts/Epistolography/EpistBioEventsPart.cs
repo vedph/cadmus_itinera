@@ -101,9 +101,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 int i = 0;
                 foreach (string key in types.Keys.OrderBy(s => s))
                 {
-                    if (i > 0) sb.Append(", ");
+                    if (++i > 1) sb.Append(", ");
                     sb.Append(key).Append('=').Append(types[key]);
-                    i++;
                 }
             }
 
