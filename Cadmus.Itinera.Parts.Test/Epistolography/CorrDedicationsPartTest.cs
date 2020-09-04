@@ -29,19 +29,9 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Title = $"Dedication {n}",
                     Date = date,
                     DateSent = n % 2 == 0? date : null,
-                    IsByAuthor = n % 2 == 0
+                    IsByAuthor = n % 2 == 0,
+                    Sources = TestHelper.GetCitations(2)
                 };
-                for (int j = 1; j <= 2; j++)
-                {
-                    dedication.Sources.Add(new LitCitation
-                    {
-                        Author = "Hom.",
-                        Work = "Il.",
-                        Location = "1.23",
-                        Note = $"Note {j}",
-                        Tag = j % 2 == 0 ? "even" : "odd"
-                    });
-                }
                 part.Dedications.Add(dedication);
             }
 
@@ -68,13 +58,6 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             // TODO: details
         }
 
-        private static void AssertPinIds(IPart part, DataPin pin)
-        {
-            Assert.Equal(part.ItemId, pin.ItemId);
-            Assert.Equal(part.Id, pin.PartId);
-            Assert.Equal(part.RoleId, pin.RoleId);
-        }
-
         [Fact]
         public void GetDataPins_NoDedication_Empty()
         {
@@ -97,13 +80,13 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             // auth-count
             DataPin pin = pins.Find(p => p.Name == "auth-count");
             Assert.NotNull(pin);
-            AssertPinIds(part, pin);
+            TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1", pin.Value);
 
             // corr-count
             pin = pins.Find(p => p.Name == "corr-count");
             Assert.NotNull(pin);
-            AssertPinIds(part, pin);
+            TestHelper.AssertPinIds(part, pin);
             Assert.Equal("2", pin.Value);
 
             for (int n = 1; n <= 3; n++)
@@ -111,7 +94,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 // title
                 pin = pins.Find(p => p.Name == "title" && p.Value == $"dedication {n}");
                 Assert.NotNull(pin);
-                AssertPinIds(part, pin);
+                TestHelper.AssertPinIds(part, pin);
 
                 // date-value
                 HistoricalDate date = HistoricalDate.Parse(n + 1200 + " AD");
@@ -119,7 +102,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 pin = pins.Find(p => p.Name == "date-value"
                     && p.Value == value.ToString(CultureInfo.InvariantCulture));
                 Assert.NotNull(pin);
-                AssertPinIds(part, pin);
+                TestHelper.AssertPinIds(part, pin);
             }
         }
     }

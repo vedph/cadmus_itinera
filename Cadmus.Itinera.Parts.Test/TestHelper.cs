@@ -1,7 +1,10 @@
 ﻿using Cadmus.Core;
 using Cadmus.Core.Layers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text.Json;
+using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test
 {
@@ -45,6 +48,31 @@ namespace Cadmus.Itinera.Parts.Test
                 throw new ArgumentNullException(nameof(json));
 
             return JsonSerializer.Deserialize<T>(json, _options);
+        }
+
+        public static void AssertPinIds(IPart part, DataPin pin)
+        {
+            Assert.Equal(part.ItemId, pin.ItemId);
+            Assert.Equal(part.Id, pin.PartId);
+            Assert.Equal(part.RoleId, pin.RoleId);
+        }
+
+        public static List<LitCitation> GetCitations(int count)
+        {
+            List<LitCitation> citations = new List<LitCitation>();
+
+            for (int i = 1; i <= count; i++)
+            {
+                citations.Add(new LitCitation
+                {
+                    Author = "Hom.",
+                    Work = "Il.",
+                    Location = "1.23",
+                    Note = $"Note {i}",
+                    Tag = i % 2 == 0 ? "even" : "odd"
+                });
+            }
+            return citations;
         }
     }
 }
