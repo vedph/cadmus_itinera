@@ -110,7 +110,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 {
                     pins.Add(CreateDataPin(
                         "name",
-                        PinTextFilter.Apply(name.GetFullName())));
+                        PinTextFilter.Apply(name.GetFullName(), true)));
                 }
             }
 
@@ -127,7 +127,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (!string.IsNullOrEmpty(BirthPlace))
             {
                 pins.Add(CreateDataPin("birth-place",
-                    PinTextFilter.Apply(BirthPlace)));
+                    PinTextFilter.Apply(BirthPlace, true)));
             }
 
             if (DeathDate != null)
@@ -139,7 +139,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (!string.IsNullOrEmpty(DeathPlace))
             {
                 pins.Add(CreateDataPin("death-place",
-                    PinTextFilter.Apply(DeathPlace)));
+                    PinTextFilter.Apply(DeathPlace, true)));
             }
 
             int cc = Bio?.Length ?? 0;

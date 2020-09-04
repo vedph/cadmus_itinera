@@ -56,14 +56,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     if (e.Places != null)
                     {
                         foreach (LitCitedPlace place in e.Places)
-                            places.Add(PinTextFilter.Apply(place.Name));
+                            places.Add(PinTextFilter.Apply(place.Name, true));
                     }
                     if (e.Participants != null)
                     {
                         foreach (LitCitedPerson person in e.Participants)
                         {
                             participants.Add(
-                                PinTextFilter.Apply(person.Name.GetFullName()));
+                                PinTextFilter.Apply(person.Name.GetFullName(), true));
                         }
                     }
                 }

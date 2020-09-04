@@ -20,8 +20,10 @@ namespace Cadmus.Itinera.Parts
         /// and flattened into space, and get trimmed if initial or final.
         /// </summary>
         /// <param name="text">The text.</param>
+        /// <param name="preserveDigits">True to preserve also digits; false
+        /// to discard them.</param>
         /// <returns>The filtered text.</returns>
-        public static string Apply(string text)
+        public static string Apply(string text, bool preserveDigits = false)
         {
             if (string.IsNullOrEmpty(text)) return text;
 
@@ -50,6 +52,11 @@ namespace Cadmus.Itinera.Parts
                             char seg = _ud.GetSegment(c, true);
                             if (seg != 0) sb.Append(char.ToLower(seg));
                             prevWS = false;
+                            break;
+                        }
+                        if (preserveDigits && char.IsDigit(c))
+                        {
+                            sb.Append(c);
                             break;
                         }
                         prevWS = false;

@@ -64,7 +64,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 foreach (double dv in dateValues)
                 {
                     pins.Add(CreateDataPin("date-value",
-                        PinTextFilter.Apply(dv.ToString(CultureInfo.InvariantCulture))));
+                        dv.ToString(CultureInfo.InvariantCulture)));
                 }
             }
 

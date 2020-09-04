@@ -45,7 +45,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 foreach (CorrPseudonym pseudonym in Pseudonyms)
                 {
                     string value = (pseudonym.IsAuthor ? "+" : "-")
-                        + PinTextFilter.Apply(pseudonym.Value);
+                        + PinTextFilter.Apply(pseudonym.Value, true);
                     pins.Add(CreateDataPin("pseudonym", value));
                 }
             }
