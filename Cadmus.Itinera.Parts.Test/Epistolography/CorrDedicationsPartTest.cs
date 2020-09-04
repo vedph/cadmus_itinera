@@ -28,8 +28,8 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 {
                     Title = $"Dedication {n}",
                     Date = date,
-                    DateSent = count % 2 == 0? date : null,
-                    IsByAuthor = count % 2 == 0
+                    DateSent = n % 2 == 0? date : null,
+                    IsByAuthor = n % 2 == 0
                 };
                 for (int j = 1; j <= 2; j++)
                 {
@@ -76,24 +76,13 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         }
 
         [Fact]
-        public void GetDataPins_NoDedication_2()
+        public void GetDataPins_NoDedication_Empty()
         {
             CorrDedicationsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
-            Assert.Equal(2, pins.Count);
 
-            // auth-count
-            DataPin pin = pins.Find(p => p.Name == "auth-count");
-            Assert.NotNull(pin);
-            AssertPinIds(part, pin);
-            Assert.Equal("0", pin.Value);
-
-            // corr-count
-            pin = pins.Find(p => p.Name == "corr-count");
-            Assert.NotNull(pin);
-            AssertPinIds(part, pin);
-            Assert.Equal("0", pin.Value);
+            Assert.Empty(pins);
         }
 
         [Fact]
