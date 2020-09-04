@@ -7,12 +7,12 @@ using System.Text;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Dedications by the letter's author to a correspondent, or vice-versa.
-    /// Tag: <c>net.fusisoft.epist-dedications</c>.
+    /// Dedications by the reference author to a correspondent, or vice-versa.
+    /// Tag: <c>net.fusisoft.itinera.corr-dedications</c>.
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.epist-dedications")]
-    public sealed class EpistDedicationsPart : PartBase
+    [Tag("net.fusisoft.itinera.corr-dedications")]
+    public sealed class CorrDedicationsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the dedications.
@@ -20,10 +20,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<LitDedication> Dedications { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistDedicationsPart"/>
+        /// Initializes a new instance of the <see cref="CorrDedicationsPart"/>
         /// class.
         /// </summary>
-        public EpistDedicationsPart()
+        public CorrDedicationsPart()
         {
             Dedications = new List<LitDedication>();
         }
@@ -81,7 +81,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistDedications]");
+            sb.Append("[CorrDedications]");
 
             int i = 0;
             if (Dedications?.Count > 0)

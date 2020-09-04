@@ -3,7 +3,8 @@
 namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// A person cited in a literary source.
+    /// A person cited in a literary source. This includes the person's name,
+    /// its identification, and its source passage(s).
     /// </summary>
     public class LitCitedPerson : LitCitedBase
     {

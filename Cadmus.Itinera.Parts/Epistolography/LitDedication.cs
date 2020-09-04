@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// A dedication used in <see cref="EpistDedicationsPart"/>.
+    /// A dedication used in <see cref="CorrDedicationsPart"/>.
     /// </summary>
     public class LitDedication
     {
@@ -32,16 +32,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public bool IsByAuthor { get; set; }
 
         /// <summary>
-        /// Gets or sets the citations related to this dedication.
+        /// Gets or sets the source citations related to this dedication.
         /// </summary>
-        public List<LitCitation> Citations { get; set; }
+        public List<LitCitation> Sources { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LitDedication"/> class.
         /// </summary>
         public LitDedication()
         {
-            Citations = new List<LitCitation>();
+            Sources = new List<LitCitation>();
         }
 
         /// <summary>

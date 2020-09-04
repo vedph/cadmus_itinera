@@ -1,7 +1,8 @@
 ﻿namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// Literary citation.
+    /// A literary passage citation: author, work, location, plus some optional
+    /// metadata.
     /// </summary>
     public class LitCitation
     {

@@ -60,7 +60,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            
+
             if (!string.IsNullOrEmpty(Type))
                 sb.Append('[').Append(Type).Append(']');
 

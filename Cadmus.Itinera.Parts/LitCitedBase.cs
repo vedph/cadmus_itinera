@@ -8,12 +8,13 @@ namespace Cadmus.Itinera.Parts
     public abstract class LitCitedBase
     {
         /// <summary>
-        /// Gets or sets the identifications proposed for this person, if any.
+        /// Gets or sets the identifications proposed for the cited entity,
+        /// if any.
         /// </summary>
         public List<RankedIdent> Idents { get; set; }
 
         /// <summary>
-        /// Gets or sets the sources for this cited person. Each source is
+        /// Gets or sets the source(s) for this cited person. Each source is
         /// a literary citation.
         /// </summary>
         public List<LitCitation> Sources { get; set; }
