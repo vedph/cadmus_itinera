@@ -1,6 +1,10 @@
-﻿using Cadmus.Itinera.Parts.Epistolography;
+﻿using Cadmus.Core;
+using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Antiquity.Chronology;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
@@ -25,7 +29,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Title = $"Dedication {n}",
                     Date = date,
                     DateSent = count % 2 == 0? date : null,
-                    IsByAuthor = count % 2 == 0,
+                    IsByAuthor = count % 2 == 0
                 };
                 for (int j = 1; j <= 2; j++)
                 {
@@ -64,31 +68,70 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             // TODO: details
         }
 
-        // TODO: check pins here, e.g. for the NotePart we get a single pin
-        // when the tag is set, with name=tag and value=tag value:
-        // [Fact]
-        // public void GetDataPins_NoTag_Empty()
-        // {
-        //     CorrDedicationsPart part = GetPart();
-        //     part.Tag = null;
+        private static void AssertPinIds(IPart part, DataPin pin)
+        {
+            Assert.Equal(part.ItemId, pin.ItemId);
+            Assert.Equal(part.Id, pin.PartId);
+            Assert.Equal(part.RoleId, pin.RoleId);
+        }
 
-        //     Assert.Empty(part.GetDataPins());
-        // }
+        [Fact]
+        public void GetDataPins_NoDedication_2()
+        {
+            CorrDedicationsPart part = GetPart(0);
 
-        // [Fact]
-        // public void GetDataPins_Tag_1()
-        // {
-        //     CorrDedicationsPart part = GetPart();
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+            Assert.Equal(2, pins.Count);
 
-        //     List<DataPin> pins = part.GetDataPins().ToList();
-        //     Assert.Single(pins);
+            // auth-count
+            DataPin pin = pins.Find(p => p.Name == "auth-count");
+            Assert.NotNull(pin);
+            AssertPinIds(part, pin);
+            Assert.Equal("0", pin.Value);
 
-        //     DataPin pin = pins[0];
-        //     Assert.Equal(part.ItemId, pin.ItemId);
-        //     Assert.Equal(part.Id, pin.PartId);
-        //     Assert.Equal(part.RoleId, pin.RoleId);
-        //     Assert.Equal("tag", pin.Name);
-        //     Assert.Equal("some-tag", pin.Value);
-        // }
+            // corr-count
+            pin = pins.Find(p => p.Name == "corr-count");
+            Assert.NotNull(pin);
+            AssertPinIds(part, pin);
+            Assert.Equal("0", pin.Value);
+        }
+
+        [Fact]
+        public void GetDataPins_Dedications_Ok()
+        {
+            CorrDedicationsPart part = GetPart(3);
+
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+
+            Assert.Equal(8, pins.Count);
+
+            // auth-count
+            DataPin pin = pins.Find(p => p.Name == "auth-count");
+            Assert.NotNull(pin);
+            AssertPinIds(part, pin);
+            Assert.Equal("1", pin.Value);
+
+            // corr-count
+            pin = pins.Find(p => p.Name == "corr-count");
+            Assert.NotNull(pin);
+            AssertPinIds(part, pin);
+            Assert.Equal("2", pin.Value);
+
+            for (int n = 1; n <= 3; n++)
+            {
+                // title
+                pin = pins.Find(p => p.Name == "title" && p.Value == $"dedication {n}");
+                Assert.NotNull(pin);
+                AssertPinIds(part, pin);
+
+                // date-value
+                HistoricalDate date = HistoricalDate.Parse(n + 1200 + " AD");
+                double value = date.GetSortValue();
+                pin = pins.Find(p => p.Name == "date-value"
+                    && p.Value == value.ToString(CultureInfo.InvariantCulture));
+                Assert.NotNull(pin);
+                AssertPinIds(part, pin);
+            }
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <returns>The pins: collections of unique values keyed under these
         /// IDs: <c>title</c> (filtered) and <c>date-value</c>; in addition,
         /// <c>auth-count</c>=count of dedications by author; <c>corr-count</c>
-        /// =count of dedications by correpondents.</returns>
+        /// =count of dedications by correspondents.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
@@ -46,13 +46,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 HashSet<string> titles = new HashSet<string>();
                 HashSet<double> dateValues = new HashSet<double>();
-
                 int ac = 0, cc = 0;
 
                 foreach (CorrDedication dedication in Dedications)
                 {
                     if (!string.IsNullOrEmpty(dedication.Title))
-                        titles.Add(PinTextFilter.Apply(dedication.Title));
+                        titles.Add(PinTextFilter.Apply(dedication.Title, true));
                     if (dedication.Date != null)
                         dateValues.Add(dedication.Date.GetSortValue());
                     if (dedication.IsByAuthor) ac++;
