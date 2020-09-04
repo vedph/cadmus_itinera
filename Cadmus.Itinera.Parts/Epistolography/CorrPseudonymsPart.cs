@@ -40,11 +40,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             List<DataPin> pins = new List<DataPin>();
 
-            foreach (CorrPseudonym pseudonym in Pseudonyms)
+            if (Pseudonyms?.Count > 0)
             {
-                string value = (pseudonym.IsAuthor ? "+" : "-")
-                    + PinTextFilter.Apply(pseudonym.Value);
-                pins.Add(CreateDataPin("pseudonym", value));
+                foreach (CorrPseudonym pseudonym in Pseudonyms)
+                {
+                    string value = (pseudonym.IsAuthor ? "+" : "-")
+                        + PinTextFilter.Apply(pseudonym.Value);
+                    pins.Add(CreateDataPin("pseudonym", value));
+                }
             }
 
             return pins;
@@ -65,10 +68,15 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (Pseudonyms?.Count > 0)
             {
                 sb.Append(' ');
-                int i = 0;
-                foreach (var pseudonym in Pseudonyms)
+                int n = 0;
+                foreach (CorrPseudonym pseudonym in Pseudonyms)
                 {
-                    if (++i > 1) sb.Append(", ");
+                    if (++n > 5)
+                    {
+                        sb.Append("[...").Append(Pseudonyms.Count).Append(']');
+                        break;
+                    }
+                    if (n > 1) sb.Append("; ");
                     sb.Append(pseudonym);
                 }
             }

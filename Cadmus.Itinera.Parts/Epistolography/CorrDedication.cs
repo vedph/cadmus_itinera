@@ -4,9 +4,10 @@ using System.Collections.Generic;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// A dedication used in <see cref="CorrDedicationsPart"/>.
+    /// A dedication by the reference author to the correspondent, or vice-versa.
+    /// Used in <see cref="CorrDedicationsPart"/>.
     /// </summary>
-    public class LitDedication
+    public class CorrDedication
     {
         /// <summary>
         /// Gets or sets the title.
@@ -37,9 +38,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<LitCitation> Sources { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LitDedication"/> class.
+        /// Initializes a new instance of the <see cref="CorrDedication"/> class.
         /// </summary>
-        public LitDedication()
+        public CorrDedication()
         {
             Sources = new List<LitCitation>();
         }

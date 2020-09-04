@@ -39,29 +39,33 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// The <c>title</c> collection has its value filtered.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            HashSet<string> titles = new HashSet<string>();
-            HashSet<string> languages = new HashSet<string>();
-            HashSet<double> dateValues = new HashSet<double>();
-
-            foreach (LitBioWork work in Works)
-            {
-                if (!string.IsNullOrEmpty(work.Title))
-                    titles.Add(work.Title);
-                if (!string.IsNullOrEmpty(work.Language))
-                    languages.Add(work.Language);
-                if (work.Date != null)
-                    dateValues.Add(work.Date.GetSortValue());
-            }
-
             List<DataPin> pins = new List<DataPin>();
-            foreach (string title in titles)
-                pins.Add(CreateDataPin("title", PinTextFilter.Apply(title)));
-            foreach (string lang in languages)
-                pins.Add(CreateDataPin("language", lang));
-            foreach (double dv in dateValues)
+
+            if (Works?.Count > 0)
             {
-                pins.Add(CreateDataPin("date-value",
-                    PinTextFilter.Apply(dv.ToString(CultureInfo.InvariantCulture))));
+                HashSet<string> titles = new HashSet<string>();
+                HashSet<string> languages = new HashSet<string>();
+                HashSet<double> dateValues = new HashSet<double>();
+
+                foreach (LitBioWork work in Works)
+                {
+                    if (!string.IsNullOrEmpty(work.Title))
+                        titles.Add(work.Title);
+                    if (!string.IsNullOrEmpty(work.Language))
+                        languages.Add(work.Language);
+                    if (work.Date != null)
+                        dateValues.Add(work.Date.GetSortValue());
+                }
+
+                foreach (string title in titles)
+                    pins.Add(CreateDataPin("title", PinTextFilter.Apply(title)));
+                foreach (string lang in languages)
+                    pins.Add(CreateDataPin("language", lang));
+                foreach (double dv in dateValues)
+                {
+                    pins.Add(CreateDataPin("date-value",
+                        PinTextFilter.Apply(dv.ToString(CultureInfo.InvariantCulture))));
+                }
             }
 
             return pins;
@@ -82,10 +86,15 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (Works?.Count > 0)
             {
                 sb.Append(' ');
-                int i = 0;
+                int n = 0;
                 foreach (LitBioWork work in Works)
                 {
-                    if (++i > 1) sb.Append(", ");
+                    if (++n > 5)
+                    {
+                        sb.Append("[...").Append(Works.Count).Append(']');
+                        break;
+                    }
+                    if (n > 1) sb.Append("; ");
                     sb.Append(work.Title);
                     if (work.IsLost) sb.Append('*');
                 }

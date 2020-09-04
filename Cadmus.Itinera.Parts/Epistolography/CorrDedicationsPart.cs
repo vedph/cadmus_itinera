@@ -17,7 +17,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the dedications.
         /// </summary>
-        public List<LitDedication> Dedications { get; set; }
+        public List<CorrDedication> Dedications { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorrDedicationsPart"/>
@@ -25,7 +25,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public CorrDedicationsPart()
         {
-            Dedications = new List<LitDedication>();
+            Dedications = new List<CorrDedication>();
         }
 
         /// <summary>
@@ -40,33 +40,37 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// =count of dedications by correpondents.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            HashSet<string> titles = new HashSet<string>();
-            HashSet<double> dateValues = new HashSet<double>();
-
-            int ac = 0, cc = 0;
-
-            foreach (LitDedication dedication in Dedications)
-            {
-                if (!string.IsNullOrEmpty(dedication.Title))
-                    titles.Add(PinTextFilter.Apply(dedication.Title));
-                if (dedication.Date != null)
-                    dateValues.Add(dedication.Date.GetSortValue());
-                if (dedication.IsByAuthor) ac++;
-                else cc++;
-            }
-
             List<DataPin> pins = new List<DataPin>();
-            foreach (string title in titles)
-                pins.Add(CreateDataPin("title", title));
-            foreach (double dv in dateValues)
+
+            if (Dedications?.Count > 0)
             {
-                pins.Add(CreateDataPin("date-value",
-                    dv.ToString(CultureInfo.InvariantCulture)));
+                HashSet<string> titles = new HashSet<string>();
+                HashSet<double> dateValues = new HashSet<double>();
+
+                int ac = 0, cc = 0;
+
+                foreach (CorrDedication dedication in Dedications)
+                {
+                    if (!string.IsNullOrEmpty(dedication.Title))
+                        titles.Add(PinTextFilter.Apply(dedication.Title));
+                    if (dedication.Date != null)
+                        dateValues.Add(dedication.Date.GetSortValue());
+                    if (dedication.IsByAuthor) ac++;
+                    else cc++;
+                }
+
+                foreach (string title in titles)
+                    pins.Add(CreateDataPin("title", title));
+                foreach (double dv in dateValues)
+                {
+                    pins.Add(CreateDataPin("date-value",
+                        dv.ToString(CultureInfo.InvariantCulture)));
+                }
+                pins.Add(CreateDataPin("auth-count",
+                    ac.ToString(CultureInfo.InvariantCulture)));
+                pins.Add(CreateDataPin("corr-count",
+                    cc.ToString(CultureInfo.InvariantCulture)));
             }
-            pins.Add(CreateDataPin("auth-count",
-                ac.ToString(CultureInfo.InvariantCulture)));
-            pins.Add(CreateDataPin("corr-count",
-                cc.ToString(CultureInfo.InvariantCulture)));
 
             return pins;
         }
@@ -83,13 +87,20 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             sb.Append("[CorrDedications]");
 
-            int i = 0;
             if (Dedications?.Count > 0)
             {
-                if (++i > 1) sb.Append("; ");
                 sb.Append(' ');
-                foreach (LitDedication dedication in Dedications)
+                int n = 0;
+                foreach (var dedication in Dedications)
+                {
+                    if (++n > 5)
+                    {
+                        sb.Append("[...").Append(Dedications.Count).Append(']');
+                        break;
+                    }
+                    if (n > 1) sb.Append("; ");
                     sb.Append(dedication.Title);
+                }
             }
 
             return sb.ToString();

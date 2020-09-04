@@ -42,41 +42,44 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             List<DataPin> pins = new List<DataPin>();
 
-            HashSet<string> types = new HashSet<string>();
-            HashSet<double> dateValues = new HashSet<double>();
-            HashSet<string> places = new HashSet<string>();
-            HashSet<string> participants = new HashSet<string>();
-
-            foreach (LitBioEvent e in Events)
+            if (Events?.Count > 0)
             {
-                types.Add(e.Type);
-                if (e.Date != null) dateValues.Add(e.Date.GetSortValue());
-                if (e.Places != null)
+                HashSet<string> types = new HashSet<string>();
+                HashSet<double> dateValues = new HashSet<double>();
+                HashSet<string> places = new HashSet<string>();
+                HashSet<string> participants = new HashSet<string>();
+
+                foreach (LitBioEvent e in Events)
                 {
-                    foreach (LitCitedPlace place in e.Places)
-                        places.Add(PinTextFilter.Apply(place.Name));
-                }
-                if (e.Participants != null)
-                {
-                    foreach (LitCitedPerson person in e.Participants)
+                    types.Add(e.Type);
+                    if (e.Date != null) dateValues.Add(e.Date.GetSortValue());
+                    if (e.Places != null)
                     {
-                        participants.Add(
-                            PinTextFilter.Apply(person.Name.GetFullName()));
+                        foreach (LitCitedPlace place in e.Places)
+                            places.Add(PinTextFilter.Apply(place.Name));
+                    }
+                    if (e.Participants != null)
+                    {
+                        foreach (LitCitedPerson person in e.Participants)
+                        {
+                            participants.Add(
+                                PinTextFilter.Apply(person.Name.GetFullName()));
+                        }
                     }
                 }
-            }
 
-            foreach (string type in types)
-                pins.Add(CreateDataPin("type", type));
-            foreach (double dv in dateValues)
-            {
-                pins.Add(CreateDataPin("date-value",
-                    dv.ToString(CultureInfo.InvariantCulture)));
+                foreach (string type in types)
+                    pins.Add(CreateDataPin("type", type));
+                foreach (double dv in dateValues)
+                {
+                    pins.Add(CreateDataPin("date-value",
+                        dv.ToString(CultureInfo.InvariantCulture)));
+                }
+                foreach (string place in places)
+                    pins.Add(CreateDataPin("place", place));
+                foreach (string participant in participants)
+                    pins.Add(CreateDataPin("participant", participant));
             }
-            foreach (string place in places)
-                pins.Add(CreateDataPin("place", place));
-            foreach (string participant in participants)
-                pins.Add(CreateDataPin("participant", participant));
 
             return pins;
         }
@@ -98,10 +101,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 sb.Append(' ');
                 Dictionary<string, int> types = new Dictionary<string, int>();
                 foreach (LitBioEvent e in Events) types[e.Type]++;
-                int i = 0;
+                int n = 0;
                 foreach (string key in types.Keys.OrderBy(s => s))
                 {
-                    if (++i > 1) sb.Append(", ");
+                    if (++n > 1) sb.Append("; ");
                     sb.Append(key).Append('=').Append(types[key]);
                 }
             }
