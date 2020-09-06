@@ -2,6 +2,7 @@
 using Fusi.Tools.Config;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {
@@ -33,24 +34,26 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: for each pseudonym, a <c>pseudonym</c> pin
-        /// with value equal to <c>+</c>=author's pseudonym or <c>-</c>=non-author
-        /// pseudonym, followed by the filtered pseudonym.</returns>
+        /// <returns>The pins: <c>tot-count</c>=total count of pseudonyms;
+        /// for each pseudonym, a <c>pseudonym</c> pin with value equal to
+        /// <c>+</c>=author's pseudonym or <c>-</c>=non-author pseudonym,
+        /// followed by the filtered pseudonym (including digits).
+        /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>();
+            DataPinBuilder builder = new DataPinBuilder();
+
+            builder.Set("tot", Pseudonyms?.Count ?? 0, false);
 
             if (Pseudonyms?.Count > 0)
             {
-                foreach (CorrPseudonym pseudonym in Pseudonyms)
-                {
-                    string value = (pseudonym.IsAuthor ? "+" : "-")
-                        + PinTextFilter.Apply(pseudonym.Value, true);
-                    pins.Add(CreateDataPin("pseudonym", value));
-                }
+                builder.AddValues("pseudonym",
+                    from p in Pseudonyms
+                    select (p.IsAuthor ? "+" : "-")
+                        + PinTextFilter.Apply(p.Value, true));
             }
 
-            return pins;
+            return builder.Build(this);
         }
 
         /// <summary>

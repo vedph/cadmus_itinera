@@ -1,7 +1,6 @@
 ﻿using Cadmus.Core;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -36,66 +35,42 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: collections of unique values keyed under these
-        /// IDs: <c>count</c>, <c>type-TAG-count</c>, <c>date-value</c>,
-        /// <c>place</c>, <c>participant</c>.
-        /// The last 2 collections have their value filtered.</returns>
+        /// IDs: <c>tot-count</c>=total events count, <c>type-TAG-count</c>,
+        /// <c>date-value</c>, <c>place</c> (filtered, with digits),
+        /// <c>participant</c> (filtered, with digits).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>
-            {
-                CreateDataPin("count",
-                    Events.Count.ToString(CultureInfo.InvariantCulture))
-            };
+            DataPinBuilder builder = new DataPinBuilder();
+
+            builder.Set("tot", Events?.Count ?? 0, false);
 
             if (Events?.Count > 0)
             {
-                Dictionary<string, int> types = new Dictionary<string, int>();
-                HashSet<double> dateValues = new HashSet<double>();
-                HashSet<string> places = new HashSet<string>();
-                HashSet<string> participants = new HashSet<string>();
-
                 foreach (LitBioEvent e in Events)
                 {
-                    if (!types.ContainsKey(e.Type))
-                        types[e.Type] = 1;
-                    else
-                        types[e.Type]++;
+                    if (!string.IsNullOrEmpty(e.Type))
+                        builder.Increase(e.Type, false, "type-");
 
-                    if (e.Date != null) dateValues.Add(e.Date.GetSortValue());
-                    if (e.Places != null)
+                    if (e.Date != null)
+                        builder.AddValue("date-value", e.Date.GetSortValue());
+
+                    if (e.Places?.Count > 0)
                     {
-                        foreach (LitCitedPlace place in e.Places)
-                            places.Add(PinTextFilter.Apply(place.Name, true));
+                        builder.AddValues("place",
+                            from p in e.Places
+                            select PinTextFilter.Apply(p.Name, true));
                     }
-                    if (e.Participants != null)
+
+                    if (e.Participants?.Count > 0)
                     {
-                        foreach (LitCitedPerson person in e.Participants)
-                        {
-                            participants.Add(
-                                PinTextFilter.Apply(person.Name.GetFullName(), true));
-                        }
+                        builder.AddValues("participant",
+                            from p in e.Participants
+                            select PinTextFilter.Apply(p.Name.GetFullName(), true));
                     }
                 }
-
-                foreach (string type in types.Keys)
-                {
-                    pins.Add(CreateDataPin(
-                        $"type-{type}",
-                        types[type].ToString(CultureInfo.InvariantCulture)));
-                }
-
-                foreach (double dv in dateValues)
-                {
-                    pins.Add(CreateDataPin("date-value",
-                        dv.ToString(CultureInfo.InvariantCulture)));
-                }
-                foreach (string place in places)
-                    pins.Add(CreateDataPin("place", place));
-                foreach (string participant in participants)
-                    pins.Add(CreateDataPin("participant", participant));
             }
 
-            return pins;
+            return builder.Build(this);
         }
 
         /// <summary>

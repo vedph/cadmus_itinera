@@ -95,5 +95,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             Assert.Equal(2, part.Exchanges.Count);
             // TODO: details
         }
+
+        // TODO: pins
     }
 }

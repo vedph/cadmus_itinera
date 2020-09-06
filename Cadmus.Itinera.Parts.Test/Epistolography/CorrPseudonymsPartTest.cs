@@ -53,11 +53,17 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         }
 
         [Fact]
-        public void GetDataPins_NoPseudonyms_Empty()
+        public void GetDataPins_NoPseudonyms_Ok()
         {
             CorrPseudonymsPart part = GetPart(0);
 
-            Assert.Empty(part.GetDataPins(null));
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+
+            Assert.Single(pins);
+            DataPin pin = pins[0];
+            Assert.Equal("tot-count", pin.Name);
+            Assert.Equal("0", pin.Value);
+            TestHelper.AssertPinIds(part, pin);
         }
 
         [Fact]
@@ -66,9 +72,14 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             CorrPseudonymsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
-            Assert.Equal(3, pins.Count);
+            Assert.Equal(3 + 1, pins.Count);
 
-            DataPin pin = pins.Find(p => p.Name == "pseudonym"
+            DataPin pin = pins.Find(p => p.Name == "tot-count");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("3", pin.Value);
+
+            pin = pins.Find(p => p.Name == "pseudonym"
                 && p.Value == "-pseudo1");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);

@@ -3,6 +3,7 @@ using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 
@@ -82,7 +83,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 part.Events.Add(new LitBioEvent
                 {
                     Type = n % 2 == 0 ? "even" : "odd",
-                    Date = HistoricalDate.Parse("{1200 + n} AD"),
+                    Date = HistoricalDate.Parse($"{1200 + n} AD"),
                     Places = GetPlaces(2),
                     Description = "A description.",
                     Sources = TestHelper.GetCitations(2),
@@ -122,6 +123,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             Assert.Single(pins);
             DataPin pin = pins[0];
             TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("tot-count", pin.Name);
             Assert.Equal("0", pin.Value);
         }
 
@@ -131,23 +133,43 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             EpistBioEventsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
-            Assert.Equal(3, pins.Count);
+            Assert.Equal(10, pins.Count);
 
-            DataPin pin = pins.Find(p => p.Name == "count");
+            DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("3", pin.Value);
 
-            pin = pins.Find(p => p.Name == "type-odd" && p.Value == "2");
+            pin = pins.Find(p => p.Name == "type-odd-count" && p.Value == "2");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "type-even" && p.Value == "1");
+            pin = pins.Find(p => p.Name == "type-even-count" && p.Value == "1");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            // TODO:
+            for (int n = 1; n <= 3; n++)
+            {
+                double expected = HistoricalDate.Parse($"{1200 + n} AD")
+                    .GetSortValue();
+                pin = pins.Find(p => p.Name == "date-value"
+                    && p.Value == expected.ToString(CultureInfo.InvariantCulture));
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+            }
+
+            for (int n = 1; n <= 2; n++)
+            {
+                pin = pins.Find(p => p.Name == "place"
+                    && p.Value == $"place{n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+
+                pin = pins.Find(p => p.Name == "participant"
+                    && p.Value == $"name{n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+            }
         }
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Cadmus.Core;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Epistolography

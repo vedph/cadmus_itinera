@@ -45,7 +45,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
-            builder.Set("tot", Exchanges.Count, false);
+            builder.Set("tot", Exchanges?.Count ?? 0, false);
 
             foreach (CorrExchange exchange in Exchanges)
             {
