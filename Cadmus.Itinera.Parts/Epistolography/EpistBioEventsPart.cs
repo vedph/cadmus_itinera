@@ -36,22 +36,31 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: collections of unique values keyed under these
-        /// IDs: <c>type</c>, <c>date-value</c>, <c>place</c>, <c>participant</c>.
+        /// IDs: <c>count</c>, <c>type-TAG-count</c>, <c>date-value</c>,
+        /// <c>place</c>, <c>participant</c>.
         /// The last 2 collections have their value filtered.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>();
+            List<DataPin> pins = new List<DataPin>
+            {
+                CreateDataPin("count",
+                    Events.Count.ToString(CultureInfo.InvariantCulture))
+            };
 
             if (Events?.Count > 0)
             {
-                HashSet<string> types = new HashSet<string>();
+                Dictionary<string, int> types = new Dictionary<string, int>();
                 HashSet<double> dateValues = new HashSet<double>();
                 HashSet<string> places = new HashSet<string>();
                 HashSet<string> participants = new HashSet<string>();
 
                 foreach (LitBioEvent e in Events)
                 {
-                    types.Add(e.Type);
+                    if (!types.ContainsKey(e.Type))
+                        types[e.Type] = 1;
+                    else
+                        types[e.Type]++;
+
                     if (e.Date != null) dateValues.Add(e.Date.GetSortValue());
                     if (e.Places != null)
                     {
@@ -68,8 +77,13 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     }
                 }
 
-                foreach (string type in types)
-                    pins.Add(CreateDataPin("type", type));
+                foreach (string type in types.Keys)
+                {
+                    pins.Add(CreateDataPin(
+                        $"type-{type}",
+                        types[type].ToString(CultureInfo.InvariantCulture)));
+                }
+
                 foreach (double dv in dateValues)
                 {
                     pins.Add(CreateDataPin("date-value",

@@ -35,43 +35,25 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: collections of unique values keyed under these
-        /// IDs: <c>title</c> (filtered) and <c>date-value</c>; in addition,
-        /// <c>auth-count</c>=count of dedications by author; <c>corr-count</c>
-        /// =count of dedications by correspondents.</returns>
+        /// IDs: <c>title</c> (filtered, including digits) and <c>date-value</c>;
+        /// in addition, <c>auth-count</c>=count of dedications by author;
+        /// <c>corr-count</c>=count of dedications by correspondents;
+        /// <c>tot-count</c>=total count of dedications (including 0).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>();
-
-            if (Dedications?.Count > 0)
+            DataPinBuilder builder = new DataPinBuilder();
+            foreach (CorrDedication dedication in Dedications)
             {
-                HashSet<string> titles = new HashSet<string>();
-                HashSet<double> dateValues = new HashSet<double>();
-                int ac = 0, cc = 0;
+                builder.AddValue("title",
+                    PinTextFilter.Apply(dedication.Title, true));
 
-                foreach (CorrDedication dedication in Dedications)
-                {
-                    if (!string.IsNullOrEmpty(dedication.Title))
-                        titles.Add(PinTextFilter.Apply(dedication.Title, true));
-                    if (dedication.Date != null)
-                        dateValues.Add(dedication.Date.GetSortValue());
-                    if (dedication.IsByAuthor) ac++;
-                    else cc++;
-                }
+                if (dedication.Date != null)
+                    builder.AddValue("date-value", dedication.Date.GetSortValue());
 
-                foreach (string title in titles)
-                    pins.Add(CreateDataPin("title", title));
-                foreach (double dv in dateValues)
-                {
-                    pins.Add(CreateDataPin("date-value",
-                        dv.ToString(CultureInfo.InvariantCulture)));
-                }
-                pins.Add(CreateDataPin("auth-count",
-                    ac.ToString(CultureInfo.InvariantCulture)));
-                pins.Add(CreateDataPin("corr-count",
-                    cc.ToString(CultureInfo.InvariantCulture)));
+                builder.Increase(dedication.IsByAuthor? "auth" : "corr");
             }
 
-            return pins;
+            return builder.Build(this, "tot");
         }
 
         /// <summary>

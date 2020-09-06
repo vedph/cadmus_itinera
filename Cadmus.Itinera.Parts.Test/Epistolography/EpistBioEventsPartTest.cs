@@ -1,7 +1,9 @@
-﻿using Cadmus.Itinera.Parts.Epistolography;
+﻿using Cadmus.Core;
+using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
@@ -112,11 +114,39 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         }
 
         [Fact]
-        public void GetDataPins_NoEvents_Empty()
+        public void GetDataPins_NoEvents_1()
         {
             EpistBioEventsPart part = GetPart(0);
 
-            Assert.Empty(part.GetDataPins(null));
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+            Assert.Single(pins);
+            DataPin pin = pins[0];
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("0", pin.Value);
+        }
+
+        [Fact]
+        public void GetDataPins_Events_Ok()
+        {
+            EpistBioEventsPart part = GetPart(3);
+
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+            Assert.Equal(3, pins.Count);
+
+            DataPin pin = pins.Find(p => p.Name == "count");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("3", pin.Value);
+
+            pin = pins.Find(p => p.Name == "type-odd" && p.Value == "2");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
+            pin = pins.Find(p => p.Name == "type-even" && p.Value == "1");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
+            // TODO:
         }
 
     }
