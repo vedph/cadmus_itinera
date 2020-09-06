@@ -59,7 +59,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         }
 
         [Fact]
-        public void GetDataPins_NoDedication_1()
+        public void GetDataPins_NoDedication_Ok()
         {
             CorrDedicationsPart part = GetPart(0);
 

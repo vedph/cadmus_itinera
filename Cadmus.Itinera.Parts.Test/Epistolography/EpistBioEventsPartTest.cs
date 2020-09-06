@@ -115,7 +115,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         }
 
         [Fact]
-        public void GetDataPins_NoEvents_1()
+        public void GetDataPins_NoEvents_Ok()
         {
             EpistBioEventsPart part = GetPart(0);
 

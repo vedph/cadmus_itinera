@@ -12,7 +12,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// Tag: <c>net.fusisoft.itinera.corr-pseudonyms</c>.
     /// </summary>
     [Tag("net.fusisoft.itinera.corr-pseudonyms")]
-    public class CorrPseudonymsPart : PartBase
+    public sealed class CorrPseudonymsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the pseudonyms.

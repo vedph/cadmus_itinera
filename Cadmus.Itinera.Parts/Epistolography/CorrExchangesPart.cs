@@ -12,7 +12,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <para>Tag: <c>net.fusisoft.itinera.corr-exchanges</c>.</para>
     /// </summary>
     [Tag("net.fusisoft.itinera.corr-exchanges")]
-    public class CorrExchangesPart : PartBase
+    public sealed class CorrExchangesPart : PartBase
     {
         /// <summary>
         /// Gets or sets the exchanges.
@@ -79,7 +79,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
                 if (exchange.Participants?.Count > 0)
                 {
-                    builder.AddValues("participants",
+                    builder.AddValues("participant",
                         from p in exchange.Participants
                         select $"[{p.Tag}]{PinTextFilter.Apply(p.Id, true)}");
                 }
@@ -87,7 +87,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 if (exchange?.Attachments.Count > 0)
                 {
                     builder.Update(from a in exchange.Attachments
-                                   select a.Type, false, "type-");
+                                   select a.Type, true, "att-");
                 }
             }
 
