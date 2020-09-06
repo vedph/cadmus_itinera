@@ -1,7 +1,6 @@
 ﻿using Cadmus.Core;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Epistolography
@@ -35,40 +34,27 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: collections of unique values keyed under these
-        /// IDs: <c>title</c>, <c>language</c>, <c>date-value</c>.
-        /// The <c>title</c> collection has its value filtered.</returns>
+        /// IDs: <c>tot-count</c>, <c>title</c> (filtered, with digits),
+        /// <c>language</c>, <c>date-value</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>();
+            DataPinBuilder builder = new DataPinBuilder();
 
-            if (Works?.Count > 0)
+            builder.Set("tot", Works?.Count ?? 0, false);
+
+            foreach (LitBioWork work in Works)
             {
-                HashSet<string> titles = new HashSet<string>();
-                HashSet<string> languages = new HashSet<string>();
-                HashSet<double> dateValues = new HashSet<double>();
+                if (!string.IsNullOrEmpty(work.Title))
+                    builder.AddValue("title", PinTextFilter.Apply(work.Title, true));
 
-                foreach (LitBioWork work in Works)
-                {
-                    if (!string.IsNullOrEmpty(work.Title))
-                        titles.Add(work.Title);
-                    if (!string.IsNullOrEmpty(work.Language))
-                        languages.Add(work.Language);
-                    if (work.Date != null)
-                        dateValues.Add(work.Date.GetSortValue());
-                }
+                if (!string.IsNullOrEmpty(work.Language))
+                    builder.AddValue("language", work.Language);
 
-                foreach (string title in titles)
-                    pins.Add(CreateDataPin("title", PinTextFilter.Apply(title)));
-                foreach (string lang in languages)
-                    pins.Add(CreateDataPin("language", lang));
-                foreach (double dv in dateValues)
-                {
-                    pins.Add(CreateDataPin("date-value",
-                        dv.ToString(CultureInfo.InvariantCulture)));
-                }
+                if (work.Date != null)
+                    builder.AddValue("date-value", work.Date.GetSortValue());
             }
 
-            return pins;
+            return builder.Build(this);
         }
 
         /// <summary>
