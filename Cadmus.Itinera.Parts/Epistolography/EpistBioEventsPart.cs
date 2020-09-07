@@ -37,7 +37,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <returns>The pins: collections of unique values keyed under these
         /// IDs: <c>tot-count</c>=total events count, <c>type-TAG-count</c>,
         /// <c>date-value</c>, <c>place</c> (filtered, with digits),
-        /// <c>participant</c> (filtered, with digits).</returns>
+        /// <c>participant</c> (filtered, with digits, prefixed by tag in
+        /// <c>[]</c>).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
@@ -58,14 +59,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     {
                         builder.AddValues("place",
                             from p in e.Places
-                            select PinTextFilter.Apply(p.Name, true));
+                            select PinTextFilter.Apply(p, true));
                     }
 
                     if (e.Participants?.Count > 0)
                     {
                         builder.AddValues("participant",
                             from p in e.Participants
-                            select PinTextFilter.Apply(p.Name.GetFullName(), true));
+                            select $"[{p.Tag}]{PinTextFilter.Apply(p.Id, true)}");
                     }
                 }
             }

@@ -8,6 +8,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
     public class EpistDatePlace
     {
         /// <summary>
+        /// Gets or sets an optional tag used to group this union with others.
+        /// </summary>
+        public string Tag { get; set; }
+
+        /// <summary>
         /// Gets or sets the date.
         /// </summary>
         public HistoricalDate Date { get; set; }
@@ -25,7 +30,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </returns>
         public override string ToString()
         {
-            return $"{Place}, {Date}";
+            return $"[{Tag}] {Place}, {Date}";
         }
     }
 }

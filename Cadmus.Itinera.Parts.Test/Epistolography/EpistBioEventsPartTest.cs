@@ -84,10 +84,14 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 {
                     Type = n % 2 == 0 ? "even" : "odd",
                     Date = HistoricalDate.Parse($"{1200 + n} AD"),
-                    Places = GetPlaces(2),
+                    Places = new List<string>(new[] { "place-1", "place-2" }),
                     Description = "A description.",
                     Sources = TestHelper.GetCitations(2),
-                    Participants = GetPersons(2)
+                    Participants = new List<TaggedId>(new[]
+                    {
+                        new TaggedId { Id = "guy-1", Tag = "tag" },
+                        new TaggedId { Id = "guy-2", Tag = "tag" }
+                    })
                 });
             }
 
@@ -166,7 +170,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 TestHelper.AssertPinIds(part, pin);
 
                 pin = pins.Find(p => p.Name == "participant"
-                    && p.Value == $"name{n}");
+                    && p.Value == $"[tag]guy{n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

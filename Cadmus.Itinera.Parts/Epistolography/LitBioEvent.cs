@@ -23,7 +23,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets zero or more places connected to this event.
         /// </summary>
-        public List<LitCitedPlace> Places { get; set; }
+        public List<string> Places { get; set; }
 
         /// <summary>
         /// Gets or sets the event description, usually with a rich text
@@ -39,16 +39,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets all the persons cited as involved in this event.
         /// </summary>
-        public List<LitCitedPerson> Participants { get; set; }
+        public List<TaggedId> Participants { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LitBioEvent"/> class.
         /// </summary>
         public LitBioEvent()
         {
-            Places = new List<LitCitedPlace>();
+            Places = new List<string>();
             Sources = new List<LitCitation>();
-            Participants = new List<LitCitedPerson>();
+            Participants = new List<TaggedId>();
         }
 
         /// <summary>
