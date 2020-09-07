@@ -36,7 +36,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <returns>The pins: <c>tot-count</c> and a list of pins under these
         /// keys: <c>tag-place</c>=[tag]place (place filtered, with digits),
         /// <c>tag-date</c>=[tag]normalized date value, <c>date-value</c>,
-        /// <c>tag</c>.
+        /// <c>tag-VALUE-count</c>.
         /// The normalized date value is a fixed-format number of type
         /// +0000.00 or -0000.00 allowing a text sort.
         /// </returns>
@@ -50,7 +50,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 foreach (EpistCoords coords in Coordinates)
                 {
-                    builder.AddValue("tag", coords.Tag);
+                    builder.Increase(coords.Tag, false, "tag-");
 
                     string tag = coords.Tag ?? "";
                     if (!string.IsNullOrEmpty(coords.Place))
