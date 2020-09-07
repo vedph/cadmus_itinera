@@ -35,35 +35,25 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: collections of pins with keys <c>author</c>,
-        /// <c>work</c>, and <c>tag</c>.</returns>
+        /// <returns>The pins: <c>tot-count</c> and a collections of pins with
+        /// keys <c>author</c>, <c>work</c>, <c>tag</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            List<DataPin> pins = new List<DataPin>();
+            DataPinBuilder builder = new DataPinBuilder();
+
+            builder.Set("tot", Citations?.Count ?? 0, false);
 
             if (Citations?.Count > 0)
             {
-                HashSet<string> authors = new HashSet<string>();
-                HashSet<string> works = new HashSet<string>();
-                HashSet<string> tags = new HashSet<string>();
-
                 foreach (LitCitation citation in Citations)
                 {
-                    authors.Add(citation.Author);
-                    works.Add(citation.Work);
-                    if (!string.IsNullOrEmpty(citation.Tag))
-                        tags.Add(citation.Tag);
+                    builder.AddValue("author", citation.Author);
+                    builder.AddValue("work", citation.Work);
+                    builder.AddValue("tag", citation.Tag);
                 }
-
-                foreach (string author in authors)
-                    pins.Add(CreateDataPin("author", author));
-                foreach (string work in works)
-                    pins.Add(CreateDataPin("work", work));
-                foreach (string tag in tags)
-                    pins.Add(CreateDataPin("tag", tag));
             }
 
-            return pins;
+            return builder.Build(this);
         }
 
         /// <summary>
