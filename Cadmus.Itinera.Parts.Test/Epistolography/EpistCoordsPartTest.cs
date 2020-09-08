@@ -79,7 +79,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(9, pins.Count);
+            Assert.Equal(12, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);

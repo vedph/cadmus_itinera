@@ -11,64 +11,6 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
     public sealed class EpistBioEventsPartTest
     {
-        private static List<LitCitedPlace> GetPlaces(int count)
-        {
-            List<LitCitedPlace> events = new List<LitCitedPlace>();
-            for (int n = 1; n <= count; n++)
-            {
-                events.Add(new LitCitedPlace
-                {
-                    Name = $"Place-{n}",
-                    Idents = new List<RankedIdent>
-                    {
-                        new RankedIdent
-                        {
-                            Id = $"id-{n}",
-                            Rank = n % 2 == 0? 1:0
-                        }
-                    },
-                    Sources = TestHelper.GetCitations(2)
-                });
-            }
-            return events;
-        }
-
-        private static List<LitCitedPerson> GetPersons(int count)
-        {
-            List<LitCitedPerson> persons = new List<LitCitedPerson>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                persons.Add(new LitCitedPerson
-                {
-                    Name = new PersonName
-                    {
-                        Language = "eng",
-                        Parts = new List<PersonNamePart>
-                        {
-                            new PersonNamePart
-                            {
-                                Type = "name",
-                                Value = $"name-{n}"
-                            }
-                        },
-                        Tag = "tag"
-                    },
-                    Idents = new List<RankedIdent>
-                    {
-                        new RankedIdent
-                        {
-                            Id = $"id-{n}",
-                            Rank = n % 2 == 0? 1:0
-                        }
-                    },
-                    Sources = TestHelper.GetCitations(2)
-                });
-            }
-
-            return persons;
-        }
-
         private static EpistBioEventsPart GetPart(int count)
         {
             EpistBioEventsPart part = new EpistBioEventsPart
