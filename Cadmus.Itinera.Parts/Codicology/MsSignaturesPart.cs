@@ -33,7 +33,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c>, and lists of pins with keys:
-        /// <c>tag-VALUE-count</c>, <c>library</c> (filtered).</returns>
+        /// <c>tag-VALUE-count</c>, <c>library</c> (filtered, with digits),
+        /// <c>city</c> (filtered).
+        /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
@@ -50,6 +52,12 @@ namespace Cadmus.Itinera.Parts.Codicology
                     {
                         builder.AddValue("library",
                             PinTextFilter.Apply(signature.Library, true));
+                    }
+
+                    if (!string.IsNullOrEmpty(signature.City))
+                    {
+                        builder.AddValue("city",
+                            PinTextFilter.Apply(signature.City));
                     }
                 }
             }
