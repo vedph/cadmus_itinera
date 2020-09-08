@@ -44,14 +44,15 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>sheet-count</c>, <c>guard-sheet-count</c>,
         /// <c>section-count</c>, and a list with keys: <c>section-TAG-count</c>,
-        /// <c>label</c> (filtered, with digits), <c>date-value</c>.</returns>
+        /// <c>section-label</c> (filtered, with digits), <c>section-date-value</c>.
+        /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
 
-            builder.AddValue("sheet-count", SheetCount);
-            builder.AddValue("guard-sheet-count", GuardSheetCount);
-            builder.AddValue("section-count", Sections?.Count ?? 0);
+            builder.Set("sheet", SheetCount, false);
+            builder.Set("guard-sheet", GuardSheetCount, false);
+            builder.Set("section", Sections?.Count ?? 0, false);
 
             if (Sections?.Count > 0)
             {
@@ -62,12 +63,12 @@ namespace Cadmus.Itinera.Parts.Codicology
 
                     if (!string.IsNullOrEmpty(section.Label))
                     {
-                        builder.AddValue("label",
+                        builder.AddValue("section-label",
                             PinTextFilter.Apply(section.Label, true));
                     }
 
                     if (section.Date != null)
-                        builder.AddValue("date-value", section.Date.GetSortValue());
+                        builder.AddValue("section-date-value", section.Date.GetSortValue());
                 }
             }
 
