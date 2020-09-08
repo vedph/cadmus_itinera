@@ -30,7 +30,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Place = $"place {n}",
                     Date = date,
                     TextDate = $"text date {n}",
-                    Sources = TestHelper.GetCitations(2)
+                    Sources = TestHelper.GetDocReferences(2)
                 };
                 part.Coordinates.Add(coords);
             }

@@ -57,7 +57,7 @@ namespace Cadmus.Itinera.Parts.Test
             Assert.Equal(part.RoleId, pin.RoleId);
         }
 
-        public static List<DocReference> GetCitations(int count)
+        public static List<DocReference> GetDocReferences(int count)
         {
             List<DocReference> citations = new List<DocReference>();
 

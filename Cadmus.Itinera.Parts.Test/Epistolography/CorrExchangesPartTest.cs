@@ -72,7 +72,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                         Place = (n % 2 == 0 ? "Even" : "Odd") + " lake"
                     },
                     Participants = GetParticipants(2),
-                    Sources = TestHelper.GetCitations(2),
+                    Sources = TestHelper.GetDocReferences(2),
                     Attachments = GetAttachments(2)
                 });
             }

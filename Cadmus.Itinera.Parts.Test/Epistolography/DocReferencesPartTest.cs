@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
-    public sealed class LitCitationsPartTest
+    public sealed class DocReferencesPartTest
     {
         private static DocReferencesPart GetPart(int count)
         {

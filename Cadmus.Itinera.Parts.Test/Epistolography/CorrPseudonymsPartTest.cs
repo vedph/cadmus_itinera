@@ -25,7 +25,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Language = "eng",
                     Value = $"pseudo-{n}",
                     IsAuthor = n % 2 == 0,
-                    Sources = TestHelper.GetCitations(2)
+                    Sources = TestHelper.GetDocReferences(2)
                 });
             }
 

@@ -30,7 +30,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Date = date,
                     DateSent = n % 2 == 0? date : null,
                     IsByAuthor = n % 2 == 0,
-                    Sources = TestHelper.GetCitations(2)
+                    Sources = TestHelper.GetDocReferences(2)
                 };
                 part.Dedications.Add(dedication);
             }

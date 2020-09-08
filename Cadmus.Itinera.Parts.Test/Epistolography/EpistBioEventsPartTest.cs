@@ -28,7 +28,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     Date = HistoricalDate.Parse($"{1200 + n} AD"),
                     Places = new List<string>(new[] { "place-1", "place-2" }),
                     Description = "A description.",
-                    Sources = TestHelper.GetCitations(2),
+                    Sources = TestHelper.GetDocReferences(2),
                     Participants = new List<DecoratedId>(new[]
                     {
                         new DecoratedId { Id = "guy-1", Tag = "tag", Rank = 1 },
