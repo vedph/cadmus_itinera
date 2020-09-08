@@ -23,8 +23,8 @@ namespace Cadmus.Itinera.Parts
         {
             StringBuilder sb = new StringBuilder();
             if (Name != null) sb.Append(Name.ToString());
-            if (Idents?.Count > 0)
-                sb.Append(" = ").Append(string.Join("; ", Idents));
+            if (Ids?.Count > 0)
+                sb.Append(" = ").Append(string.Join("; ", Ids));
             if (Sources?.Count > 0)
                 sb.Append(" (").Append(Sources.Count).Append(')');
             return sb.ToString();

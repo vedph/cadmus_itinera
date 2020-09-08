@@ -11,7 +11,7 @@ namespace Cadmus.Itinera.Parts
         /// Gets or sets the identifications proposed for the cited entity,
         /// if any.
         /// </summary>
-        public List<RankedIdent> Idents { get; set; }
+        public List<RankedId> Ids { get; set; }
 
         /// <summary>
         /// Gets or sets the source(s) for this cited person. Each source is
@@ -24,7 +24,7 @@ namespace Cadmus.Itinera.Parts
         /// </summary>
         protected LitCitedBase()
         {
-            Idents = new List<RankedIdent>();
+            Ids = new List<RankedId>();
             Sources = new List<LitCitation>();
         }
     }

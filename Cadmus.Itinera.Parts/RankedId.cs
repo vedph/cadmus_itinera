@@ -1,9 +1,9 @@
 ﻿namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// An identification with a rank.
+    /// An identifier with a rank.
     /// </summary>
-    public class RankedIdent
+    public class RankedId
     {
         /// <summary>
         /// Gets or sets the rank. This is a numeric value used to sort

@@ -49,9 +49,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     builder.AddValue("name",
                         PinTextFilter.Apply(person.Name.GetFullName()));
 
-                    if (person.Idents != null)
+                    if (person.Ids != null)
                     {
-                        builder.AddValues("id", from ident in person.Idents
+                        builder.AddValues("id", from ident in person.Ids
                                                 select ident.Id);
                     }
                 }
