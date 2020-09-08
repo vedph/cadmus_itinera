@@ -11,15 +11,16 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
     public sealed class CorrExchangesPartTest
     {
-        private static List<TaggedId> GetParticipants(int count)
+        private static List<DecoratedId> GetParticipants(int count)
         {
-            List<TaggedId> ids = new List<TaggedId>();
+            List<DecoratedId> ids = new List<DecoratedId>();
             for (int n = 1; n <= count; n++)
             {
-                ids.Add(new TaggedId
+                ids.Add(new DecoratedId
                 {
                     Id = $"guy-{n}",
-                    Tag = n % 2 == 0? "even" : "odd"
+                    Tag = n % 2 == 0? "even" : "odd",
+                    Rank = 1
                 });
             }
             return ids;

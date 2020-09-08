@@ -45,12 +45,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// Gets or sets the participants involved in this exchange, at the
         /// other side of the relationship with the reference author.
         /// </summary>
-        public List<TaggedId> Participants { get; set; }
+        public List<DecoratedId> Participants { get; set; }
 
         /// <summary>
         /// Gets or sets the literary sources for this exchange.
         /// </summary>
-        public List<LitCitation> Sources { get; set; }
+        public List<DocReference> Sources { get; set; }
 
         /// <summary>
         /// Gets or sets the attachments in this exchange.
@@ -62,8 +62,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public CorrExchange()
         {
-            Participants = new List<TaggedId>();
-            Sources = new List<LitCitation>();
+            Participants = new List<DecoratedId>();
+            Sources = new List<DocReference>();
             Attachments = new List<EpistAttachment>();
         }
 

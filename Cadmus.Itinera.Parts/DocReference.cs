@@ -1,11 +1,11 @@
 ﻿namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// A literary passage citation: author, work, location, plus some optional
+    /// A document reference: author, work, location, plus some optional
     /// metadata. This model can also be applied to reference archive documents
     /// or modern bibliography.
     /// </summary>
-    public class LitCitation
+    public class DocReference
     {
         /// <summary>
         /// Any classification tag meaningful in the data context.

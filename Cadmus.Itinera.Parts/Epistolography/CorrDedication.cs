@@ -35,14 +35,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the source citations related to this dedication.
         /// </summary>
-        public List<LitCitation> Sources { get; set; }
+        public List<DocReference> Sources { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorrDedication"/> class.
         /// </summary>
         public CorrDedication()
         {
-            Sources = new List<LitCitation>();
+            Sources = new List<DocReference>();
         }
 
         /// <summary>

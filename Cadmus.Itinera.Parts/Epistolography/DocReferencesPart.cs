@@ -6,27 +6,28 @@ using System.Text;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// A set of literary citations.
-    /// Tag: <c>net.fusisoft.itinera.lit-citations</c>.
+    /// A set of document references (usually literary citations).
+    /// Tag: <c>net.fusisoft.itinera.doc-references</c>.
     /// </summary>
     /// <remarks>This is used for (a) for correspondent items: all the text
     /// passages referencing the correspondent or the reference author,
     /// (the part's role distinguishes these two usages); (b) for letter items:
     /// works cited in the letter's text.</remarks>
-    [Tag("net.fusisoft.itinera.lit-citations")]
-    public sealed class LitCitationsPart : PartBase
+    [Tag("net.fusisoft.itinera.doc-references")]
+    public sealed class DocReferencesPart : PartBase
     {
         /// <summary>
-        /// Gets or sets the citations.
+        /// Gets or sets the references.
         /// </summary>
-        public List<LitCitation> Citations { get; set; }
+        public List<DocReference> References { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LitCitationsPart"/> class.
+        /// Initializes a new instance of the <see cref="DocReferencesPart"/>
+        /// class.
         /// </summary>
-        public LitCitationsPart()
+        public DocReferencesPart()
         {
-            Citations = new List<LitCitation>();
+            References = new List<DocReference>();
         }
 
         /// <summary>
@@ -41,11 +42,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             DataPinBuilder builder = new DataPinBuilder();
 
-            builder.Set("tot", Citations?.Count ?? 0, false);
+            builder.Set("tot", References?.Count ?? 0, false);
 
-            if (Citations?.Count > 0)
+            if (References?.Count > 0)
             {
-                foreach (LitCitation citation in Citations)
+                foreach (DocReference citation in References)
                 {
                     builder.AddValue("author", citation.Author);
                     builder.AddValue("work", citation.Work);
@@ -66,17 +67,17 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[LitCitations]");
+            sb.Append("[DocReferences]");
 
-            if (Citations?.Count > 0)
+            if (References?.Count > 0)
             {
                 sb.Append(' ');
                 int n = 0;
-                foreach (LitCitation citation in Citations)
+                foreach (DocReference citation in References)
                 {
                     if (++n > 5)
                     {
-                        sb.Append("[...").Append(Citations.Count).Append(']');
+                        sb.Append("[...").Append(References.Count).Append(']');
                         break;
                     }
                     if (n > 1) sb.Append("; ");

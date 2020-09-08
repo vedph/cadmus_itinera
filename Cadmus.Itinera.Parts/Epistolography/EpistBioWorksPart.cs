@@ -16,7 +16,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the works.
         /// </summary>
-        public List<LitBioWork> Works { get; set; }
+        public List<BioWork> Works { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EpistBioWorksPart"/>
@@ -24,7 +24,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public EpistBioWorksPart()
         {
-            Works = new List<LitBioWork>();
+            Works = new List<BioWork>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             builder.Set("tot", Works?.Count ?? 0, false);
 
-            foreach (LitBioWork work in Works)
+            foreach (BioWork work in Works)
             {
                 if (!string.IsNullOrEmpty(work.Title))
                     builder.AddValue("title", PinTextFilter.Apply(work.Title, true));
@@ -73,7 +73,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 sb.Append(' ');
                 int n = 0;
-                foreach (LitBioWork work in Works)
+                foreach (BioWork work in Works)
                 {
                     if (++n > 5)
                     {

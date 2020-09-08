@@ -3,15 +3,14 @@
 namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// A person cited in a literary source. This includes the person's name,
-    /// its identification, and its source passage(s).
+    /// A named thing (e.g. a place) cited in a literary source.
     /// </summary>
-    public class LitCitedPerson : LitCitedBase
+    public class CitedThing : CitedBase
     {
         /// <summary>
-        /// Gets or sets the cited person's name.
+        /// Gets or sets the thing's name, as found in the citation.
         /// </summary>
-        public PersonName Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Converts to string.
@@ -22,7 +21,7 @@ namespace Cadmus.Itinera.Parts
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (Name != null) sb.Append(Name.ToString());
+            if (Name != null) sb.Append(Name);
             if (Ids?.Count > 0)
                 sb.Append(" = ").Append(string.Join("; ", Ids));
             if (Sources?.Count > 0)

@@ -3,19 +3,17 @@
 namespace Cadmus.Itinera.Parts
 {
     /// <summary>
-    /// A place cited in a literary source.
+    /// A person cited in a literary source. This includes the person's name,
+    /// its identification, and its source passage(s).
     /// </summary>
-    /// <remarks>Notice that this place just corresponds to a conventional name
-    /// (e.g. <c>Napoli</c>). This is not a full-fledged geographic model,
-    /// but just a name; including data like coordinates here would not be an
-    /// option, because this would imply duplicating (i.e. re-entering and
-    /// re-storing) them wherever the same name occurs.</remarks>
-    public class LitCitedPlace : LitCitedBase
+    public class CitedPerson : CitedBase
     {
         /// <summary>
-        /// Gets or sets the place's name.
+        /// Gets or sets the cited person's name, as found in the citation,
+        /// but structured into a set of parts like first name, last name,
+        /// epithet, etc.
         /// </summary>
-        public string Name { get; set; }
+        public PersonName Name { get; set; }
 
         /// <summary>
         /// Converts to string.
@@ -26,7 +24,7 @@ namespace Cadmus.Itinera.Parts
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (Name != null) sb.Append(Name);
+            if (Name != null) sb.Append(Name.ToString());
             if (Ids?.Count > 0)
                 sb.Append(" = ").Append(string.Join("; ", Ids));
             if (Sources?.Count > 0)

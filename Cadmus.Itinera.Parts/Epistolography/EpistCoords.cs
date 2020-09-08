@@ -36,14 +36,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the sources for these coordinates.
         /// </summary>
-        public List<LitCitation> Sources { get; set; }
+        public List<DocReference> Sources { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EpistCoords"/> class.
         /// </summary>
         public EpistCoords()
         {
-            Sources = new List<LitCitation>();
+            Sources = new List<DocReference>();
         }
 
         /// <summary>

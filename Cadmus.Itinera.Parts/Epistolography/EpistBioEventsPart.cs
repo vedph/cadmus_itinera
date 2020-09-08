@@ -17,7 +17,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the events.
         /// </summary>
-        public List<LitBioEvent> Events { get; set; }
+        public List<BioEvent> Events { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EpistBioEventsPart"/>
@@ -25,7 +25,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public EpistBioEventsPart()
         {
-            Events = new List<LitBioEvent>();
+            Events = new List<BioEvent>();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             if (Events?.Count > 0)
             {
-                foreach (LitBioEvent e in Events)
+                foreach (BioEvent e in Events)
                 {
                     if (!string.IsNullOrEmpty(e.Type))
                         builder.Increase(e.Type, false, "type-");
@@ -90,7 +90,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 sb.Append(' ');
                 Dictionary<string, int> types = new Dictionary<string, int>();
-                foreach (LitBioEvent e in Events) types[e.Type]++;
+                foreach (BioEvent e in Events) types[e.Type]++;
                 int n = 0;
                 foreach (string key in types.Keys.OrderBy(s => s))
                 {

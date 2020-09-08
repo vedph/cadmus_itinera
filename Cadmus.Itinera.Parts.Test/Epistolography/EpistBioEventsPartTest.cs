@@ -22,17 +22,17 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             };
             for (int n = 1; n <= count; n++)
             {
-                part.Events.Add(new LitBioEvent
+                part.Events.Add(new BioEvent
                 {
                     Type = n % 2 == 0 ? "even" : "odd",
                     Date = HistoricalDate.Parse($"{1200 + n} AD"),
                     Places = new List<string>(new[] { "place-1", "place-2" }),
                     Description = "A description.",
                     Sources = TestHelper.GetCitations(2),
-                    Participants = new List<TaggedId>(new[]
+                    Participants = new List<DecoratedId>(new[]
                     {
-                        new TaggedId { Id = "guy-1", Tag = "tag" },
-                        new TaggedId { Id = "guy-2", Tag = "tag" }
+                        new DecoratedId { Id = "guy-1", Tag = "tag", Rank = 1 },
+                        new DecoratedId { Id = "guy-2", Tag = "tag", Rank = 1 }
                     })
                 });
             }

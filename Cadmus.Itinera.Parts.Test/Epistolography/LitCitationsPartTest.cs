@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
     public sealed class LitCitationsPartTest
     {
-        private static LitCitationsPart GetPart(int count)
+        private static DocReferencesPart GetPart(int count)
         {
-            LitCitationsPart part = new LitCitationsPart
+            DocReferencesPart part = new DocReferencesPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -21,7 +21,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             for (int n = 1; n <= count; n++)
             {
-                part.Citations.Add(new LitCitation
+                part.References.Add(new DocReference
                 {
                     Tag = "tag",
                     Author = n % 2 == 0? "Hes." : "Hom.",
@@ -37,11 +37,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void Part_Is_Serializable()
         {
-            LitCitationsPart part = GetPart(2);
+            DocReferencesPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            LitCitationsPart part2 =
-                TestHelper.DeserializePart<LitCitationsPart>(json);
+            DocReferencesPart part2 =
+                TestHelper.DeserializePart<DocReferencesPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -50,14 +50,14 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             Assert.Equal(part.CreatorId, part2.CreatorId);
             Assert.Equal(part.UserId, part2.UserId);
 
-            Assert.Equal(2, part.Citations.Count);
+            Assert.Equal(2, part.References.Count);
             // TODO: details
         }
 
         [Fact]
         public void GetDataPins_NoCitation_Ok()
         {
-            LitCitationsPart part = GetPart(0);
+            DocReferencesPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -71,7 +71,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_Dedications_Ok()
         {
-            LitCitationsPart part = GetPart(3);
+            DocReferencesPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 

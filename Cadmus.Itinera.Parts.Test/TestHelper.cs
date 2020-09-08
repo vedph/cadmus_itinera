@@ -57,13 +57,13 @@ namespace Cadmus.Itinera.Parts.Test
             Assert.Equal(part.RoleId, pin.RoleId);
         }
 
-        public static List<LitCitation> GetCitations(int count)
+        public static List<DocReference> GetCitations(int count)
         {
-            List<LitCitation> citations = new List<LitCitation>();
+            List<DocReference> citations = new List<DocReference>();
 
             for (int i = 1; i <= count; i++)
             {
-                citations.Add(new LitCitation
+                citations.Add(new DocReference
                 {
                     Author = "Hom.",
                     Work = "Il.",

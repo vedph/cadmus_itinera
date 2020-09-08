@@ -17,7 +17,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the persons.
         /// </summary>
-        public List<LitCitedPerson> Persons { get; set; }
+        public List<CitedPerson> Persons { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EpistCitedPersonsPart"/>
@@ -25,7 +25,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public EpistCitedPersonsPart()
         {
-            Persons = new List<LitCitedPerson>();
+            Persons = new List<CitedPerson>();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             if (Persons?.Count > 0)
             {
-                foreach (LitCitedPerson person in Persons)
+                foreach (CitedPerson person in Persons)
                 {
                     builder.AddValue("name",
                         PinTextFilter.Apply(person.Name.GetFullName()));

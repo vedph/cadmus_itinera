@@ -8,7 +8,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// A biographic event found in literary sources. This is used in
     /// <see cref="EpistBioEventsPart"/>.
     /// </summary>
-    public class LitBioEvent
+    public class BioEvent
     {
         /// <summary>
         /// Gets or sets the event's type.
@@ -34,21 +34,21 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the literary sources for this event.
         /// </summary>
-        public List<LitCitation> Sources { get; set; }
+        public List<DocReference> Sources { get; set; }
 
         /// <summary>
         /// Gets or sets all the persons cited as involved in this event.
         /// </summary>
-        public List<TaggedId> Participants { get; set; }
+        public List<DecoratedId> Participants { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LitBioEvent"/> class.
+        /// Initializes a new instance of the <see cref="BioEvent"/> class.
         /// </summary>
-        public LitBioEvent()
+        public BioEvent()
         {
             Places = new List<string>();
-            Sources = new List<LitCitation>();
-            Participants = new List<TaggedId>();
+            Sources = new List<DocReference>();
+            Participants = new List<DecoratedId>();
         }
 
         /// <summary>

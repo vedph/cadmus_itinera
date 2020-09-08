@@ -27,14 +27,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the source citations for this pseudonym.
         /// </summary>
-        public List<LitCitation> Sources { get; set; }
+        public List<DocReference> Sources { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorrPseudonym"/> class.
         /// </summary>
         public CorrPseudonym()
         {
-            Sources = new List<LitCitation>();
+            Sources = new List<DocReference>();
         }
 
         /// <summary>

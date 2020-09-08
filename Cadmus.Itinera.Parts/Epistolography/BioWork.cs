@@ -6,7 +6,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <summary>
     /// A literary work cited in the context of a biography.
     /// </summary>
-    public class LitBioWork
+    public class BioWork
     {
         /// <summary>
         /// Gets or sets the genre.
@@ -45,9 +45,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<string> ExternalIds { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LitBioWork"/> class.
+        /// Initializes a new instance of the <see cref="BioWork"/> class.
         /// </summary>
-        public LitBioWork()
+        public BioWork()
         {
             ExternalIds = new List<string>();
         }

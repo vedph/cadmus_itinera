@@ -22,7 +22,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             };
             for (int n = 1; n <= count; n++)
             {
-                part.Works.Add(new LitBioWork
+                part.Works.Add(new BioWork
                 {
                     Genre = n % 2 == 0? "even" : "odd",
                     Language = "eng",
