@@ -26,7 +26,7 @@
         public string Fund { get; set; }
 
         /// <summary>
-        /// Gets or sets the location.
+        /// Gets or sets the location in the library.
         /// </summary>
         public string Location { get; set; }
 
@@ -38,7 +38,7 @@
         /// </returns>
         public override string ToString()
         {
-            return $"{Library}, {Fund}, {Location}";
+            return $"{City}, {Library}, {Fund}, {Location}";
         }
     }
 }

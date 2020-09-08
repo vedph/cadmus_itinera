@@ -58,8 +58,7 @@ namespace Cadmus.Itinera.Parts.Codicology
             {
                 foreach (MsSection section in Sections)
                 {
-                    if (!string.IsNullOrEmpty(section.Tag))
-                        builder.Increase("section-" + section.Tag, false);
+                    builder.Increase(section.Tag, false, "section-");
 
                     if (!string.IsNullOrEmpty(section.Label))
                     {
