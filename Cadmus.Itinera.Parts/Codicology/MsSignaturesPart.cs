@@ -6,7 +6,9 @@ using System.Text;
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's signature(s).
+    /// Manuscript's signature(s). Among these, the signature with an empty tag
+    /// is the default (current) signature. Other signatures may be added for
+    /// historical reasons, and should have a tag.
     /// <para>Tag: <c>net.fusisoft.itinera.ms-signatures</c>.</para>
     /// </summary>
     [Tag("net.fusisoft.itinera.ms-signatures")]
