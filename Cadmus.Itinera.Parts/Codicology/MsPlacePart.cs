@@ -48,8 +48,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>area</c>, <c>city</c>, <c>subscriber</c>:
-        /// all filtered, with digits.</returns>
+        /// <returns>The pins: <c>area</c>, <c>city</c>, <c>site</c>,
+        /// <c>subscriber</c>: all filtered, with digits.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
@@ -59,6 +59,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (!string.IsNullOrEmpty(City))
                 pins.Add(CreateDataPin("city", PinTextFilter.Apply(City, true)));
+
+            if (!string.IsNullOrEmpty(Site))
+                pins.Add(CreateDataPin("site", PinTextFilter.Apply(Site, true)));
 
             if (!string.IsNullOrEmpty(Subscriber))
             {
