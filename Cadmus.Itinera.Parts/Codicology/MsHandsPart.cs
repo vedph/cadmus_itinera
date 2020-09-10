@@ -11,7 +11,7 @@ namespace Cadmus.Itinera.Parts.Codicology
     /// <para>Tag: <c>net.fusisoft.itinera.ms-hands</c>.</para>
     /// </summary>
     [Tag("net.fusisoft.itinera.ms-hands")]
-    public class MsHandsPart : PartBase
+    public sealed class MsHandsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the hands.
