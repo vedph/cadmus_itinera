@@ -38,7 +38,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <c>name</c>=full name (filtered), <c>id</c>=identification.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Persons?.Count ?? 0, false);
 
@@ -47,7 +48,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 foreach (CitedPerson person in Persons)
                 {
                     builder.AddValue("name",
-                        PinTextFilter.Apply(person.Name.GetFullName()));
+                        person.Name.GetFullName(), filter: true);
 
                     if (person.Ids != null)
                     {

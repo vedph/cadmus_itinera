@@ -56,26 +56,26 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>language</c>, <c>subject</c> (filtered, with
         /// digits), <c>metre</c>; also, for each author: <c>author-name</c>
-        /// (filtered), <c>author-id</c> (prefixed by rank in []).
+        /// (filtered), <c>author-id</c> (prefixed by rank and :).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
 
             builder.AddValue("language", Language);
-            builder.AddValue("subject", PinTextFilter.Apply(Subject, true));
+            builder.AddValue("subject", Subject, filter: true, filterOptions: true);
             builder.AddValue("metre", Metre);
 
             if (Authors?.Count > 0)
             {
                 builder.AddValues("author-name",
-                    from a in Authors select PinTextFilter.Apply(a.Name));
+                    from a in Authors select a.Name, filter: true);
 
                 foreach (CitedThing author in Authors)
                 {
                     builder.AddValues("author-id",
                         from a in author.Ids
-                        select $"[{a.Rank}]{a.Id}");
+                        select $"{a.Rank}:{a.Id}");
                 }
             }
 

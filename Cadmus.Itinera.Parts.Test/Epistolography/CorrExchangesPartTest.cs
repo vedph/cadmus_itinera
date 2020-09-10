@@ -170,8 +170,9 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             for (int n = 1; n <= 2; n++)
             {
-                pin = pins.Find(p => p.Name == "participant"
-                    && p.Value == $"[{(n % 2 == 0? "even" : "odd")}]guy{n}");
+                pin = pins.Find(p =>
+                    p.Name == $"participant.{(n % 2 == 0 ? "even" : "odd")}"
+                    && p.Value == $"guy{n}");
                 TestHelper.AssertPinIds(part, pin);
             }
 

@@ -40,7 +40,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Signatures?.Count ?? 0, false);
 
@@ -53,14 +54,11 @@ namespace Cadmus.Itinera.Parts.Codicology
                     if (!string.IsNullOrEmpty(signature.Library))
                     {
                         builder.AddValue("library",
-                            PinTextFilter.Apply(signature.Library, true));
+                            signature.Library, filter: true, filterOptions: true);
                     }
 
                     if (!string.IsNullOrEmpty(signature.City))
-                    {
-                        builder.AddValue("city",
-                            PinTextFilter.Apply(signature.City));
-                    }
+                        builder.AddValue("city", signature.City, filter: true);
                 }
             }
 

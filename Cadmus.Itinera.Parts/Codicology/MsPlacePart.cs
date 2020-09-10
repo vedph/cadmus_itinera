@@ -53,20 +53,20 @@ namespace Cadmus.Itinera.Parts.Codicology
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
+            IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
             if (!string.IsNullOrEmpty(Area))
-                pins.Add(CreateDataPin("area", PinTextFilter.Apply(Area, true)));
+                pins.Add(CreateDataPin("area", filter.Apply(Area, true)));
 
             if (!string.IsNullOrEmpty(City))
-                pins.Add(CreateDataPin("city", PinTextFilter.Apply(City, true)));
+                pins.Add(CreateDataPin("city", filter.Apply(City, true)));
 
             if (!string.IsNullOrEmpty(Site))
-                pins.Add(CreateDataPin("site", PinTextFilter.Apply(Site, true)));
+                pins.Add(CreateDataPin("site", filter.Apply(Site, true)));
 
             if (!string.IsNullOrEmpty(Subscriber))
             {
-                pins.Add(CreateDataPin("subscriber",
-                    PinTextFilter.Apply(Subscriber, true)));
+                pins.Add(CreateDataPin("subscriber", filter.Apply(Subscriber, true)));
             }
 
             return pins;

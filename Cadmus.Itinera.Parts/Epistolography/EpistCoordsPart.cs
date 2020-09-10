@@ -34,15 +34,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c> and a list of pins under these
-        /// keys: <c>tag-place</c>=[tag]place (place filtered, with digits),
-        /// <c>tag-date</c>=[tag]normalized date value, <c>date-value</c>,
+        /// keys: <c>tag-place</c>=TAG:place (place filtered, with digits),
+        /// <c>tag-date</c>=TAG:normalized date value, <c>date-value</c>,
         /// <c>tag-VALUE-count</c>.
         /// The normalized date value is a fixed-format number of type
         /// +0000.00 or -0000.00 allowing a text sort.
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Coordinates?.Count ?? 0, false);
 
@@ -57,7 +58,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     {
                         builder.AddValue(
                             "tag-place",
-                            $"[{tag}]{PinTextFilter.Apply(coords.Place, true)}");
+                            builder.ApplyFilter(options: true,
+                                tag + ":",
+                                true,
+                                coords.Place));
                     }
                     if (coords.Date != null)
                     {

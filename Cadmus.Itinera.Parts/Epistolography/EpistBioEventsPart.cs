@@ -41,7 +41,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <c>[]</c>).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Events?.Count ?? 0, false);
 
@@ -58,15 +59,15 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     if (e.Places?.Count > 0)
                     {
                         builder.AddValues("place",
-                            from p in e.Places
-                            select PinTextFilter.Apply(p, true));
+                            e.Places, filter: true, filterOptions: true);
                     }
 
                     if (e.Participants?.Count > 0)
                     {
                         builder.AddValues("participant",
                             from p in e.Participants
-                            select $"[{p.Tag}]{PinTextFilter.Apply(p.Id, true)}");
+                            select builder.ApplyFilter(options: true,
+                                p.Tag + ":", true, p.Id));
                     }
                 }
             }

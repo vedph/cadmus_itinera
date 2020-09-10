@@ -38,13 +38,15 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <c>dubious-count</c>, <c>indirect-count</c>, <c>incoming-count</c>,
         /// <c>from-date-value</c>, <c>to-date-value</c>, <c>from-place</c>
         /// (filtered, including digits), <c>to-place</c> (filtered, including
-        /// digits), <c>participant</c> (filtered including digits, and prefixed
-        /// by his role between <c>[]</c>), <c>att-TYPE-count</c>=count of
-        /// attachment of type TYPE (one count for each distinct type found
-        /// in the part), <c>att-tot-count</c>=total count of attachments.</returns>
+        /// digits), <c>participant.ROLE</c> (filtered including digits),
+        /// <c>att-TYPE-count</c>=count of attachment of type TYPE (one count
+        /// for each distinct type found in the part), <c>att-tot-count</c>=
+        /// total count of attachments.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder =
+                new DataPinBuilder(new StandardDataPinTextFilter());
+
             builder.Set("tot", Exchanges?.Count ?? 0, false);
 
             foreach (CorrExchange exchange in Exchanges)
@@ -62,7 +64,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 if (!string.IsNullOrEmpty(exchange.From?.Place))
                 {
                     builder.AddValue("from-place",
-                        PinTextFilter.Apply(exchange.From.Place, true));
+                        exchange.From.Place, filter: true, filterOptions: true);
                 }
 
                 if (exchange.To?.Date != null)
@@ -74,14 +76,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 if (!string.IsNullOrEmpty(exchange.To?.Place))
                 {
                     builder.AddValue("to-place",
-                        PinTextFilter.Apply(exchange.To.Place, true));
+                        exchange.To.Place, filter: true, filterOptions: true);
                 }
 
                 if (exchange.Participants?.Count > 0)
                 {
-                    builder.AddValues("participant",
-                        from p in exchange.Participants
-                        select $"[{p.Tag}]{PinTextFilter.Apply(p.Id, true)}");
+                    foreach (var p in exchange.Participants)
+                    {
+                        builder.AddValue($"participant.{p.Tag}", p.Id,
+                            filter: true, filterOptions: true);
+                    }
                 }
 
                 if (exchange?.Attachments.Count > 0)

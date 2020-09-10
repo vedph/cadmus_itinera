@@ -38,14 +38,18 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <c>language</c>, <c>date-value</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder =
+                new DataPinBuilder(new StandardDataPinTextFilter());
 
             builder.Set("tot", Works?.Count ?? 0, false);
 
             foreach (BioWork work in Works)
             {
                 if (!string.IsNullOrEmpty(work.Title))
-                    builder.AddValue("title", PinTextFilter.Apply(work.Title, true));
+                {
+                    builder.AddValue("title", work.Title,
+                        filter: true, filterOptions: true);
+                }
 
                 if (!string.IsNullOrEmpty(work.Language))
                     builder.AddValue("language", work.Language);

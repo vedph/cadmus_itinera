@@ -1,6 +1,5 @@
 ﻿using Cadmus.Core;
 using Fusi.Tools.Config;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -78,6 +77,8 @@ namespace Cadmus.Itinera.Parts.Codicology
                     if (n > 1) sb.Append("; ");
                     sb.Append(sheet);
                 }
+                if (GuardSheets.Count > 3)
+                    sb.Append("...(").Append(GuardSheets.Count).Append(')');
             }
 
             return sb.ToString();

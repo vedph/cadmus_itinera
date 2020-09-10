@@ -48,7 +48,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder =
+                new DataPinBuilder(new StandardDataPinTextFilter());
 
             builder.Set("sheet", SheetCount, false);
             builder.Set("guard-sheet", GuardSheetCount, false);
@@ -63,7 +64,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                     if (!string.IsNullOrEmpty(section.Label))
                     {
                         builder.AddValue("section-label",
-                            PinTextFilter.Apply(section.Label, true));
+                            section.Label, filter: true, filterOptions: true);
                     }
 
                     if (section.Date != null)

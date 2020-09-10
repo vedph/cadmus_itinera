@@ -40,11 +40,13 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <c>tot-count</c>=total count of dedications (including 0).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
+
             foreach (CorrDedication dedication in Dedications)
             {
                 builder.AddValue("title",
-                    PinTextFilter.Apply(dedication.Title, true));
+                    dedication.Title, filter: true, filterOptions: true);
 
                 if (dedication.Date != null)
                     builder.AddValue("date-value", dedication.Date.GetSortValue());

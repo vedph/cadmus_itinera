@@ -37,7 +37,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <c>date-value</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Watermarks?.Count ?? 0, false);
 
@@ -50,7 +51,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                     if (!string.IsNullOrEmpty(watermark.Place))
                     {
                         builder.AddValue("place",
-                            PinTextFilter.Apply(watermark.Place, true));
+                            watermark.Place, filter: true, filterOptions: true);
                     }
 
                     if (watermark.Date != null)

@@ -41,7 +41,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Pseudonyms?.Count ?? 0, false);
 
@@ -49,8 +50,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 builder.AddValues("pseudonym",
                     from p in Pseudonyms
-                    select (p.IsAuthor ? "+" : "-")
-                        + PinTextFilter.Apply(p.Value, true));
+                    select builder.ApplyFilter(options: true,
+                        p.IsAuthor ? "+" : "-",
+                        true,
+                        p.Value));
             }
 
             return builder.Build(this);

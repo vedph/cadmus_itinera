@@ -45,15 +45,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
+            IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
             if (!string.IsNullOrEmpty(Language))
                 pins.Add(CreateDataPin("language", Language));
 
             if (!string.IsNullOrEmpty(Subject))
-                pins.Add(CreateDataPin("subject", PinTextFilter.Apply(Subject)));
+                pins.Add(CreateDataPin("subject", filter.Apply(Subject)));
 
             if (!string.IsNullOrEmpty(Heading))
-                pins.Add(CreateDataPin("heading", PinTextFilter.Apply(Heading)));
+                pins.Add(CreateDataPin("heading", filter.Apply(Heading)));
 
             return pins;
         }
