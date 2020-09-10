@@ -105,7 +105,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 TestHelper.AssertPinIds(part, pin);
 
                 pin = pins.Find(p => p.Name == "author-id"
-                    && p.Value == $"[{n}]author {n}");
+                    && p.Value == $"{n}:author {n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

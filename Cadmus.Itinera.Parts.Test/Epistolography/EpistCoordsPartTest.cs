@@ -96,15 +96,15 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("2", pin.Value);
 
-            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "[odd]place 1");
+            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "odd:place 1");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "[even]place 2");
+            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "even:place 2");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "[odd]place 3");
+            pin = pins.Find(p => p.Name == "tag-place" && p.Value == "odd:place 3");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
@@ -120,7 +120,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
                 string tag = n % 2 == 0 ? "even" : "odd";
                 pin = pins.Find(p => p.Name == "tag-date"
-                    && p.Value == $"[{tag}]{+d:0000.00;-d:0000.00}");
+                    && p.Value == $"{tag}:{+d:0000.00;-d:0000.00}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

@@ -112,7 +112,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 TestHelper.AssertPinIds(part, pin);
 
                 pin = pins.Find(p => p.Name == "participant"
-                    && p.Value == $"[tag]guy{n}");
+                    && p.Value == $"tag:guy{n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

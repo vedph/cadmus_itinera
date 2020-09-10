@@ -70,7 +70,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
                         builder.AddValue(
                             "tag-date",
-                            $"[{tag}]{+d:0000.00;-d:0000.00}");
+                            $"{tag}:{+d:0000.00;-d:0000.00}");
                     }
                 }
             }

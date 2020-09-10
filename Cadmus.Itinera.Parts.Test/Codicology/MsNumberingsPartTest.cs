@@ -77,7 +77,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(11, pins.Count);
+            Assert.Equal(13, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);

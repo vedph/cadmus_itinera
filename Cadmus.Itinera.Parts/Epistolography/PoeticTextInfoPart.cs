@@ -60,7 +60,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.AddValue("language", Language);
             builder.AddValue("subject", Subject, filter: true, filterOptions: true);
