@@ -74,6 +74,15 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string TextRelation { get; set; }
 
         /// <summary>
+        /// Gets or sets the image IDs. This ID represents the prefix for
+        /// all the images depicting something related to this hand; e.g. if the
+        /// ID is <c>draco</c>, we would expect any number of image resources
+        /// named after it plus a conventional numbering, like <c>draco00001</c>,
+        /// <c>draco00002</c>, etc.
+        /// </summary>
+        public string ImageId { get; set; }
+
+        /// <summary>
         /// Gets or sets the guide letters.
         /// </summary>
         public List<MsGuideLetter> GuideLetters { get; set; }

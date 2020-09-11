@@ -35,7 +35,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <returns>The pins: <c>tot-count</c> and a collection of pins with
         /// these keys: <c>type-X-count</c>, <c>subject-X-count</c>,
         /// <c>color-X-count</c>, <c>golden-count</c>, <c>tag-X-count</c>
-        /// (all the keys with X are filtered, with digits).
+        /// (all the keys with X are filtered, with digits), <c>artist-id</c>
+        /// (filtered, with digits).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -54,6 +55,12 @@ namespace Cadmus.Itinera.Parts.Codicology
                     builder.Increase(decoration.Subject, false, "subject-");
                     builder.Increase(decoration.Color, false, "color-");
                     builder.Increase(decoration.Tag, false, "tag-");
+
+                    if (!string.IsNullOrEmpty(decoration.Artist?.Id))
+                    {
+                        builder.AddValue("artist-id", decoration.Artist.Id,
+                            filter: true, filterOptions: true);
+                    }
                 }
             }
 
