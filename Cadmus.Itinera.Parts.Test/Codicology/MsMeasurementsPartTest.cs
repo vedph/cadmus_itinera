@@ -1,5 +1,6 @@
 ﻿using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
+using Cadmus.Parts.General;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,18 +11,16 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 {
     public sealed class MsMeasurementsPartTest
     {
-        private static List<PhysicalMeasurement> GetMeasurements(int count)
+        private static List<PhysicalDimension> GetDimensions(int count)
         {
-            List<PhysicalMeasurement> measurements =
-                new List<PhysicalMeasurement>();
+            List<PhysicalDimension> measurements =
+                new List<PhysicalDimension>();
 
             for (int n = 1; n <= count; n++)
             {
-                measurements.Add(new PhysicalMeasurement
+                measurements.Add(new PhysicalDimension
                 {
-                    Id = new string((char)('a' + n - 1), 1),
-                    IsApproximate = n % 2 == 0,
-                    IsIncomplete = n % 2 == 0,
+                    Tag = new string((char)('a' + n - 1), 1),
                     Unit = "cm",
                     Value = n
                 });
@@ -47,15 +46,15 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             return counts;
         }
 
-        private static MsMeasurementsPart GetPart(int count)
+        private static MsDimensionsPart GetPart(int count)
         {
-            return new MsMeasurementsPart
+            return new MsDimensionsPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
                 CreatorId = "zeus",
                 UserId = "another",
-                Measurements = GetMeasurements(count),
+                Dimensions = GetDimensions(count),
                 Counts = GetCounts(count)
             };
         }
@@ -63,11 +62,11 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         [Fact]
         public void Part_Is_Serializable()
         {
-            MsMeasurementsPart part = GetPart(2);
+            MsDimensionsPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            MsMeasurementsPart part2 =
-                TestHelper.DeserializePart<MsMeasurementsPart>(json);
+            MsDimensionsPart part2 =
+                TestHelper.DeserializePart<MsDimensionsPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -76,7 +75,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             Assert.Equal(part.CreatorId, part2.CreatorId);
             Assert.Equal(part.UserId, part2.UserId);
 
-            Assert.Equal(2, part.Measurements.Count);
+            Assert.Equal(2, part.Dimensions.Count);
             Assert.Equal(2, part.Counts.Count);
             // TODO: details
         }
@@ -84,7 +83,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         [Fact]
         public void GetDataPins_Empty_NoPin()
         {
-            MsMeasurementsPart part = GetPart(0);
+            MsDimensionsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -94,7 +93,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         [Fact]
         public void GetDataPins_NotEmpty_Ok()
         {
-            MsMeasurementsPart part = GetPart(3);
+            MsDimensionsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -104,7 +103,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             {
                 string id = new string((char)('a' + n - 1), 1);
 
-                DataPin pin = pins.Find(p => p.Name == "m-" + id
+                DataPin pin = pins.Find(p => p.Name == "d." + id
                     && p.Value == n.ToString(CultureInfo.InvariantCulture));
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);

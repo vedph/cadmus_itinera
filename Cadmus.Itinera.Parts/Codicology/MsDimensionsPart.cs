@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Globalization;
+using Cadmus.Parts.General;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's physical measurements part.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-measurements</c>.</para>
+    /// Manuscript's physical dimensions part.
+    /// <para>Tag: <c>net.fusisoft.itinera.ms-dimensions</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-measurements")]
-    public sealed class MsMeasurementsPart : PartBase
+    [Tag("net.fusisoft.itinera.ms-dimensions")]
+    public sealed class MsDimensionsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the sample location, i.e. the location of the sheet
@@ -23,7 +24,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the measurements.
         /// </summary>
-        public List<PhysicalMeasurement> Measurements { get;set; }
+        public List<PhysicalDimension> Dimensions { get;set; }
 
         /// <summary>
         /// Gets or sets the counts and/or description about any desired
@@ -36,12 +37,12 @@ namespace Cadmus.Itinera.Parts.Codicology
         public List<DecoratedCount> Counts { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsMeasurementsPart"/>
+        /// Initializes a new instance of the <see cref="MsDimensionsPart"/>
         /// class.
         /// </summary>
-        public MsMeasurementsPart()
+        public MsDimensionsPart()
         {
-            Measurements = new List<PhysicalMeasurement>();
+            Dimensions = new List<PhysicalDimension>();
             Counts = new List<DecoratedCount>();
         }
 
@@ -51,19 +52,19 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: collections of measurements with keys <c>m-ID</c>,
+        /// <returns>The pins: collections of dimensions with keys <c>d.TAG</c>,
         /// and <c>count-id</c> with collections of counts/descriptions IDs
         /// values.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
 
-            if (Measurements?.Count > 0)
+            if (Dimensions?.Count > 0)
             {
-                foreach (PhysicalMeasurement m in Measurements)
+                foreach (var d in Dimensions)
                 {
-                    pins.Add(CreateDataPin("m-" + m.Id,
-                        m.Value.ToString(CultureInfo.InvariantCulture)));
+                    pins.Add(CreateDataPin("d." + (d.Tag ?? ""),
+                        d.Value.ToString(CultureInfo.InvariantCulture)));
                 }
             }
 
@@ -88,11 +89,11 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             sb.Append("[MsMeasurements]");
 
-            if (Measurements?.Count > 0)
+            if (Dimensions?.Count > 0)
             {
                 sb.Append("M: ");
-                sb.Append(string.Join(", ", from m in Measurements
-                                            select m.Id));
+                sb.Append(string.Join(", ", from m in Dimensions
+                                            select m.Tag));
             }
             if (Counts?.Count > 0)
             {
