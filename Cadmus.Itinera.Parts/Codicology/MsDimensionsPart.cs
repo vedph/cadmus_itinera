@@ -87,7 +87,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[MsMeasurements]");
+            sb.Append("[MsDimensions]");
 
             if (Dimensions?.Count > 0)
             {
