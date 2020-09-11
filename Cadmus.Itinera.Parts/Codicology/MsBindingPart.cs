@@ -47,7 +47,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>century</c>, <c>cover-mat</c> (filtered,
         /// with digits), <c>support-mat</c> (filtered, with digits),
-        /// <c>w</c>, <c>h</c> (both with format 0.00).</returns>
+        /// <c>w</c>, <c>h</c> (both with format 00.00).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
@@ -77,13 +77,13 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (Size?.W != null)
             {
                 pins.Add(CreateDataPin("w",
-                    Size.W.Value.ToString("0.00", CultureInfo.InvariantCulture)));
+                    Size.W.Value.ToString("00.00", CultureInfo.InvariantCulture)));
             }
 
             if (Size?.H != null)
             {
                 pins.Add(CreateDataPin("h",
-                    Size.H.Value.ToString("0.00", CultureInfo.InvariantCulture)));
+                    Size.H.Value.ToString("00.00", CultureInfo.InvariantCulture)));
             }
 
             return pins;
