@@ -50,8 +50,8 @@ namespace Cadmus.Itinera.Parts.Codicology
 
                     if (hand.Signs?.Count > 0)
                     {
-                        builder.Update(from s in hand.Signs
-                                       select s.Id, false, "sign-");
+                        builder.Increase(from s in hand.Signs
+                                         select s.Id, false, "sign-");
                     }
                 }
             }

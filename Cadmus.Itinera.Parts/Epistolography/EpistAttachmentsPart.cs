@@ -45,8 +45,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             if (Attachments.Count > 0)
             {
-                builder.Update(from a in Attachments
-                               select a.Type, false, "att-");
+                builder.Increase(from a in Attachments
+                                 select a.Type, false, "att-");
             }
 
             return builder.Build(this);
