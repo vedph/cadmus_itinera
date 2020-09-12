@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's binding description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-binding</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-binding</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-binding")]
+    [Tag("it.vedph.itinera.ms-binding")]
     public sealed class MsBindingPart : PartBase
     {
         /// <summary>

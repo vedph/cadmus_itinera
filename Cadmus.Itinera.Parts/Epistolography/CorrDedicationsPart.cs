@@ -7,10 +7,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Dedications by the reference author to a correspondent, or vice-versa.
-    /// Tag: <c>net.fusisoft.itinera.corr-dedications</c>.
+    /// Tag: <c>it.vedph.itinera.corr-dedications</c>.
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.corr-dedications")]
+    [Tag("it.vedph.itinera.corr-dedications")]
     public sealed class CorrDedicationsPart : PartBase
     {
         /// <summary>

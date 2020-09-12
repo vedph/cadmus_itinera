@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's material description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-material-dsc</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-material-dsc</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-material-dsc")]
+    [Tag("it.vedph.itinera.ms-material-dsc")]
     public sealed class MsMaterialDscPart : PartBase
     {
         /// <summary>

@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's numbering(s).
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-numberings</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-numberings</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-numberings")]
+    [Tag("it.vedph.itinera.ms-numberings")]
     public sealed class MsNumberingsPart : PartBase
     {
         /// <summary>

@@ -7,10 +7,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Letter's chronological and topological coordinates part.
-    /// <para>Tag: <c>net.fusisoft.itinera.epist-coords</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.epist-coords</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.epist-coords")]
+    [Tag("it.vedph.itinera.epist-coords")]
     public sealed class EpistCoordsPart : PartBase
     {
         /// <summary>

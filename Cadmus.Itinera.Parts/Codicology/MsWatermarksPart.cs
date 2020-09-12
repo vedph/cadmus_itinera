@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's watermarks.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-watermarks</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-watermarks</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-watermarks")]
+    [Tag("it.vedph.itinera.ms-watermarks")]
     public sealed class MsWatermarksPart : PartBase
     {
         /// <summary>

@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Codicology
     /// Manuscript's signature(s). Among these, the signature with an empty tag
     /// is the default (current) signature. Other signatures may be added for
     /// historical reasons, and should have a tag.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-signatures</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-signatures</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-signatures")]
+    [Tag("it.vedph.itinera.ms-signatures")]
     public sealed class MsSignaturesPart : PartBase
     {
         /// <summary>

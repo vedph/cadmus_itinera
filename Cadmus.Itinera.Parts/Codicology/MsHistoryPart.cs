@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's history.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-history</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-history</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-history")]
+    [Tag("it.vedph.itinera.ms-history")]
     public sealed class MsHistoryPart : PartBase
     {
         /// <summary>

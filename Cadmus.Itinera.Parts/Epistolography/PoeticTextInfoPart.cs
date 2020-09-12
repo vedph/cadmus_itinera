@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Information about a poetic text related to some letters.
-    /// <para>Tag: <c>net.fusisoft.itinera.poetic-text</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.poetic-text</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.poetic-text")]
+    [Tag("it.vedph.itinera.poetic-text")]
     public sealed class PoeticTextInfoPart : PartBase
     {
         /// <summary>

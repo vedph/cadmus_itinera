@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's place of origin.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-place</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-place</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-place")]
+    [Tag("it.vedph.itinera.ms-place")]
     public sealed class MsPlacePart : PartBase
     {
         /// <summary>

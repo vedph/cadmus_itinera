@@ -8,10 +8,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <summary>
     /// Essential information about a letter: language, subject, manuscript
     /// heading, and optional notes.
-    /// <para>Tag: <c>net.fusisoft.itinera.epist-letter-info</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.epist-letter-info</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.epist-letter-info")]
+    [Tag("it.vedph.itinera.epist-letter-info")]
     public sealed class EpistLetterInfoPart : PartBase
     {
         /// <summary>

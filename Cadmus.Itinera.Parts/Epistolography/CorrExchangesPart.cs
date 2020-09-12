@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <summary>
     /// Exchanges of attachments sent from the reference author to one or more
     /// correspondents, or vice-versa.
-    /// <para>Tag: <c>net.fusisoft.itinera.corr-exchanges</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.corr-exchanges</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.corr-exchanges")]
+    [Tag("it.vedph.itinera.corr-exchanges")]
     public sealed class CorrExchangesPart : PartBase
     {
         /// <summary>

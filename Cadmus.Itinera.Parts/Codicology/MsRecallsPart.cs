@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's recalls description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-recalls</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-recalls</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-recalls")]
+    [Tag("it.vedph.itinera.ms-recalls")]
     public sealed class MsRecallsPart : PartBase
     {
         /// <summary>

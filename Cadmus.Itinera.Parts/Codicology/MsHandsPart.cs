@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's hands description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-hands</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-hands</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-hands")]
+    [Tag("it.vedph.itinera.ms-hands")]
     public sealed class MsHandsPart : PartBase
     {
         /// <summary>

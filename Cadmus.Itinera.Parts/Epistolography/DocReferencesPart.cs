@@ -7,13 +7,13 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// A set of document references (usually literary citations).
-    /// Tag: <c>net.fusisoft.itinera.doc-references</c>.
+    /// Tag: <c>it.vedph.itinera.doc-references</c>.
     /// </summary>
     /// <remarks>This is used for (a) for correspondent items: all the text
     /// passages referencing the correspondent or the reference author,
     /// (the part's role distinguishes these two usages); (b) for letter items:
     /// works cited in the letter's text.</remarks>
-    [Tag("net.fusisoft.itinera.doc-references")]
+    [Tag("it.vedph.itinera.doc-references")]
     public sealed class DocReferencesPart : PartBase
     {
         /// <summary>

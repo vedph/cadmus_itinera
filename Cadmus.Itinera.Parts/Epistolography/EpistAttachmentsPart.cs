@@ -8,10 +8,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Attachments connected to an epistolographic item.
-    /// <para>Tag: <c>net.fusisoft.itinera.epist-attachments</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.epist-attachments</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.epist-attachments")]
+    [Tag("it.vedph.itinera.epist-attachments")]
     public sealed class EpistAttachmentsPart : PartBase
     {
         /// <summary>

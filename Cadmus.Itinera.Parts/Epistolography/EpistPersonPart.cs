@@ -12,9 +12,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// of the correspondent or any other person (the role makes the distinction
     /// explicit). It can also represent any other generic actor, e.g. a group
     /// of persons (like "Celestini").
-    /// <para>Tag: <c>net.fusisoft.itinera.epist-person</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.epist-person</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.epist-person")]
+    [Tag("it.vedph.itinera.epist-person")]
     public sealed class EpistPersonPart : PartBase
     {
         /// <summary>

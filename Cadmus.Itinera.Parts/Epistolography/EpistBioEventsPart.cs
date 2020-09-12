@@ -8,10 +8,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Biographic events connected to letters.
-    /// Tag: <c>net.fusisoft.itinera.epist-bio-events</c>.
+    /// Tag: <c>it.vedph.itinera.epist-bio-events</c>.
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.epist-bio-events")]
+    [Tag("it.vedph.itinera.epist-bio-events")]
     public sealed class EpistBioEventsPart : PartBase
     {
         /// <summary>

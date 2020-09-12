@@ -8,10 +8,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// List of persons cited in a letter's text.
-    /// <para>Tag: <c>net.fusisoft.itinera.epist-cited-persons</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.epist-cited-persons</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("net.fusisoft.itinera.epist-cited-persons")]
+    [Tag("it.vedph.itinera.epist-cited-persons")]
     public sealed class EpistCitedPersonsPart : PartBase
     {
         /// <summary>

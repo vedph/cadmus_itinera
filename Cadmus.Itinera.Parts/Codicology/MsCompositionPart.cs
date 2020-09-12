@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript composition part.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-composition</c></para>.
+    /// <para>Tag: <c>it.vedph.itinera.ms-composition</c></para>.
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-composition")]
+    [Tag("it.vedph.itinera.ms-composition")]
     public sealed class MsCompositionPart : PartBase
     {
         /// <summary>

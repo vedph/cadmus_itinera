@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's decorations description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-decorations</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-decorations</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-decorations")]
+    [Tag("it.vedph.itinera.ms-decorations")]
     public sealed class MsDecorationsPart : PartBase
     {
         /// <summary>

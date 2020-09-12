@@ -10,9 +10,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's physical dimensions part.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-dimensions</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-dimensions</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-dimensions")]
+    [Tag("it.vedph.itinera.ms-dimensions")]
     public sealed class MsDimensionsPart : PartBase
     {
         /// <summary>

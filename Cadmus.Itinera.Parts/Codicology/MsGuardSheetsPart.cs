@@ -7,9 +7,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's guard sheets description.
-    /// <para>Tag: <c>net.fusisoft.itinera.ms-guard-sheets</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.ms-guard-sheets</c>.</para>
     /// </summary>
-    [Tag("net.fusisoft.itinera.ms-guard-sheets")]
+    [Tag("it.vedph.itinera.ms-guard-sheets")]
     public sealed class MsGuardSheetsPart : PartBase
     {
         /// <summary>

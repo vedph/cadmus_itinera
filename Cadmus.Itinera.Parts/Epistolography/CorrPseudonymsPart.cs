@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <summary>
     /// Pseudonyms assigned by the reference author to the correspondent,
     /// or vice-versa.
-    /// Tag: <c>net.fusisoft.itinera.corr-pseudonyms</c>.
+    /// Tag: <c>it.vedph.itinera.corr-pseudonyms</c>.
     /// </summary>
-    [Tag("net.fusisoft.itinera.corr-pseudonyms")]
+    [Tag("it.vedph.itinera.corr-pseudonyms")]
     public sealed class CorrPseudonymsPart : PartBase
     {
         /// <summary>
