@@ -4,10 +4,9 @@ using System.Collections.Generic;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Epistolographic chronotopic coordinates for a letter.
-    /// Used by <see cref="EpistCoordsPart"/>.
+    /// Chronotopic coordinates. Used by <see cref="ChronotopicsPart"/>.
     /// </summary>
-    public class EpistCoords
+    public class Chronotope
     {
         /// <summary>
         /// Gets or sets the tag applied to these coordinates to categorize
@@ -39,9 +38,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<DocReference> Sources { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistCoords"/> class.
+        /// Initializes a new instance of the <see cref="Chronotope"/> class.
         /// </summary>
-        public EpistCoords()
+        public Chronotope()
         {
             Sources = new List<DocReference>();
         }

@@ -7,12 +7,12 @@ using System.Text;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Biographic events connected to letters.
-    /// Tag: <c>it.vedph.itinera.epist-bio-events</c>.
+    /// Biographic events connected to a person.
+    /// Tag: <c>it.vedph.itinera.person-events</c>.
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.epist-bio-events")]
-    public sealed class EpistBioEventsPart : PartBase
+    [Tag("it.vedph.itinera.person-events")]
+    public sealed class PersonEventsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the events.
@@ -20,10 +20,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<BioEvent> Events { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistBioEventsPart"/>
+        /// Initializes a new instance of the <see cref="PersonEventsPart"/>
         /// class.
         /// </summary>
-        public EpistBioEventsPart()
+        public PersonEventsPart()
         {
             Events = new List<BioEvent>();
         }
@@ -85,7 +85,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistBioEvents]");
+            sb.Append("[PersonEvents]");
 
             if (Events?.Count > 0)
             {

@@ -19,6 +19,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Material { get; set; }
 
         /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        public MsLocation Location { get; set; }
+
+        /// <summary>
         /// Gets or sets the date.
         /// </summary>
         public HistoricalDate Date { get; set; }
@@ -36,7 +41,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{(IsBack? 'B':'F')}] {Material}"
+            return $"[{(IsBack? 'B':'F')}] {Location} {Material}"
                 + (Date != null? Date.ToString() : "");
         }
     }

@@ -25,9 +25,19 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= sectionCount; n++)
             {
+                string oddEven = n % 2 == 0 ? "even" : "odd";
+
+                part.GuardSheets.Add(new MsGuardSheet
+                {
+                    IsBack = n % 2 == 0,
+                    Material = oddEven,
+                    Location = new MsLocation { N = 2, V = true, L = 1 },
+                    Date = HistoricalDate.Parse(n + 1300 + " AD")
+                });
+
                 part.Sections.Add(new MsSection
                 {
-                    Tag = n % 2 == 0 ? "even" : "odd",
+                    Tag = oddEven,
                     Label = $"Section {n}",
                     Date = HistoricalDate.Parse(n + 1200 + " AD"),
                     Start = new MsLocation
@@ -69,7 +79,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(11, pins.Count);
+            Assert.Equal(16, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "sheet-count");
             Assert.NotNull(pin);
@@ -96,8 +106,26 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1", pin.Value);
 
+            pin = pins.Find(p => p.Name == "guard-material"
+                && p.Value == "odd");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
+            pin = pins.Find(p => p.Name == "guard-material"
+                && p.Value == "even");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
             for (int n = 1; n <= 3; n++)
             {
+                // guard
+                pin = pins.Find(p => p.Name == "guard-date-value"
+                    && p.Value == HistoricalDate.Parse(n + 1300 + " AD")
+                    .GetSortValue().ToString(CultureInfo.InvariantCulture));
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+
+                // section
                 pin = pins.Find(p => p.Name == "section-label"
                     && p.Value == $"section {n}");
                 Assert.NotNull(pin);

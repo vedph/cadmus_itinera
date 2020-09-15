@@ -3,9 +3,9 @@
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// An attachment to a letter.
+    /// An attachment to a letter or poetic text.
     /// </summary>
-    public class EpistAttachment
+    public class Attachment
     {
         /// <summary>
         /// Gets or sets the type of the attachment (e.g. manuscript, work...).

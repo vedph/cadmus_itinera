@@ -21,19 +21,13 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= count; n++)
             {
-                part.Hands.Add(new MsHand
+                part.Hands.Add(new MsHandInstance
                 {
                     Id = $"hand-{n}",
                     IdReason = "Reason",
-                    Type = n % 2 == 0? "even" : "odd",
                     Start = new MsLocation { N = 2, V = true, L = 3 },
                     End = new MsLocation { N = 4, V = true, L = 5 },
                     ExtentNote = "Extent",
-                    Description = "Description",
-                    Initials = "Initials",
-                    Corrections = "Corrections",
-                    Punctuation = "Punctuation",
-                    Abbreviations = "Abbreviations",
                     Rubrications = new List<MsRubrication>(new[]
                     {
                         new MsRubrication
@@ -52,20 +46,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                             Language = "eng",
                             Text = "Text"
                         }
-                    }),
-                    Signs = new List<MsHandSign>(new[]
-                    {
-                        new MsHandSign
-                        {
-                            Id = $"s{n}",
-                            Type = "letter",
-                            Description = "Description",
-                            ImageId = "sign"
-                        }
-                    }),
-                    ImageIds = new List<string>(new[]
-                    {
-                        "a", "b"
                     })
                 });
             }

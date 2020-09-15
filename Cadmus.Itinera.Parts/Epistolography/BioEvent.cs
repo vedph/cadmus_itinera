@@ -6,7 +6,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// A biographic event found in literary sources. This is used in
-    /// <see cref="EpistBioEventsPart"/>.
+    /// <see cref="PersonEventsPart"/>.
     /// </summary>
     public class BioEvent
     {
@@ -42,6 +42,30 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<DecoratedId> Participants { get; set; }
 
         /// <summary>
+        /// Gets or sets the work, whatever it is (literary, artistic, etc.),
+        /// connected to this event. For instance, for a literary work this
+        /// should contain the work's title.
+        /// </summary>
+        public string Work { get; set; }
+
+        /// <summary>
+        /// Gets or sets the confindence rank: 0=not specified, 1=sure,
+        /// 2=dubious, etc. This is often used in connection with <see cref="Work"/>
+        /// when the work's attribution is not sure.
+        /// </summary>
+        public short Rank { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether <see cref="Work"/> is lost.
+        /// </summary>
+        public bool IsWorkLost { get; set; }
+
+        /// <summary>
+        /// Gets or sets the external IDs connected to this event or its work.
+        /// </summary>
+        public List<string> ExternalIds { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BioEvent"/> class.
         /// </summary>
         public BioEvent()
@@ -49,6 +73,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             Places = new List<string>();
             Sources = new List<DocReference>();
             Participants = new List<DecoratedId>();
+            ExternalIds = new List<string>();
         }
 
         /// <summary>

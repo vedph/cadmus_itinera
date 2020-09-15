@@ -1,9 +1,9 @@
 ﻿namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's recalls (richiami).
+    /// Manuscript's catchwords (richiami).
     /// </summary>
-    public class MsRecall
+    public class MsCatchword
     {
         /// <summary>
         /// Gets or sets the position in the page.
@@ -11,13 +11,13 @@
         public string Position { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this recall is vertical
+        /// Gets or sets a value indicating whether this catchword is vertical
         /// instead of horizontal.
         /// </summary>
         public bool IsVertical { get; set; }
 
         /// <summary>
-        /// Gets or sets the decoration description.
+        /// Gets or sets the catchword's description.
         /// </summary>
         public string Decoration { get; set; }
 

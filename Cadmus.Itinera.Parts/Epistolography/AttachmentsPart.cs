@@ -7,25 +7,25 @@ using System.Linq;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Attachments connected to an epistolographic item.
-    /// <para>Tag: <c>it.vedph.itinera.epist-attachments</c>.</para>
+    /// Attachments connected to some document (letter or poetic text).
+    /// <para>Tag: <c>it.vedph.itinera.attachments</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.epist-attachments")]
-    public sealed class EpistAttachmentsPart : PartBase
+    [Tag("it.vedph.itinera.attachments")]
+    public sealed class AttachmentsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
-        public List<EpistAttachment> Attachments { get; set; }
+        public List<Attachment> Attachments { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistAttachmentsPart"/>
+        /// Initializes a new instance of the <see cref="AttachmentsPart"/>
         /// class.
         /// </summary>
-        public EpistAttachmentsPart()
+        public AttachmentsPart()
         {
-            Attachments = new List<EpistAttachment>();
+            Attachments = new List<Attachment>();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistAttachments]");
+            sb.Append("[Attachments]");
             var groups = from a in Attachments
                          group a by a.Type
                          into g

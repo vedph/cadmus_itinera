@@ -1,9 +1,9 @@
 ﻿namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript collation quire.
+    /// A manuscript's quire.
     /// </summary>
-    public class MsCollationQuire
+    public class MsQuire
     {
         /// <summary>
         /// Gets or sets a value indicating whether this quire represents the

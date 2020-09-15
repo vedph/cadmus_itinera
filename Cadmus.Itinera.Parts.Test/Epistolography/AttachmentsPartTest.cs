@@ -7,11 +7,11 @@ using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
-    public sealed class EpistAttachmentsPartTest
+    public sealed class AttachmentsPartTest
     {
-        public static EpistAttachmentsPart GetPart(int count)
+        public static AttachmentsPart GetPart(int count)
         {
-            EpistAttachmentsPart part = new EpistAttachmentsPart
+            AttachmentsPart part = new AttachmentsPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -21,7 +21,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             for (int n = 1; n <= count; n++)
             {
-                part.Attachments.Add(new EpistAttachment
+                part.Attachments.Add(new Attachment
                 {
                     Type = n % 2 == 0 ? "even" : "odd",
                     Name = $"Attachment {n}",
@@ -36,11 +36,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void Part_Is_Serializable()
         {
-            EpistAttachmentsPart part = GetPart(2);
+            AttachmentsPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            EpistAttachmentsPart part2 =
-                TestHelper.DeserializePart<EpistAttachmentsPart>(json);
+            AttachmentsPart part2 =
+                TestHelper.DeserializePart<AttachmentsPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -56,7 +56,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_NoAttachments_Ok()
         {
-            EpistAttachmentsPart part = GetPart(0);
+            AttachmentsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -70,7 +70,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_Attachments_Ok()
         {
-            EpistAttachmentsPart part = GetPart(3);
+            AttachmentsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 

@@ -1,39 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using Cadmus.Core;
+using Fusi.Tools.Config;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Information about a manuscript's hand.
+    /// Person's hand description.
+    /// <para>Tag: <c>it.vedph.itinera.person-hand</c></para>
     /// </summary>
-    public class MsHand
+    [Tag("it.vedph.itinera.person-hand")]
+    public sealed class PersonHandPart : PartBase
     {
         /// <summary>
         /// Gets or sets a conventional, arbitrary identifier assigned to this
         /// hand and unique whithin the boundaries of the manuscript.
         /// </summary>
-        public string Id { get; set; }
+        public string PersonId { get; set; }
 
         /// <summary>
-        /// Gets or sets the description of the reasons behind the hand's
-        /// identification.
+        /// Gets or sets the person's job. This is used to distinguish
+        /// professional copysts from occasional copysts.
         /// </summary>
-        public string IdReason { get; set; }
+        public string Job { get; set; }
 
         /// <summary>
         /// Gets or sets the hand's type.
         /// </summary>
         public string Type { get; set; }
-
-        /// <summary>
-        /// Gets or sets the start location of this hand in the manuscript.
-        /// </summary>
-        public MsLocation Start { get; set; }
-
-        /// <summary>
-        /// Gets or sets the end location (inclusive) of this hand in the
-        /// manuscript.
-        /// </summary>
-        public MsLocation End { get; set; }
 
         /// <summary>
         /// Gets or sets a note about the hand's extent.
@@ -76,11 +71,6 @@ namespace Cadmus.Itinera.Parts.Codicology
         public List<MsSubscription> Subscriptions { get; set; }
 
         /// <summary>
-        /// Gets or sets the signs description.
-        /// </summary>
-        public List<MsHandSign> Signs { get; set; }
-
-        /// <summary>
         /// Gets or sets the images IDs. These IDs represent the prefixes for
         /// all the images depicting something related to this hand; e.g. if the
         /// ID is <c>ae</c>, we would expect any number of image resources
@@ -90,14 +80,53 @@ namespace Cadmus.Itinera.Parts.Codicology
         public List<string> ImageIds { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsHand"/> class.
+        /// Gets or sets the signs description.
         /// </summary>
-        public MsHand()
+        public List<MsHandSign> Signs { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonHandPart"/> class.
+        /// </summary>
+        public PersonHandPart()
         {
             Rubrications = new List<MsRubrication>();
             Subscriptions = new List<MsSubscription>();
-            Signs = new List<MsHandSign>();
             ImageIds = new List<string>();
+            Signs = new List<MsHandSign>();
+        }
+
+        /// <summary>
+        /// Get all the key=value pairs (pins) exposed by the implementor.
+        /// </summary>
+        /// <param name="item">The optional item. The item with its parts
+        /// can optionally be passed to this method for those parts requiring
+        /// to access further data.</param>
+        /// <returns>The pins: <c>id</c> (filtered, with digits), <c>job</c>
+        /// (filtered, with digits), <c>type</c> (filtered, with digits),
+        /// <c>img-count</c>, <c>sign-tot-count</c>, <c>sign-X-count</c>.
+        /// </returns>
+        public override IEnumerable<DataPin> GetDataPins(IItem item)
+        {
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
+
+            if (!string.IsNullOrEmpty(PersonId))
+                builder.AddValue("id", PersonId, filter: true, filterOptions: true);
+
+            if (!string.IsNullOrEmpty(Job))
+                builder.AddValue("job", Job, filter: true, filterOptions: true);
+
+            if (!string.IsNullOrEmpty(Type))
+                builder.AddValue("type", Type, filter: true, filterOptions: true);
+
+            builder.Set("img-count", ImageIds?.Count ?? 0, false);
+
+            if (Signs?.Count > 0)
+            {
+                builder.Increase(from s in Signs select s.Id, true, "sign-");
+            }
+
+            return builder.Build(this);
         }
 
         /// <summary>
@@ -108,7 +137,17 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{Type}] {Id} {Start}-{End}";
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("[PersonHand]");
+
+            if (!string.IsNullOrEmpty(PersonId))
+                sb.Append(' ').Append(PersonId);
+
+            if (!string.IsNullOrEmpty(Type))
+                sb.Append(" [").Append(Type).Append(']');
+
+            return sb.ToString();
         }
     }
 }

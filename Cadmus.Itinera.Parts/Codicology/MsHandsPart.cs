@@ -16,14 +16,14 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the hands.
         /// </summary>
-        public List<MsHand> Hands { get; set; }
+        public List<MsHandInstance> Hands { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MsHandsPart"/> class.
         /// </summary>
         public MsHandsPart()
         {
-            Hands = new List<MsHand>();
+            Hands = new List<MsHandInstance>();
         }
 
         /// <summary>
@@ -33,27 +33,19 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c> and a collection of pins with
-        /// these keys: <c>id</c>, <c>type-X-count</c>, <c>sign-X-count</c>.
-        /// </returns>
+        /// these keys: <c>id</c> (filtered, with digits).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            DataPinBuilder builder = new DataPinBuilder();
+            DataPinBuilder builder = new DataPinBuilder(
+                new StandardDataPinTextFilter());
 
             builder.Set("tot", Hands?.Count ?? 0, false);
 
             if (Hands?.Count > 0)
             {
-                foreach (var hand in Hands)
-                {
-                    builder.AddValue("id", hand.Id);
-                    builder.Increase(hand.Type, false, "type-");
-
-                    if (hand.Signs?.Count > 0)
-                    {
-                        builder.Increase(from s in hand.Signs
-                                         select s.Id, false, "sign-");
-                    }
-                }
+                builder.AddValues("id", from h in Hands
+                                        select h.Id,
+                                        filter: true, filterOptions: true);
             }
 
             return builder.Build(this);

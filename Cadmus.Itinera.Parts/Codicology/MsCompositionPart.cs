@@ -23,6 +23,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         public int GuardSheetCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the descriptions of specific guard sheets.
+        /// </summary>
+        public List<MsGuardSheet> GuardSheets { get; set; }
+
+        /// <summary>
         /// Gets or sets the manuscript's content sections.
         /// </summary>
         public List<MsSection> Sections { get; set; }
@@ -33,6 +38,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsCompositionPart()
         {
+            GuardSheets = new List<MsGuardSheet>();
             Sections = new List<MsSection>();
         }
 
@@ -44,7 +50,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>sheet-count</c>, <c>guard-sheet-count</c>,
         /// <c>section-count</c>, and a list with keys: <c>section-TAG-count</c>,
-        /// <c>section-label</c> (filtered, with digits), <c>section-date-value</c>.
+        /// <c>section-label</c> (filtered, with digits),
+        /// <c>section-date-value</c>, <c>guard-material</c> (filtered, with
+        /// digits), <c>guard-date-value</c>.
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -54,6 +62,24 @@ namespace Cadmus.Itinera.Parts.Codicology
             builder.Set("sheet", SheetCount, false);
             builder.Set("guard-sheet", GuardSheetCount, false);
             builder.Set("section", Sections?.Count ?? 0, false);
+
+            if (GuardSheets?.Count > 0)
+            {
+                foreach (MsGuardSheet guard in GuardSheets)
+                {
+                    if (!string.IsNullOrEmpty(guard.Material))
+                    {
+                        builder.AddValue("guard-material", guard.Material,
+                            filter: true, filterOptions: true);
+                    }
+
+                    if (guard.Date != null)
+                    {
+                        builder.AddValue("guard-date-value",
+                            guard.Date.GetSortValue());
+                    }
+                }
+            }
 
             if (Sections?.Count > 0)
             {
@@ -68,7 +94,10 @@ namespace Cadmus.Itinera.Parts.Codicology
                     }
 
                     if (section.Date != null)
-                        builder.AddValue("section-date-value", section.Date.GetSortValue());
+                    {
+                        builder.AddValue("section-date-value",
+                            section.Date.GetSortValue());
+                    }
                 }
             }
 

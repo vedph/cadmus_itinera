@@ -8,11 +8,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// <summary>
     /// Essential information about a letter: language, subject, manuscript
     /// heading, and optional notes.
-    /// <para>Tag: <c>it.vedph.itinera.epist-letter-info</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.letter-info</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.epist-letter-info")]
-    public sealed class EpistLetterInfoPart : PartBase
+    [Tag("it.vedph.itinera.letter-info")]
+    public sealed class LetterInfoPart : PartBase
     {
         /// <summary>
         /// Gets or sets the language (ISO 639-3).
@@ -69,7 +69,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistLetterInfo]");
+            sb.Append("[LetterInfo]");
 
             if (!string.IsNullOrEmpty(Language))
                 sb.Append(" [").Append(Language).Append(']');

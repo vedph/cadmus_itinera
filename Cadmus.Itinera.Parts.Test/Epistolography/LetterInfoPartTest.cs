@@ -7,11 +7,11 @@ using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
-    public sealed class EpistLetterInfoPartTest
+    public sealed class LetterInfoPartTest
     {
-        private static EpistLetterInfoPart GetPart()
+        private static LetterInfoPart GetPart()
         {
-            return new EpistLetterInfoPart
+            return new LetterInfoPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -27,11 +27,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void Part_Is_Serializable()
         {
-            EpistLetterInfoPart part = GetPart();
+            LetterInfoPart part = GetPart();
 
             string json = TestHelper.SerializePart(part);
-            EpistLetterInfoPart part2 =
-                TestHelper.DeserializePart<EpistLetterInfoPart>(json);
+            LetterInfoPart part2 =
+                TestHelper.DeserializePart<LetterInfoPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -49,7 +49,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_Ok()
         {
-            EpistLetterInfoPart part = GetPart();
+            LetterInfoPart part = GetPart();
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 

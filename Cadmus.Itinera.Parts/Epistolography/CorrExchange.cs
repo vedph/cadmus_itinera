@@ -55,7 +55,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the attachments in this exchange.
         /// </summary>
-        public List<EpistAttachment> Attachments { get; set; }
+        public List<Attachment> Attachments { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorrExchange"/> class.
@@ -64,7 +64,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             Participants = new List<DecoratedId>();
             Sources = new List<DocReference>();
-            Attachments = new List<EpistAttachment>();
+            Attachments = new List<Attachment>();
         }
 
         /// <summary>

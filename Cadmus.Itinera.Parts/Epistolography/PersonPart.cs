@@ -8,14 +8,14 @@ using System.Globalization;
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Epistolography person part. This contains the ID and biographic data
-    /// of the correspondent or any other person (the role makes the distinction
+    /// Person part. This contains the ID and biographic data of the
+    /// correspondent or any other person (the role makes the distinction
     /// explicit). It can also represent any other generic actor, e.g. a group
     /// of persons (like "Celestini").
-    /// <para>Tag: <c>it.vedph.itinera.epist-person</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.person</c>.</para>
     /// </summary>
-    [Tag("it.vedph.itinera.epist-person")]
-    public sealed class EpistPersonPart : PartBase
+    [Tag("it.vedph.itinera.person")]
+    public sealed class PersonPart : PartBase
     {
         /// <summary>
         /// Gets or sets the person identifier, an internal human-readable ID
@@ -70,9 +70,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public string Bio { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistPersonPart"/> class.
+        /// Initializes a new instance of the <see cref="PersonPart"/> class.
         /// </summary>
-        public EpistPersonPart()
+        public PersonPart()
         {
             ExternalIds = new List<string>();
             Names = new List<PersonName>();
@@ -160,7 +160,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistPerson]");
+            sb.Append("[Person]");
 
             if (!string.IsNullOrEmpty(PersonId))
                 sb.Append(' ').Append(PersonId);

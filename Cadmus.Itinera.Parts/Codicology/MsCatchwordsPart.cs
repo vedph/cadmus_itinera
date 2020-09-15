@@ -6,23 +6,23 @@ using System.Text;
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's recalls description.
-    /// <para>Tag: <c>it.vedph.itinera.ms-recalls</c>.</para>
+    /// Manuscript's catchwords description.
+    /// <para>Tag: <c>it.vedph.itinera.ms-catchwords</c>.</para>
     /// </summary>
-    [Tag("it.vedph.itinera.ms-recalls")]
-    public sealed class MsRecallsPart : PartBase
+    [Tag("it.vedph.itinera.ms-catchwords")]
+    public sealed class MsCatchwordsPart : PartBase
     {
         /// <summary>
-        /// Gets or sets the recalls.
+        /// Gets or sets the catchwords.
         /// </summary>
-        public List<MsRecall> Recalls { get; set; }
+        public List<MsCatchword> Catchwords { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsRecallsPart"/> class.
+        /// Initializes a new instance of the <see cref="MsCatchwordsPart"/> class.
         /// </summary>
-        public MsRecallsPart()
+        public MsCatchwordsPart()
         {
-            Recalls = new List<MsRecall>();
+            Catchwords = new List<MsCatchword>();
         }
 
         /// <summary>
@@ -37,14 +37,14 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             DataPinBuilder builder = new DataPinBuilder();
 
-            builder.Set("tot", Recalls?.Count ?? 0, false);
+            builder.Set("tot", Catchwords?.Count ?? 0, false);
 
-            if (Recalls?.Count > 0)
+            if (Catchwords?.Count > 0)
             {
-                foreach (MsRecall recall in Recalls)
+                foreach (MsCatchword catchword in Catchwords)
                 {
-                    builder.Increase(recall.Position, false, "pos-");
-                    builder.Increase(recall.IsVertical, false, "vrt-");
+                    builder.Increase(catchword.Position, false, "pos-");
+                    builder.Increase(catchword.IsVertical, false, "vrt-");
                 }
             }
 
@@ -61,20 +61,20 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[MsRecalls]");
+            sb.Append("[MsCatchwords]");
 
-            if (Recalls?.Count > 0)
+            if (Catchwords?.Count > 0)
             {
                 sb.Append(' ');
                 int n = 0;
-                foreach (MsRecall recall in Recalls)
+                foreach (MsCatchword recall in Catchwords)
                 {
                     if (++n > 3) break;
                     if (n > 1) sb.Append("; ");
                     sb.Append(recall);
                 }
-                if (Recalls.Count > 3)
-                    sb.Append("...(").Append(Recalls.Count).Append(')');
+                if (Catchwords.Count > 3)
+                    sb.Append("...(").Append(Catchwords.Count).Append(')');
             }
 
             return sb.ToString();

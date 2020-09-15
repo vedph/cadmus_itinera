@@ -7,24 +7,24 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Letter's chronological and topological coordinates part.
-    /// <para>Tag: <c>it.vedph.itinera.epist-coords</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.chronotopics</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.epist-coords")]
-    public sealed class EpistCoordsPart : PartBase
+    [Tag("it.vedph.itinera.chronotopics")]
+    public sealed class ChronotopicsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the coordinates.
         /// </summary>
-        public List<EpistCoords> Coordinates { get; set; }
+        public List<Chronotope> Chronotopes { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistCoordsPart"/>
+        /// Initializes a new instance of the <see cref="ChronotopicsPart"/>
         /// class.
         /// </summary>
-        public EpistCoordsPart()
+        public ChronotopicsPart()
         {
-            Coordinates = new List<EpistCoords>();
+            Chronotopes = new List<Chronotope>();
         }
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
             DataPinBuilder builder = new DataPinBuilder(
                 new StandardDataPinTextFilter());
 
-            builder.Set("tot", Coordinates?.Count ?? 0, false);
+            builder.Set("tot", Chronotopes?.Count ?? 0, false);
 
-            if (Coordinates?.Count > 0)
+            if (Chronotopes?.Count > 0)
             {
-                foreach (EpistCoords coords in Coordinates)
+                foreach (Chronotope coords in Chronotopes)
                 {
                     builder.Increase(coords.Tag, false, "tag-");
 
@@ -88,20 +88,20 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[EpistCoords]");
+            sb.Append("[Chronotopics]");
 
-            if (Coordinates?.Count > 0)
+            if (Chronotopes?.Count > 0)
             {
                 int n = 0;
-                foreach (EpistCoords coords in Coordinates)
+                foreach (Chronotope coords in Chronotopes)
                 {
                     if (++n > 3) break;
                     if (n > 1) sb.Append("; ");
                     sb.Append(coords);
                 }
 
-                if (Coordinates.Count > 3)
-                    sb.Append("...(").Append(Coordinates.Count).Append(')');
+                if (Chronotopes.Count > 3)
+                    sb.Append("...(").Append(Chronotopes.Count).Append(')');
             }
 
             return sb.ToString();

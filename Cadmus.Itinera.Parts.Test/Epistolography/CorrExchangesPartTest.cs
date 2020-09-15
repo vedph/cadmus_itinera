@@ -26,13 +26,13 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             return ids;
         }
 
-        private static List<EpistAttachment> GetAttachments(int count)
+        private static List<Attachment> GetAttachments(int count)
         {
-            List<EpistAttachment> attachments = new List<EpistAttachment>();
+            List<Attachment> attachments = new List<Attachment>();
 
             for (int n = 1; n <= count; n++)
             {
-                attachments.Add(new EpistAttachment
+                attachments.Add(new Attachment
                 {
                     Type = n % 2 == 0? "even" : "odd",
                     Name = $"attachment-{n}",

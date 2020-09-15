@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 {
     public sealed class MsRecallsPartTest
     {
-        private static MsRecallsPart GetPart(int count)
+        private static MsCatchwordsPart GetPart(int count)
         {
-            MsRecallsPart part = new MsRecallsPart
+            MsCatchwordsPart part = new MsCatchwordsPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -21,7 +21,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= count; n++)
             {
-                part.Recalls.Add(new MsRecall
+                part.Catchwords.Add(new MsCatchword
                 {
                     Position = n % 2 == 0? "right" : "bottom",
                     IsVertical = n % 2 == 0,
@@ -36,11 +36,11 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         [Fact]
         public void Part_Is_Serializable()
         {
-            MsRecallsPart part = GetPart(2);
+            MsCatchwordsPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            MsRecallsPart part2 =
-                TestHelper.DeserializePart<MsRecallsPart>(json);
+            MsCatchwordsPart part2 =
+                TestHelper.DeserializePart<MsCatchwordsPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -49,14 +49,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             Assert.Equal(part.CreatorId, part2.CreatorId);
             Assert.Equal(part.UserId, part2.UserId);
 
-            Assert.Equal(2, part.Recalls.Count);
+            Assert.Equal(2, part.Catchwords.Count);
             // TODO: details
         }
 
         [Fact]
         public void GetDataPins_NoRecalls_Ok()
         {
-            MsRecallsPart part = GetPart(0);
+            MsCatchwordsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -70,7 +70,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         [Fact]
         public void GetDataPins_Recalls_Ok()
         {
-            MsRecallsPart part = GetPart(3);
+            MsCatchwordsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
