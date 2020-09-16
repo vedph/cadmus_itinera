@@ -94,30 +94,16 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(9, pins.Count);
+            Assert.Equal(4, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("3", pin.Value);
 
-            pin = pins.Find(p => p.Name == "type-odd-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("2", pin.Value);
-
-            pin = pins.Find(p => p.Name == "type-even-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("1", pin.Value);
-
             for (int n = 1; n <= 3; n++)
             {
                 pin = pins.Find(p => p.Name == "id" && p.Value == $"hand-{n}");
-                Assert.NotNull(pin);
-                TestHelper.AssertPinIds(part, pin);
-
-                pin = pins.Find(p => p.Name == $"sign-s{n}-count");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

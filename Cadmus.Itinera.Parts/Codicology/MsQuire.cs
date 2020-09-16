@@ -1,4 +1,6 @@
-﻿namespace Cadmus.Itinera.Parts.Codicology
+﻿using System.Globalization;
+
+namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// A manuscript's quire.
@@ -44,8 +46,9 @@
         /// </returns>
         public override string ToString()
         {
-            // TODO:
-            return base.ToString();
+            return $"{StartNr}-{EndNr}^{SheetCount}"
+                + (SheetDelta != 0? SheetDelta.ToString(CultureInfo.InvariantCulture) : "")
+                + (string.IsNullOrEmpty(Note)? "" : $" ({Note})");
         }
     }
 }

@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using Cadmus.Core;
 using Fusi.Tools.Config;
+using System.Globalization;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's hands description.
-    /// <para>Tag: <c>it.vedph.itinera.ms-hands</c>.</para>
+    /// Mansucript's quires description.
+    /// <para>Tag: <c>it.vedph.itinera.ms-quires</c>.</para>
     /// </summary>
-    [Tag("it.vedph.itinera.ms-hands")]
-    public sealed class MsHandsPart : PartBase
+    [Tag("it.vedph.itinera.ms-quires")]
+    public sealed class MsQuiresPart : PartBase
     {
         /// <summary>
-        /// Gets or sets the hands.
+        /// Gets or sets the entries.
         /// </summary>
-        public List<MsHandInstance> Hands { get; set; }
+        public List<MsQuire> Quires { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MsHandsPart"/> class.
+        /// Initializes a new instance of the <see cref="MsQuiresPart"/> class.
         /// </summary>
-        public MsHandsPart()
+        public MsQuiresPart()
         {
-            Hands = new List<MsHandInstance>();
+            Quires = new List<MsQuire>();
         }
 
         /// <summary>
@@ -33,17 +34,19 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c> and a collection of pins with
-        /// these keys: <c>id</c>.</returns>
+        /// these keys: <c>sheet-count</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
 
-            builder.Set("tot", Hands?.Count ?? 0, false);
+            builder.Set("tot", Quires?.Count ?? 0, false);
 
-            if (Hands?.Count > 0)
+            if (Quires?.Count > 0)
             {
-                builder.AddValues("id", from h in Hands
-                                        select h.Id);
+                builder.AddValues(
+                    "sheet-count",
+                    from q in Quires
+                    select q.SheetCount.ToString(CultureInfo.InvariantCulture));
             }
 
             return builder.Build(this);
@@ -59,20 +62,20 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[MsHands]");
+            sb.Append("[MsQuires]");
 
-            if (Hands?.Count > 0)
+            if (Quires?.Count > 0)
             {
                 sb.Append(' ');
                 int n = 0;
-                foreach (var entry in Hands)
+                foreach (var entry in Quires)
                 {
                     if (++n > 3) break;
                     if (n > 1) sb.Append("; ");
                     sb.Append(entry);
                 }
-                if (Hands.Count > 3)
-                    sb.Append("...(").Append(Hands.Count).Append(')');
+                if (Quires.Count > 3)
+                    sb.Append("...(").Append(Quires.Count).Append(')');
             }
 
             return sb.ToString();
