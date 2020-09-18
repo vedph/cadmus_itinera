@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Codicology
 {
-    public sealed class MsMeasurementsPartTest
+    public sealed class MsDimensionsPartTest
     {
         private static List<PhysicalDimension> GetDimensions(int count)
         {
@@ -104,7 +104,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 string id = new string((char)('a' + n - 1), 1);
 
                 DataPin pin = pins.Find(p => p.Name == "d." + id
-                    && p.Value == n.ToString(CultureInfo.InvariantCulture));
+                    && p.Value == n.ToString("00.00", CultureInfo.InvariantCulture));
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
 

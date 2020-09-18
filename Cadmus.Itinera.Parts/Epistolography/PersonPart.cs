@@ -86,10 +86,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>person-id</c> (when <see cref="PersonId"/>
         /// is specified); 0 or more <c>ext-id</c>'s; 0 or more <c>name</c>'s,
-        /// filtered; <c>sex</c>, if specified; <c>birth-date-value</c> if
-        /// specified; <c>death-date-value</c> if specified; filtered
-        /// <c>birth-place</c> and <c>death-place</c> if specified; count of
-        /// characters in <see cref="Bio"/> in <c>bio-length</c>.
+        /// filtered, with digits; <c>sex</c>, if specified;
+        /// <c>birth-date-value</c> if specified; <c>death-date-value</c> if
+        /// specified; <c>birth-place</c> and <c>death-place</c> if specified,
+        /// filtered with digits; count of characters in <see cref="Bio"/>
+        /// in <c>bio-length</c>.
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -148,6 +149,46 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 cc.ToString(CultureInfo.InvariantCulture)));
 
             return pins;
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "person-id",
+                    "The person ID, if any."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "ext-id",
+                    "The list of external IDs, if any.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "name",
+                    "The list name(s) for this person, if any.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "sex",
+                    "The person's sex, if any."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "birth-date-value",
+                    "The sortable value of the person's birth date, if any."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "death-date-value",
+                    "The sortable value of the person's death date, if any."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "birth-place",
+                    "The person's birth place, if any."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "death-place",
+                    "The person's death place, if any."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "bio-length",
+                    "The length (in characters) of the bio resume.")
+            });
         }
 
         /// <summary>

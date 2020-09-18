@@ -41,7 +41,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>language</c>, <c>subject</c> (filtered,
-        /// with digits), <c>heading</c> (filtered).</returns>
+        /// with digits), <c>heading</c> (filtered, with digits).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
@@ -51,12 +51,34 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 pins.Add(CreateDataPin("language", Language));
 
             if (!string.IsNullOrEmpty(Subject))
-                pins.Add(CreateDataPin("subject", filter.Apply(Subject)));
+                pins.Add(CreateDataPin("subject", filter.Apply(Subject, true)));
 
             if (!string.IsNullOrEmpty(Heading))
-                pins.Add(CreateDataPin("heading", filter.Apply(Heading)));
+                pins.Add(CreateDataPin("heading", filter.Apply(Heading, true)));
 
             return pins;
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "language",
+                    "The letter's (main) language."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "subject",
+                    "The letter's subject.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "heading",
+                    "The letter's heading.",
+                    "f")
+            });
         }
 
         /// <summary>

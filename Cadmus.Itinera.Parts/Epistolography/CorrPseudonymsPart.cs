@@ -60,6 +60,25 @@ namespace Cadmus.Itinera.Parts.Epistolography
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of pseudonyms."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "pseudonym",
+                    "The list of pseudonyms prefixed by +=author's pseudonym" +
+                        "or -=non-author pseudonym.",
+                    "Mf")
+            });
+        }
+
+        /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>

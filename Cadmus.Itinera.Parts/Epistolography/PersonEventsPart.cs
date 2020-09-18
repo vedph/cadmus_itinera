@@ -37,8 +37,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <returns>The pins: collections of unique values keyed under these
         /// IDs: <c>tot-count</c>=total events count, <c>type-TAG-count</c>,
         /// <c>date-value</c>, <c>place</c> (filtered, with digits),
-        /// <c>participant</c> (filtered, with digits, prefixed by tag in
-        /// <c>[]</c>).</returns>
+        /// <c>participant</c> (filtered, with digits, prefixed by tag +
+        /// <c>:</c>).</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder(
@@ -73,6 +73,35 @@ namespace Cadmus.Itinera.Parts.Epistolography
             }
 
             return builder.Build(this);
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of events."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "type-{TAG}-count",
+                    "The counts of events for each of their tags."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "date-value",
+                    "The list of sortable date values from the events.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "place",
+                    "The list of places from the events.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "participant",
+                    "The list of events participants, in the form tag:id.",
+                    "Mf")
+            });
         }
 
         /// <summary>

@@ -56,7 +56,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>language</c>, <c>subject</c> (filtered, with
         /// digits), <c>metre</c>; also, for each author: <c>author-name</c>
-        /// (filtered), <c>author-id</c> (prefixed by rank and :).
+        /// (filtered, with digits), <c>author-id</c> (prefixed by rank and :).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -81,6 +81,34 @@ namespace Cadmus.Itinera.Parts.Epistolography
             }
 
             return builder.Build(this);
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "language",
+                    "The text's (main) language."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "subject",
+                    "The subject.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "metre",
+                    "The text's (main) metre."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "author-name",
+                    "The author's name.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "metre",
+                    "The author ID, prefixed by his rank plus :.")
+            });
         }
 
         /// <summary>
