@@ -67,6 +67,37 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of numberings."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "era-{X}-count",
+                    "The counts of each numbering's era value."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "sys-{X}-count",
+                    "The counts of each numbering's system value."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tech-{X}-count",
+                    "The counts of each numbering's technology value."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "century",
+                    "The century values of each numbering, if any.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "position",
+                    "The position values of each numbering, if any.",
+                    "M")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>
