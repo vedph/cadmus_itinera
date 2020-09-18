@@ -1,0 +1,29 @@
+{
+  "facets": [
+    {
+      "typeId": "it.vedph.itinera.ms-binding",
+      "name": "bindings",
+      "description": "Manuscript's bindings.",
+      "required": false,
+      "colorKey": "98F8F8",
+      "groupKey": "manuscript",
+      "sortKey": "bindings"
+    }
+  ],
+  "seed": {
+    "options": {
+      "seed": 1,
+      "baseTextPartTypeId": "it.vedph.token-text",
+      "users": [ "zeus" ],
+      "partRoles": [],
+      "fragmentRoles": []
+    },
+    "partSeeders": [
+      {
+        "id": "seed.it.vedph.itinera.ms-binding",
+      }
+    ],
+    "fragmentSeeders": [
+    ]
+  }
+}
