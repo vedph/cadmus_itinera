@@ -35,7 +35,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c>, and lists of pins with keys:
-        /// <c>tag-VALUE-count</c>, <c>library</c> (filtered, with digits),
+        /// <c>tag-TAG-count</c>, <c>library</c> (filtered, with digits),
         /// <c>city</c> (filtered).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
@@ -63,6 +63,31 @@ namespace Cadmus.Itinera.Parts.Codicology
             }
 
             return builder.Build(this);
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of signatures."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tag-{TAG}-count",
+                    "The counts for each signature's tag."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "library",
+                    "The list of libraries from the signatures.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "city",
+                    "The list of cities from the signatures.",
+                    "MF")
+            });
         }
 
         /// <summary>

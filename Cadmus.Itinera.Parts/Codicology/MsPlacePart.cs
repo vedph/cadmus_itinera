@@ -73,6 +73,33 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "area",
+                    "The manuscript's area, if any.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "city",
+                    "The manuscript's city, if any.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "site",
+                    "The manuscript's site, if any.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "subscriber",
+                    "The manuscript's subscriber, if any.",
+                    "f")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

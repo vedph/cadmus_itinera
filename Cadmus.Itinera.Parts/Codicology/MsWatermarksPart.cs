@@ -63,6 +63,31 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of watermarks."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "subject-{SUBJECT}-count",
+                    "The counts of each type of watermarks subject."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "place",
+                    "The list of watermarks places.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "date-value",
+                    "The list of watermarks sortable date values.",
+                    "M")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

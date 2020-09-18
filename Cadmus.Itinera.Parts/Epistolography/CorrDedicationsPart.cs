@@ -58,6 +58,34 @@ namespace Cadmus.Itinera.Parts.Epistolography
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of dedications."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "title",
+                    "The list of dedications titles.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "date-value",
+                    "The list of dedications sortable date values.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "auth-count",
+                    "The count of dedications by the author."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "corr-count",
+                    "The count of dedications by the correspondent.")
+            });
+        }
+
+        /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>

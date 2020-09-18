@@ -101,7 +101,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>id</c> (filtered, with digits), <c>job</c>
+        /// <returns>The pins: <c>id</c>, <c>job</c>
         /// (filtered, with digits), <c>type</c> (filtered, with digits),
         /// <c>img-count</c>, <c>sign-tot-count</c>, <c>sign-X-count</c>.
         /// </returns>
@@ -111,7 +111,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new StandardDataPinTextFilter());
 
             if (!string.IsNullOrEmpty(PersonId))
-                builder.AddValue("id", PersonId, filter: true, filterOptions: true);
+                builder.AddValue("id", PersonId);
 
             if (!string.IsNullOrEmpty(Job))
                 builder.AddValue("job", Job, filter: true, filterOptions: true);
@@ -127,6 +127,34 @@ namespace Cadmus.Itinera.Parts.Codicology
             }
 
             return builder.Build(this);
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "id",
+                    "The hand's ID."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "job",
+                    "The person's job.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "type",
+                    "The hand's type.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "img-count",
+                    "The images count."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "sign-{SIGN}-count",
+                    "The count of each type of described sign.")
+            });
         }
 
         /// <summary>

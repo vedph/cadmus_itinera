@@ -99,6 +99,55 @@ namespace Cadmus.Itinera.Parts.Epistolography
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of exchanges."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "dubious-count",
+                    "The count of dubious exchanges."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "indirect-count",
+                    "The count of indirect exchanges."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "incoming-count",
+                    "The count of exchanges originated from participants."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "from-date-value",
+                    "The list of the exchange's origin sortable date values.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "to-date-value",
+                    "The list of the exchange's destination sortable date values.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "from-place",
+                    "The list of the exchange's places of origin.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "to-place",
+                    "The list of the exchange's places of destination.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "participant.{TAG}",
+                    "The list of participants grouped by their role (tag).",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "att-{TYPE}-count",
+                    "The counts of each type of attachment."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "att-tot-count",
+                    "The total count of attachments.")
+            });
+        }
+
+        /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>

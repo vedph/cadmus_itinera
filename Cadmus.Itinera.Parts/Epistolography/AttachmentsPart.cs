@@ -53,6 +53,23 @@ namespace Cadmus.Itinera.Parts.Epistolography
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of attachments."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "att-{TYPE}-count",
+                    "The counts for each type of attachment.")
+            });
+        }
+
+        /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>
