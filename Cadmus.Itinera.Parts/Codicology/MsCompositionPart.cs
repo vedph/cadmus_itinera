@@ -105,6 +105,45 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "sheet-count",
+                    "The count of sheets."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "guard-sheet-count",
+                    "The count of guard sheets."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "section-count",
+                    "The count of sections."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "section-{TAG}-count",
+                    "The count of sections for each of their tags."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "section-label",
+                    "The list of sections labels.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "section-date-value",
+                    "The list of sections sortable date values.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "guard-material",
+                    "The list of guard sheets materials.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "guard-date-value",
+                    "The list of guard sheets sortable date values.",
+                    "M")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

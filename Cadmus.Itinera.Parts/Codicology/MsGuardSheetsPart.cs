@@ -32,8 +32,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: a collection of pins with these keys:
-        /// <c>tot-count</c>, <c>back-count</c>, <c>front-count</c>,
+        /// <returns>The pins: <c>tot-count</c>, <c>back-count</c>,
+        /// <c>front-count</c>, and a collection of pins with these keys:
         /// <c>material-X-count</c>, <c>date-value</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -53,6 +53,33 @@ namespace Cadmus.Itinera.Parts.Codicology
             }
 
             return builder.Build(this);
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of guard sheets."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "back-count",
+                    "The total count of back guard sheets."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "front-count",
+                    "The total count of front guard sheets."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "material-{MATERIAL}-count",
+                    "The counts of each guard sheet's material."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "date-value",
+                    "The sortable date values of guard sheets.",
+                    "M")
+            });
         }
 
         /// <summary>

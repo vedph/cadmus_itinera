@@ -90,6 +90,34 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "century",
+                    "The binding's century."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "cover-mat",
+                    "The binding's cover material.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "support-mat",
+                    "The binding's support material.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "w",
+                    "The binding's width, with format 00.00."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "h",
+                    "The binding's height, with format 00.00.")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

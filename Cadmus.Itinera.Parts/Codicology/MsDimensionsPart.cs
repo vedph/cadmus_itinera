@@ -64,7 +64,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                 foreach (var d in Dimensions)
                 {
                     pins.Add(CreateDataPin("d." + (d.Tag ?? ""),
-                        d.Value.ToString(CultureInfo.InvariantCulture)));
+                        d.Value.ToString("00.00", CultureInfo.InvariantCulture)));
                 }
             }
 
@@ -75,6 +75,25 @@ namespace Cadmus.Itinera.Parts.Codicology
             }
 
             return pins;
+        }
+
+        /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "d.{TAG}",
+                    "The list of dimensions grouped by their tag, " +
+                    "with format 00.00."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "count-id",
+                    "The list of dimensions IDs.",
+                    "M")
+            });
         }
 
         /// <summary>

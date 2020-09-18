@@ -110,6 +110,51 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "provenance",
+                    "The manuscript's provenance.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "pers-count",
+                    "The count of persons related to the manuscript's history."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "ann-count",
+                    "The count of annotations in the manuscript."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "rest-count",
+                    "The count of restorations in the manuscript."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "pers-name",
+                    "The list of the names of persons related to the " +
+                    "manuscript's history, with format \"last, first\".",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "pers-date-value",
+                    "The list of sortable date values connected to the persons" +
+                    "related to the manuscript's history.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "ann-{TYPE}-count",
+                    "The count of each type of annotation in the manuscript."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "rest-{TYPE}-count",
+                    "The count of each type of restoration in the manuscript."),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "rest-date-value",
+                    "The list of sortable date values for dated restorations " +
+                    "in the manuscript.",
+                    "M")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

@@ -52,6 +52,26 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of catchwords."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "pos-{POSITION}-count",
+                    "The counts for each catchwords position."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "vrt-{ISVERTICAL}-count",
+                    "The total count vertical (1) or horizontal (0) catchwords."),
+            });
+        }
+
+        /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>

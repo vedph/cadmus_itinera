@@ -68,6 +68,40 @@ namespace Cadmus.Itinera.Parts.Codicology
         }
 
         /// <summary>
+        /// Gets the definitions of data pins used by the implementor.
+        /// </summary>
+        /// <returns>Data pins definitions.</returns>
+        public override IList<DataPinDefinition> GetDataPinDefinitions()
+        {
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tot-count",
+                    "The total count of decorations."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "type-{TYPE}-count",
+                    "The count of each decoration's type."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "subject-{SUBJECT}-count",
+                    "The count of each decoration's subject."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "color-{COLOR}-count",
+                    "The count of each decoration's color."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "golden-count",
+                    "The count of golded decorations."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "tag-{TAG}-count",
+                    "The count of each decoration's tag.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "artist-id",
+                    "The list of decorations artists IDs.",
+                    "Mf")
+            });
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>
