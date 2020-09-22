@@ -8,7 +8,7 @@ using System;
 namespace Cadmus.Seed.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// MsBinding part seeder.
+    /// Manuscript's binding part seeder.
     /// Tag: <c>seed.it.vedph.itinera.ms-binding</c>.
     /// </summary>
     /// <seealso cref="PartSeederBase" />
