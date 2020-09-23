@@ -24,14 +24,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Subject { get; set; }
 
         /// <summary>
-        /// Gets or sets the decoration's color.
+        /// Gets or sets the decoration's colors.
         /// </summary>
-        public string Color { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this decoration is golded.
-        /// </summary>
-        public bool IsGolden { get; set; }
+        public List<string> Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the layout.
@@ -97,6 +92,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsDecoration()
         {
+            Colors = new List<string>();
             GuideLetters = new List<MsGuideLetter>();
         }
 
@@ -108,7 +104,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{Type}] {Subject}, {Color}: {Start} - {End}";
+            return $"[{Type}] {Subject}: {Start} - {End}";
         }
     }
 }

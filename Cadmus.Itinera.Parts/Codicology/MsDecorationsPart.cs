@@ -34,7 +34,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c> and a collection of pins with
         /// these keys: <c>type-X-count</c>, <c>subject-X-count</c>,
-        /// <c>color-X-count</c>, <c>golden-count</c>, <c>tag-X-count</c>
+        /// <c>color-X-count</c>, <c>tag-X-count</c>
         /// (all the keys with X are filtered, with digits), <c>artist-id</c>
         /// (filtered, with digits).
         /// </returns>
@@ -49,12 +49,15 @@ namespace Cadmus.Itinera.Parts.Codicology
             {
                 foreach (var decoration in Decorations)
                 {
-                    if (decoration.IsGolden) builder.Increase("golden", false);
-
                     builder.Increase(decoration.Type, false, "type-");
                     builder.Increase(decoration.Subject, false, "subject-");
-                    builder.Increase(decoration.Color, false, "color-");
                     builder.Increase(decoration.Tag, false, "tag-");
+
+                    if (decoration.Colors?.Count > 0)
+                    {
+                        foreach (string color in decoration.Colors)
+                            builder.Increase(color, false, "color-");
+                    }
 
                     if (!string.IsNullOrEmpty(decoration.Artist?.Id))
                     {
@@ -86,10 +89,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                     "The count of each decoration's subject."),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "color-{COLOR}-count",
-                    "The count of each decoration's color."),
-                new DataPinDefinition(DataPinValueType.Integer,
-                    "golden-count",
-                    "The count of golded decorations."),
+                    "The count of each decoration's colors."),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "tag-{TAG}-count",
                     "The count of each decoration's tag.",

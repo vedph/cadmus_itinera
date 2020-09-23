@@ -26,8 +26,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     Type = n % 2 == 0? "even" : "odd",
                     Subject = $"s{n}",
-                    Color = $"c{n}",
-                    IsGolden = n % 2 == 0,
+                    Colors = new List<string>(new[]{ $"c{n}" }),
                     Layout = $"l{n}",
                     Tool = $"t{n}",
                     Start = new MsLocation { N = 2, V = true, L = 1 },
