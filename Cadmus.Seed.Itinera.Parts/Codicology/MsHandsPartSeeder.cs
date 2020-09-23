@@ -56,7 +56,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .Generate();
 
                 // rubrications
-                for (int rn = 1; rn <= Randomizer.Seed.Next(1, 3); rn++)
+                for (int rn = 1; rn <= Randomizer.Seed.Next(1, 3 + 1); rn++)
                 {
                     hand.Rubrications.Add(new Faker<MsRubrication>()
                         .RuleFor(r => r.Location, f => new MsLocation
@@ -73,7 +73,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 }
 
                 // subscriptions
-                for (int sn = 1; sn <= Randomizer.Seed.Next(1, 3); sn++)
+                for (int sn = 1; sn <= Randomizer.Seed.Next(1, 3 + 1); sn++)
                 {
                     hand.Subscriptions.Add(new Faker<MsSubscription>()
                         .RuleFor(s => s.Location, f => new MsLocation

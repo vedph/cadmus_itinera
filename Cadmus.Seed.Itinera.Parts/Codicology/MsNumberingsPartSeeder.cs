@@ -1,18 +1,18 @@
 ﻿using Bogus;
 using Cadmus.Core;
-using Cadmus.Itinera.Parts.Epistolography;
+using Cadmus.Itinera.Parts.Codicology;
 using Fusi.Tools.Config;
 using System;
 
-namespace Cadmus.Seed.Itinera.Parts.Epistolography
+namespace Cadmus.Seed.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Attachments part seeder.
-    /// Tag: <c>seed.it.vedph.itinera.attachments</c>.
+    /// Manuscript's numberings part seeder.
+    /// Tag: <c>seed.it.vedph.itinera.ms-numberings</c>.
     /// </summary>
     /// <seealso cref="PartSeederBase" />
-    [Tag("seed.it.vedph.itinera.attachments")]
-    public sealed class AttachmentsPartSeeder : PartSeederBase
+    [Tag("seed.it.vedph.itinera.ms-numberings")]
+    public sealed class MsNumberingsPartSeeder : PartSeederBase
     {
         /// <summary>
         /// Creates and seeds a new part.
@@ -31,17 +31,19 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            AttachmentsPart part = new AttachmentsPart();
+            MsNumberingsPart part = new MsNumberingsPart();
             SetPartMetadata(part, roleId, item);
 
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(3 + 1); n++)
             {
-                part.Attachments.Add(new Faker<Attachment>()
-                    .RuleFor(a => a.Type, f => f.PickRandom("manuscript", "work"))
-                    .RuleFor(a => a.Name, f => f.Lorem.Word())
-                    .RuleFor(a => a.Portion,
-                        f => f.Random.ReplaceNumbers("#.##-#.##"))
-                    .RuleFor(a => a.Note, f => f.Lorem.Sentence())
+                part.Numberings.Add(new Faker<MsNumbering>()
+                    .RuleFor(p => p.IsMain, n == 1)
+                    .RuleFor(p => p.Era, f => f.PickRandom("ancient", "modern"))
+                    .RuleFor(p => p.System, f => f.PickRandom("roman", "arabic"))
+                    .RuleFor(p => p.Technique, f => f.Lorem.Word())
+                    .RuleFor(p => p.Century, f => f.Random.Short(12, 15))
+                    .RuleFor(p => p.Position, f => f.PickRandom("bottom", "top"))
+                    .RuleFor(p => p.Issues, f => f.PickRandom(null, f.Lorem.Sentence()))
                     .Generate());
             }
 

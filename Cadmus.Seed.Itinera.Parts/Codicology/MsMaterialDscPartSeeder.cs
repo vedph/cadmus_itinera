@@ -42,7 +42,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             SetPartMetadata(part, roleId, item);
 
             // counts
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Counts.Add(new Faker<DecoratedCount>()
                     .RuleFor(d => d.Id, f => f.Lorem.Word())
@@ -52,7 +52,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             }
 
             // palimpsests
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Palimpsests.Add(new Faker<MsPalimpsest>()
                     .RuleFor(p => p.Location, f => new MsLocation

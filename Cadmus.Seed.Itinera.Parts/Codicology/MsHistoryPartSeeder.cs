@@ -42,7 +42,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             SetPartMetadata(part, roleId, item);
 
             // persons
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Persons.Add(new Faker<MsHistoryPerson>()
                     .RuleFor(p => p.Role,
@@ -74,7 +74,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             }
 
             // annotations
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Annotations.Add(new Faker<MsAnnotation>()
                     .RuleFor(a => a.Language, f => f.PickRandom("lat", "ita"))
@@ -96,7 +96,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             }
 
             // restorations
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Restorations.Add(new Faker<MsRestoration>()
                     .RuleFor(r => r.Type, f => f.Lorem.Word())
