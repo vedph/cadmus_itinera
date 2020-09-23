@@ -49,27 +49,6 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             return letters;
         }
 
-        private static List<DocReference> GetDocReferences()
-        {
-            List<DocReference> refs = new List<DocReference>();
-
-            int count = Randomizer.Seed.Next(1, 3 + 1);
-
-            for (int n = 1; n <= count; n++)
-            {
-                refs.Add(new Faker<DocReference>()
-                    .RuleFor(r => r.Tag, f => f.PickRandom(null, "tag"))
-                    .RuleFor(r => r.Author, f => f.Lorem.Word())
-                    .RuleFor(r => r.Work, f => f.Lorem.Word())
-                    .RuleFor(r => r.Location,
-                        f => $"{f.Random.Number(1, 24)}.{f.Random.Number(1, 1000)}")
-                    .RuleFor(r => r.Note, f => f.Lorem.Sentence())
-                    .Generate());
-            }
-
-            return refs;
-        }
-
         private MsDecorationArtist GetArtist()
         {
             return new Faker<MsDecorationArtist>()
@@ -77,7 +56,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 .RuleFor(a => a.Id, f => f.Lorem.Word())
                 .RuleFor(a => a.Name, f => f.Lorem.Sentence(2))
                 .RuleFor(a => a.Note, f => f.Lorem.Sentence())
-                .RuleFor(a => a.Sources, GetDocReferences())
+                .RuleFor(a => a.Sources, SeederHelper.GetDocReferences(1, 3))
                 .Generate();
         }
 
