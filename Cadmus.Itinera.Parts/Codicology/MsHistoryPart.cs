@@ -56,7 +56,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>provenance</c> (filtered, with digits),
         /// <c>pers-count</c>, <c>ann-count</c>, <c>rest-count</c>,
-        /// <c>pers-name</c> (last, first; filtered, with digits),
+        /// <c>pers-name</c> (full name; filtered, with digits),
         /// <c>pers-date-value</c>, <c>ann-X-count</c>, <c>rest-X-count</c>,
         /// <c>rest-date-value</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
@@ -74,10 +74,9 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (Persons?.Count > 0)
             {
                 builder.AddValues("pers-name", from p in Persons
-                                               select builder.ApplyFilter(true,
-                                                 true, p.LastName,
-                                                 false, ", ",
-                                                 true, p.FirstName));
+                                               where p.Name != null
+                                               select p.Name.GetFullName(),
+                                               filter: true, filterOptions: true);
 
                 foreach (var person in Persons.Where(p => p.Date != null))
                 {

@@ -14,14 +14,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Role { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        /// Gets or sets the name.
         /// </summary>
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last name.
-        /// </summary>
-        public string LastName { get; set; }
+        public PersonName Name { get; set; }
 
         /// <summary>
         /// Gets or sets the date.
@@ -56,7 +51,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{Role}] {FirstName} {LastName} {Date}";
+            return $"[{Role}] {Name} {Date}";
         }
     }
 }

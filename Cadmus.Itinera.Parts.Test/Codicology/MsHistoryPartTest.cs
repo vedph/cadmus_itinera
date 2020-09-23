@@ -20,8 +20,15 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 persons.Add(new MsHistoryPerson
                 {
                     Role = "owner",
-                    FirstName = "Robert",
-                    LastName = $"Mc{n}",
+                    Name = new PersonName
+                    {
+                        Language = "eng",
+                        Parts = new List<PersonNamePart>
+                        {
+                            new PersonNamePart{ Type = "first", Value = "Robert" },
+                            new PersonNamePart{ Type = "last", Value = $"Mc{n}" }
+                        }
+                    },
                     Date = HistoricalDate.Parse((1200 + n)
                         .ToString(CultureInfo.InvariantCulture) + " AD"),
                     Note = "Note",
@@ -137,7 +144,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             for (int n = 1; n <= 3; n++)
             {
                 pins.Find(p => p.Name == "pers-name"
-                    && p.Value == $"mc{n}, robert");
+                    && p.Value == $"robert mc{n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
 
