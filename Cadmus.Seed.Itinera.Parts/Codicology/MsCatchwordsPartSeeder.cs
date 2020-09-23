@@ -41,6 +41,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(c => c.IsVertical, f => f.Random.Bool(0.5f))
                     .RuleFor(c => c.Decoration, f => f.Lorem.Sentence())
                     .RuleFor(c => c.Register, f => f.Lorem.Sentence())
+                    .RuleFor(c => c.Note, f => f.PickRandom(null, f.Lorem.Sentence()))
                     .Generate());
             }
 

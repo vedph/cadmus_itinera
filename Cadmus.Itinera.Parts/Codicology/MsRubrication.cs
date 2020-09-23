@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cadmus.Itinera.Parts.Codicology
+﻿namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's rubrication description.
