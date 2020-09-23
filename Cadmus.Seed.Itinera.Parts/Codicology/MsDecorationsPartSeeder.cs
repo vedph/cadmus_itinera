@@ -6,9 +6,8 @@ using Cadmus.Parts.General;
 using Fusi.Tools.Config;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
+namespace Cadmus.Seed.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's decorations description seeder.
