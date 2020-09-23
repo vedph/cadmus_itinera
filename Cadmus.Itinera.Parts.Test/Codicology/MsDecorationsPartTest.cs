@@ -103,7 +103,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(13, pins.Count);
+            Assert.Equal(12, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);
@@ -126,11 +126,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             Assert.Equal("2", pin.Value);
 
             pin = pins.Find(p => p.Name == "tag-even-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("1", pin.Value);
-
-            pin = pins.Find(p => p.Name == "golden-count");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1", pin.Value);
