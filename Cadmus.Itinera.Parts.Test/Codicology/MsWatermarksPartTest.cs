@@ -26,7 +26,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 part.Watermarks.Add(new MsWatermark
                 {
                     Subject = n % 2 == 0? "even" : "odd",
-                    SimilarityRank = n,
+                    SimilarityRank = (short)n,
                     Description = "A watermark.",
                     Date = HistoricalDate.Parse(n + 1200 + " AD"),
                     Place = $"Place {n}"

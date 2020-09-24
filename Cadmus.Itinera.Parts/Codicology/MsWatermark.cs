@@ -19,7 +19,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// of the watermark described here to the paradigmatic watermark model;
         /// the higher the number, the less similar is the watermark.
         /// </summary>
-        public int SimilarityRank { get; set; }
+        public short SimilarityRank { get; set; }
 
         /// <summary>
         /// Gets or sets the description of this watermark instance.
