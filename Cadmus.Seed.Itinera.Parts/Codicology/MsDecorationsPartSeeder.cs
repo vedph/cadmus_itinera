@@ -93,15 +93,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Tool, f => f.Lorem.Word())
                     .RuleFor(d => d.Start, f => new MsLocation
                     {
-                        N = sn,
-                        V = sn % 2 == 0,
-                        L = f.Random.Number(1, 20)
+                        N = (short)sn,
+                        V = (sn % 2 == 0),
+                        L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.End, f => new MsLocation
                     {
-                        N = sn + 1,
+                        N = (short)(sn + 1),
                         V = (sn + 1) % 2 == 0,
-                        L = f.Random.Number(1, 20)
+                        L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.Position,
                         f => f.PickRandom("bottom", "top", "left", "right"))

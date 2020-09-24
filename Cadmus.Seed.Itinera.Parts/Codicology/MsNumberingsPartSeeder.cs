@@ -34,7 +34,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             MsNumberingsPart part = new MsNumberingsPart();
             SetPartMetadata(part, roleId, item);
 
-            for (int n = 1; n <= Randomizer.Seed.Next(3 + 1); n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Numberings.Add(new Faker<MsNumbering>()
                     .RuleFor(p => p.IsMain, n == 1)

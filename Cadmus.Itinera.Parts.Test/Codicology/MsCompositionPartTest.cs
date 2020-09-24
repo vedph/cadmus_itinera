@@ -42,7 +42,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Date = HistoricalDate.Parse(n + 1200 + " AD"),
                     Start = new MsLocation
                     {
-                        N = n,
+                        N = (short)n,
                         V = n % 2 != 0,
                         L = 1
                     }

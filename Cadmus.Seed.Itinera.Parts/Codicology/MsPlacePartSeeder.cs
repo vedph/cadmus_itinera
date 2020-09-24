@@ -40,9 +40,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 .RuleFor(p => p.SubscriptionLoc, f =>
                     new MsLocation
                     {
-                        N = f.Random.Number(20, 60),
+                        N = (short)f.Random.Number(20, 60),
                         V = f.Random.Bool(),
-                        L = f.Random.Number(1, 20)
+                        L = (short)f.Random.Number(1, 20)
                     })
                 .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))
                 .Generate();

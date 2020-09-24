@@ -36,7 +36,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 .RuleFor(p => p.Sample,
                     f => new MsLocation
                     {
-                        N = f.Random.Number(1, 60),
+                        N = (short)f.Random.Number(1, 60),
                         V = f.Random.Bool()
                     })
                 .Generate();

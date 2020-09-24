@@ -82,15 +82,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(a => a.Text, f => f.Lorem.Sentence())
                     .RuleFor(s => s.Start, f => new MsLocation
                     {
-                        N = (n - 1) * 2,
+                        N = (short)((n - 1) * 2),
                         V = n % 2 == 0,
-                        L = f.Random.Number(1, 20)
+                        L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(s => s.End, f => new MsLocation
                     {
-                        N = (n - 1) * 2 + 1,
+                        N = (short)((n - 1) * 2 + 1),
                         V = n % 2 == 0,
-                        L = f.Random.Number(1, 20)
+                        L = (short)(f.Random.Number(1, 20))
                     })
                     .Generate());
             }

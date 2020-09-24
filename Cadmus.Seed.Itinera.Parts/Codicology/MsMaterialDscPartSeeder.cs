@@ -57,9 +57,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 part.Palimpsests.Add(new Faker<MsPalimpsest>()
                     .RuleFor(p => p.Location, f => new MsLocation
                     {
-                        N = n,
+                        N = (short)n,
                         V = n % 2 == 0,
-                        L = f.Random.Number(1, 20)
+                        L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(p => p.Date, HistoricalDate.Parse($"{1300 + n} AD"))
                     .Generate());

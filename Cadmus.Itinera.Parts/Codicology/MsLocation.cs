@@ -9,7 +9,7 @@
         /// <summary>
         /// Gets or sets the sheet number.
         /// </summary>
-        public int N { get; set; }
+        public short N { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this location refers to the
@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets or sets the line number.
         /// </summary>
-        public int L { get; set; }
+        public short L { get; set; }
 
         /// <summary>
         /// Converts to string.

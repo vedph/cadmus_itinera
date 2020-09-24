@@ -42,15 +42,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(i => i.IdReason, f => f.Lorem.Sentence())
                     .RuleFor(i => i.Start, f => new MsLocation
                     {
-                        N = f.Random.Number(1, 30),
+                        N = (short)f.Random.Number(1, 30),
                         V = f.Random.Bool(),
-                        L = f.Random.Number(1, 20)
+                        L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(i => i.End, f => new MsLocation
                     {
-                        N = f.Random.Number(31, 60),
+                        N = (short)f.Random.Number(31, 60),
                         V = f.Random.Bool(),
-                        L = f.Random.Number(1, 20)
+                        L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(i => i.ExtentNote, f => f.Lorem.Sentence())
                     .Generate();
@@ -61,9 +61,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     hand.Rubrications.Add(new Faker<MsRubrication>()
                         .RuleFor(r => r.Location, f => new MsLocation
                         {
-                            N = f.Random.Number(1, 60),
+                            N = (short)f.Random.Number(1, 60),
                             V = f.Random.Bool(),
-                            L = f.Random.Number(1, 20)
+                            L = (short)f.Random.Number(1, 20)
                         })
                         .RuleFor(r => r.Type, f => f.Lorem.Word())
                         .RuleFor(r => r.Description, f => f.Lorem.Sentence())
@@ -78,9 +78,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     hand.Subscriptions.Add(new Faker<MsSubscription>()
                         .RuleFor(s => s.Location, f => new MsLocation
                         {
-                            N = f.Random.Number(1, 60),
+                            N = (short)f.Random.Number(1, 60),
                             V = f.Random.Bool(),
-                            L = f.Random.Number(1, 20)
+                            L = (short)f.Random.Number(1, 20)
                         })
                         .RuleFor(s => s.Language, f => f.PickRandom("lat", "ita"))
                         .RuleFor(s => s.Text, f => f.Lorem.Sentence())
