@@ -35,12 +35,18 @@ namespace Cadmus.Itinera.Parts.Codicology
         public List<string> ExternalIds { get; set; }
 
         /// <summary>
+        /// Gets or sets the optional sources for this person.
+        /// </summary>
+        public List<DocReference> Sources { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MsHistoryPerson"/>
         /// class.
         /// </summary>
         public MsHistoryPerson()
         {
             ExternalIds = new List<string>();
+            Sources = new List<DocReference>();
         }
 
         /// <summary>

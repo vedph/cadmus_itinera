@@ -14,9 +14,26 @@ namespace Cadmus.Itinera.Parts.Codicology
     public sealed class MsHistoryPart : PartBase
     {
         /// <summary>
-        /// Gets or sets the provenance.
+        /// Gets or sets the geographical area for the manuscript's provenance.
+        /// This is the top-level geographical indication in the hierarchy
+        /// further specified by <see cref="Address"/>.
         /// </summary>
-        public string Provenance { get; set; }
+        /// <remarks>The provenance is kept distinct from origin, which is
+        /// defined by <see cref="MsPlacePart"/>. The origin is where the
+        /// manuscript was materially crafted; the provenance is "the last
+        /// place where the manuscript was preserved before reaching the current
+        /// one" (Petrucci, La descrizione del manoscritto. Storia, problemi,
+        /// modelli, Roma 2001 p.66).</remarks>
+        public string Area { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional address inside the area for the manuscript's
+        /// provenance. This is a string including 1 or more components, in
+        /// hierarchical order, like the addresses typically used in geocoding
+        /// systems. Components are separated by comma. For instance, the area
+        /// might be "France", and the address "Lyon, Bibliothéque Civique").
+        /// </summary>
+        public string Address { get; set; }
 
         /// <summary>
         /// Gets or sets the history.
@@ -54,7 +71,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>provenance</c> (filtered, with digits),
+        /// <returns>The pins: <c>area</c> (filtered, with digits),
         /// <c>pers-count</c>, <c>ann-count</c>, <c>rest-count</c>,
         /// <c>pers-name</c> (full name; filtered, with digits),
         /// <c>pers-date-value</c>, <c>ann-X-count</c>, <c>rest-X-count</c>,
@@ -64,7 +81,7 @@ namespace Cadmus.Itinera.Parts.Codicology
             DataPinBuilder builder =
                 new DataPinBuilder(new StandardDataPinTextFilter());
 
-            builder.AddValue("provenance", Provenance,
+            builder.AddValue("area", Area,
                 filter: true, filterOptions: true);
 
             builder.Set("pers", Persons?.Count ?? 0, false);
@@ -165,8 +182,8 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             sb.Append("[MsHistory]");
 
-            if (!string.IsNullOrEmpty(Provenance))
-                sb.Append(Provenance).Append(": ");
+            if (!string.IsNullOrEmpty(Area))
+                sb.Append(Area).Append(": ");
 
             sb.Append("P=").Append(Persons?.Count ?? 0).Append(", ");
             sb.Append("A=").Append(Annotations?.Count ?? 0).Append(", ");

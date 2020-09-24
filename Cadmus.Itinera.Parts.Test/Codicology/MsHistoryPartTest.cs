@@ -85,7 +85,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 RoleId = "some-role",
                 CreatorId = "zeus",
                 UserId = "another",
-                Provenance = "Provence",
+                Area = "Provence",
+                Address = "Toulon, Bibliothéque Civique",
                 History = "The history.",
                 Persons = GetPersons(count),
                 Annotations = GetAnnotations(count),
@@ -121,7 +122,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             Assert.Equal(17, pins.Count);
 
-            DataPin pin = pins.Find(p => p.Name == "provenance");
+            DataPin pin = pins.Find(p => p.Name == "area");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("provence", pin.Value);

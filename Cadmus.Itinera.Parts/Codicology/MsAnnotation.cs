@@ -1,4 +1,6 @@
-﻿namespace Cadmus.Itinera.Parts.Codicology
+﻿using System.Collections.Generic;
+
+namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// An annotation in a manuscript.
@@ -31,6 +33,19 @@
         /// ends.
         /// </summary>
         public MsLocation End { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional sources for this annotation.
+        /// </summary>
+        public List<DocReference> Sources { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsAnnotation"/> class.
+        /// </summary>
+        public MsAnnotation()
+        {
+            Sources = new List<DocReference>();
+        }
 
         /// <summary>
         /// Converts to string.

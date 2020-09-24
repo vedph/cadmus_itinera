@@ -45,7 +45,8 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
 
             TestHelper.AssertPartMetadata(p);
 
-            Assert.NotNull(p.Provenance);
+            Assert.NotNull(p.Area);
+            Assert.NotNull(p.Address);
             Assert.NotNull(p.History);
             Assert.NotEmpty(p.Persons);
             Assert.NotEmpty(p.Annotations);

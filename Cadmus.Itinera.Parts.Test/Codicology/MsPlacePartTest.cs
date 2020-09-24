@@ -17,9 +17,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 RoleId = "some-role",
                 CreatorId = "zeus",
                 UserId = "another",
-                Area = "France",
-                City = "Paris",
-                Site = "Saint Genevieve",
+                Area = "Provence",
+                Address = "Toulon, Bibliothéque Civique",
                 Subscriber = "Pusillus",
                 SubscriptionLoc = new MsLocation { N = 21, V = true, L = 10 }
             };
@@ -51,22 +50,27 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(4, pins.Count);
+            Assert.Equal(5, pins.Count);
 
             DataPin pin = pins.Find(p => p.Name == "area");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("france", pin.Value);
+            Assert.Equal("provence", pin.Value);
 
-            pin = pins.Find(p => p.Name == "city");
+            pin = pins.Find(p => p.Name == "address");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("paris", pin.Value);
+            Assert.Equal("toulon bibliotheque civique", pin.Value);
 
-            pin = pins.Find(p => p.Name == "site");
+            pin = pins.Find(p => p.Name == "address-1");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("saint genevieve", pin.Value);
+            Assert.Equal("toulon", pin.Value);
+
+            pin = pins.Find(p => p.Name == "address-2");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("bibliotheque civique", pin.Value);
 
             pin = pins.Find(p => p.Name == "subscriber");
             Assert.NotNull(pin);

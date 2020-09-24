@@ -35,8 +35,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 throw new ArgumentNullException(nameof(factory));
 
             MsHistoryPart part = new Faker<MsHistoryPart>()
-                .RuleFor(p => p.Provenance,
+                .RuleFor(p => p.Area,
                     f => f.PickRandom("France", "Germany", "Italy"))
+                .RuleFor(p => p.Address, f => $"{f.Lorem.Word()}, {f.Lorem.Word()}")
                 .RuleFor(p => p.History, f => f.Lorem.Sentence())
                 .Generate();
             SetPartMetadata(part, roleId, item);
@@ -70,6 +71,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         {
                             $"www.someurl.org/entities/{f.Random.Number()}"
                         }))
+                    .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
             }
 
@@ -92,6 +94,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         V = n % 2 == 0,
                         L = (short)(f.Random.Number(1, 20))
                     })
+                    .RuleFor(f => f.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
             }
 

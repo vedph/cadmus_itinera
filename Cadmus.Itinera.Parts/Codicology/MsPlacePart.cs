@@ -13,19 +13,19 @@ namespace Cadmus.Itinera.Parts.Codicology
     public sealed class MsPlacePart : PartBase
     {
         /// <summary>
-        /// Gets or sets the geographical area.
+        /// Gets or sets the geographical area. This is the top-level geographical
+        /// indication in the hierarchy further specified by <see cref="Address"/>.
         /// </summary>
         public string Area { get; set; }
 
         /// <summary>
-        /// Gets or sets the city inside the area.
+        /// Gets or sets the optional address inside the area. This is a
+        /// string including 1 or more components, in hierarchical order,
+        /// like the addresses typically used in geocoding systems.
+        /// Components are separated by comma. For instance, the area might
+        /// be "France", and the address "Lyon, Bibliothéque Civique").
         /// </summary>
-        public string City { get; set; }
-
-        /// <summary>
-        /// Gets or sets the site inside the city.
-        /// </summary>
-        public string Site { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Gets or sets the subscriber.
@@ -48,8 +48,10 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>area</c>, <c>city</c>, <c>site</c>,
-        /// <c>subscriber</c>: all filtered, with digits.</returns>
+        /// <returns>The pins: <c>area</c>, <c>address</c>, <c>subscriber</c>,
+        /// and each component of the address named after the pattern
+        /// <c>address-N</c> where N is the ordinal of each component;
+        /// all filtered, with digits.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
@@ -58,11 +60,13 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (!string.IsNullOrEmpty(Area))
                 pins.Add(CreateDataPin("area", filter.Apply(Area, true)));
 
-            if (!string.IsNullOrEmpty(City))
-                pins.Add(CreateDataPin("city", filter.Apply(City, true)));
-
-            if (!string.IsNullOrEmpty(Site))
-                pins.Add(CreateDataPin("site", filter.Apply(Site, true)));
+            if (!string.IsNullOrEmpty(Address))
+            {
+                pins.Add(CreateDataPin("address", filter.Apply(Address, true)));
+                int n = 0;
+                foreach (string c in Address.Split(','))
+                    pins.Add(CreateDataPin($"address-{++n}", filter.Apply(c, true)));
+            }
 
             if (!string.IsNullOrEmpty(Subscriber))
             {
@@ -85,12 +89,13 @@ namespace Cadmus.Itinera.Parts.Codicology
                     "The manuscript's area, if any.",
                     "f"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "city",
-                    "The manuscript's city, if any.",
+                    "address",
+                    "The manuscript's address, if any.",
                     "f"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "site",
-                    "The manuscript's site, if any.",
+                    "address-{N}",
+                    "The list of manuscript's address components, "+
+                    "each numbered, if any.",
                     "f"),
                 new DataPinDefinition(DataPinValueType.String,
                     "subscriber",
@@ -113,16 +118,10 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (!string.IsNullOrEmpty(Area)) sb.Append(' ').Append(Area);
 
-            if (!string.IsNullOrEmpty(City))
+            if (!string.IsNullOrEmpty(Address))
             {
                 if (sb[sb.Length - 1] != ' ') sb.Append(", ");
-                sb.Append(City);
-            }
-
-            if (!string.IsNullOrEmpty(Subscriber))
-            {
-                if (sb[sb.Length - 1] != ' ') sb.Append(": ");
-                sb.Append(Subscriber);
+                sb.Append(Address);
             }
 
             return sb.ToString();
