@@ -1,20 +1,20 @@
 ﻿using Cadmus.Core;
-using Cadmus.Itinera.Parts.Codicology;
-using Cadmus.Seed.Itinera.Parts.Codicology;
+using Cadmus.Itinera.Parts.Epistolography;
+using Cadmus.Seed.Itinera.Parts.Epistolography;
 using Fusi.Tools.Config;
 using System;
 using System.Reflection;
 using Xunit;
 
-namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
+namespace Cadmus.Seed.Itinera.Parts.Test.Epistolography
 {
-    public sealed class MsHistoryPartSeederTest
+    public sealed class DocReferencesPartSeederTest
     {
         private static readonly PartSeederFactory _factory;
         private static readonly SeedOptions _seedOptions;
         private static readonly IItem _item;
 
-        static MsHistoryPartSeederTest()
+        static DocReferencesPartSeederTest()
         {
             _factory = TestHelper.GetFactory();
             _seedOptions = _factory.GetSeedOptions();
@@ -24,32 +24,28 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
         [Fact]
         public void TypeHasTagAttribute()
         {
-            Type t = typeof(MsHistoryPartSeeder);
+            Type t = typeof(DocReferencesPartSeeder);
             TagAttribute attr = t.GetTypeInfo().GetCustomAttribute<TagAttribute>();
             Assert.NotNull(attr);
-            Assert.Equal("seed.it.vedph.itinera.ms-history", attr.Tag);
+            Assert.Equal("seed.it.vedph.itinera.doc-references", attr.Tag);
         }
 
         [Fact]
         public void Seed_Ok()
         {
-            MsHistoryPartSeeder seeder = new MsHistoryPartSeeder();
+            DocReferencesPartSeeder seeder = new DocReferencesPartSeeder();
             seeder.SetSeedOptions(_seedOptions);
 
             IPart part = seeder.GetPart(_item, null, _factory);
 
             Assert.NotNull(part);
 
-            MsHistoryPart p = part as MsHistoryPart;
+            DocReferencesPart p = part as DocReferencesPart;
             Assert.NotNull(p);
 
             TestHelper.AssertPartMetadata(p);
 
-            Assert.NotEmpty(p.Provenances);
-            Assert.NotNull(p.History);
-            Assert.NotEmpty(p.Persons);
-            Assert.NotEmpty(p.Annotations);
-            Assert.NotEmpty(p.Restorations);
+            Assert.NotEmpty(p.References);
         }
     }
 }

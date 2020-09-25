@@ -17,6 +17,23 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
     [Tag("seed.it.vedph.itinera.ms-history")]
     public sealed class MsHistoryPartSeeder : PartSeederBase
     {
+        private static List<GeoAddress> GetProvenances(int count)
+        {
+            List<GeoAddress> provenances = new List<GeoAddress>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                provenances.Add(new Faker<GeoAddress>()
+                    .RuleFor(a => a.Area,
+                        f => f.PickRandom("France", "Germany", "Italy"))
+                    .RuleFor(a => a.Address,
+                        f => $"{f.Lorem.Word()}, {f.Lorem.Word()}")
+                    .Generate());
+            }
+
+            return provenances;
+        }
+
         /// <summary>
         /// Creates and seeds a new part.
         /// </summary>
@@ -35,9 +52,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 throw new ArgumentNullException(nameof(factory));
 
             MsHistoryPart part = new Faker<MsHistoryPart>()
-                .RuleFor(p => p.Area,
-                    f => f.PickRandom("France", "Germany", "Italy"))
-                .RuleFor(p => p.Address, f => $"{f.Lorem.Word()}, {f.Lorem.Word()}")
+                .RuleFor(p => p.Provenances, GetProvenances(2))
                 .RuleFor(p => p.History, f => f.Lorem.Sentence())
                 .Generate();
             SetPartMetadata(part, roleId, item);

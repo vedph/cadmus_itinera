@@ -85,8 +85,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 RoleId = "some-role",
                 CreatorId = "zeus",
                 UserId = "another",
-                Area = "Provence",
-                Address = "Toulon, Bibliothéque Civique",
+                Provenances = new List<GeoAddress>(new[]
+                {
+                    new GeoAddress
+                    {
+                        Area = "Provence",
+                        Address = "Toulon, Bibliothéque Civique"
+                    }
+                }),
                 History = "The history.",
                 Persons = GetPersons(count),
                 Annotations = GetAnnotations(count),

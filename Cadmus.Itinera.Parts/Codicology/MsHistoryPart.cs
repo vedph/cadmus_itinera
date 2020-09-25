@@ -14,9 +14,7 @@ namespace Cadmus.Itinera.Parts.Codicology
     public sealed class MsHistoryPart : PartBase
     {
         /// <summary>
-        /// Gets or sets the geographical area for the manuscript's provenance.
-        /// This is the top-level geographical indication in the hierarchy
-        /// further specified by <see cref="Address"/>.
+        /// Gets or sets the provenance(s) in their chronological order.
         /// </summary>
         /// <remarks>The provenance is kept distinct from origin, which is
         /// defined by <see cref="MsPlacePart"/>. The origin is where the
@@ -24,16 +22,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// place where the manuscript was preserved before reaching the current
         /// one" (Petrucci, La descrizione del manoscritto. Storia, problemi,
         /// modelli, Roma 2001 p.66).</remarks>
-        public string Area { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional address inside the area for the manuscript's
-        /// provenance. This is a string including 1 or more components, in
-        /// hierarchical order, like the addresses typically used in geocoding
-        /// systems. Components are separated by comma. For instance, the area
-        /// might be "France", and the address "Lyon, Bibliothéque Civique").
-        /// </summary>
-        public string Address { get; set; }
+        public List<GeoAddress> Provenances { get; set; }
 
         /// <summary>
         /// Gets or sets the history.
@@ -60,6 +49,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsHistoryPart()
         {
+            Provenances = new List<GeoAddress>();
             Persons = new List<MsHistoryPerson>();
             Annotations = new List<MsAnnotation>();
             Restorations = new List<MsRestoration>();
@@ -81,8 +71,11 @@ namespace Cadmus.Itinera.Parts.Codicology
             DataPinBuilder builder =
                 new DataPinBuilder(new StandardDataPinTextFilter());
 
-            builder.AddValue("area", Area,
-                filter: true, filterOptions: true);
+            if (Provenances?.Count > 0)
+            {
+                builder.AddValues("area", Provenances.Select(p => p.Area),
+                    filter: true, filterOptions: true);
+            }
 
             builder.Set("pers", Persons?.Count ?? 0, false);
             builder.Set("ann", Annotations?.Count ?? 0, false);
@@ -134,9 +127,9 @@ namespace Cadmus.Itinera.Parts.Codicology
             return new List<DataPinDefinition>(new[]
             {
                 new DataPinDefinition(DataPinValueType.String,
-                    "provenance",
-                    "The manuscript's provenance.",
-                    "f"),
+                    "area",
+                    "The manuscript's provenance area(s).",
+                    "Mf"),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "pers-count",
                     "The count of persons related to the manuscript's history."),
@@ -182,8 +175,8 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             sb.Append("[MsHistory]");
 
-            if (!string.IsNullOrEmpty(Area))
-                sb.Append(Area).Append(": ");
+            if (Provenances?.Count > 0)
+                sb.Append(Provenances[0].Area).Append(": ");
 
             sb.Append("P=").Append(Persons?.Count ?? 0).Append(", ");
             sb.Append("A=").Append(Annotations?.Count ?? 0).Append(", ");
