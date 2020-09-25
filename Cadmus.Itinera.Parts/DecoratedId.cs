@@ -19,7 +19,7 @@ namespace Cadmus.Itinera.Parts
         /// identification, just leave the rank value equal (to 0). Otherwise,
         /// use 1=highest probability, 2=lower than 1, and so on.
         /// </summary>
-        public int Rank { get; set; }
+        public short Rank { get; set; }
 
         /// <summary>
         /// Gets or sets the tag, used to categorize this ID in any way.

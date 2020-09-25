@@ -8,11 +8,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// List of persons cited in a letter's text.
-    /// <para>Tag: <c>it.vedph.itinera.epist-cited-persons</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.cited-persons</c>.</para>
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.epist-cited-persons")]
-    public sealed class EpistCitedPersonsPart : PartBase
+    [Tag("it.vedph.itinera.cited-persons")]
+    public sealed class CitedPersonsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the persons.
@@ -20,10 +20,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<CitedPerson> Persons { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EpistCitedPersonsPart"/>
+        /// Initializes a new instance of the <see cref="CitedPersonsPart"/>
         /// class.
         /// </summary>
-        public EpistCitedPersonsPart()
+        public CitedPersonsPart()
         {
             Persons = new List<CitedPerson>();
         }

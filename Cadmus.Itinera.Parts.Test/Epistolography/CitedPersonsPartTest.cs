@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
     public sealed class CitedPersonsPartTest
     {
-        private static EpistCitedPersonsPart GetPart(int count)
+        private static CitedPersonsPart GetPart(int count)
         {
-            EpistCitedPersonsPart part = new EpistCitedPersonsPart
+            CitedPersonsPart part = new CitedPersonsPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -55,11 +55,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void Part_Is_Serializable()
         {
-            EpistCitedPersonsPart part = GetPart(2);
+            CitedPersonsPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            EpistCitedPersonsPart part2 =
-                TestHelper.DeserializePart<EpistCitedPersonsPart>(json);
+            CitedPersonsPart part2 =
+                TestHelper.DeserializePart<CitedPersonsPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -75,7 +75,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_NoPersons_Ok()
         {
-            EpistCitedPersonsPart part = GetPart(0);
+            CitedPersonsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -89,7 +89,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_Persons_Ok()
         {
-            EpistCitedPersonsPart part = GetPart(3);
+            CitedPersonsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
