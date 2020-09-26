@@ -25,7 +25,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                         new DecoratedId
                         {
                             Id = $"author {n}",
-                            Rank = n,
+                            Rank = (short)n,
                             Tag = "tag",
                             Sources = TestHelper.GetDocReferences(2)
                         }

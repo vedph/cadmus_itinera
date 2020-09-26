@@ -34,12 +34,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the date and place of origin.
         /// </summary>
-        public EpistDatePlace From { get; set; }
+        public Chronotope From { get; set; }
 
         /// <summary>
         /// Gets or sets the date and place of destination.
         /// </summary>
-        public EpistDatePlace To { get; set; }
+        public Chronotope To { get; set; }
 
         /// <summary>
         /// Gets or sets the participants involved in this exchange, at the

@@ -1,7 +1,8 @@
-﻿using Fusi.Antiquity.Chronology;
+﻿using Cadmus.Itinera.Parts.Epistolography;
+using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;
 
-namespace Cadmus.Itinera.Parts.Epistolography
+namespace Cadmus.Itinera.Parts
 {
     /// <summary>
     /// Chronotopic coordinates. Used by <see cref="ChronotopicsPart"/>.

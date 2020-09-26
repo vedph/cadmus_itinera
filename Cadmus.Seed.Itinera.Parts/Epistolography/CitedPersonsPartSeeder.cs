@@ -16,23 +16,6 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
     [Tag("seed.it.vedph.itinera.cited-persons")]
     public sealed class CitedPersonsPartSeeder : PartSeederBase
     {
-        private static List<DecoratedId> GetDecoratedIds(int count)
-        {
-            List<DecoratedId> ids = new List<DecoratedId>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                ids.Add(new Faker<DecoratedId>()
-                    .RuleFor(i => i.Id, f => f.Lorem.Word())
-                    .RuleFor(i => i.Rank, f => f.Random.Short(1, 3))
-                    .RuleFor(i => i.Tag, f => f.PickRandom(null, f.Lorem.Word()))
-                    .RuleFor(i => i.Sources, SeederHelper.GetDocReferences(1, 3))
-                    .Generate());
-            }
-
-            return ids;
-        }
-
         /// <summary>
         /// Creates and seeds a new part.
         /// </summary>
@@ -74,7 +57,8 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                             }
                         })
                     })
-                    .RuleFor(p => p.Ids, f => GetDecoratedIds(f.Random.Number(1, 2)))
+                    .RuleFor(p => p.Ids,
+                        f => SeederHelper.GetDecoratedIds(f.Random.Number(1, 2)))
                     .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
             }

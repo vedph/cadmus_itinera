@@ -32,5 +32,22 @@ namespace Cadmus.Seed.Itinera.Parts
 
             return refs;
         }
+
+        public static List<DecoratedId> GetDecoratedIds(int count)
+        {
+            List<DecoratedId> ids = new List<DecoratedId>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                ids.Add(new Faker<DecoratedId>()
+                    .RuleFor(i => i.Id, f => f.Lorem.Word())
+                    .RuleFor(i => i.Rank, f => f.Random.Short(1, 3))
+                    .RuleFor(i => i.Tag, f => f.PickRandom(null, f.Lorem.Word()))
+                    .RuleFor(i => i.Sources, GetDocReferences(1, 3))
+                    .Generate());
+            }
+
+            return ids;
+        }
     }
 }

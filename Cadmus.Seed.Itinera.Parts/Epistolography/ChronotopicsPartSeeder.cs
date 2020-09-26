@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Cadmus.Core;
+using Cadmus.Itinera.Parts;
 using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Antiquity.Chronology;
 using Fusi.Tools.Config;

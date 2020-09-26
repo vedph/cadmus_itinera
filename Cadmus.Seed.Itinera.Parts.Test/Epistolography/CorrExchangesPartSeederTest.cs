@@ -1,7 +1,5 @@
 ﻿using Cadmus.Core;
-using Cadmus.Itinera.Parts.Codicology;
 using Cadmus.Itinera.Parts.Epistolography;
-using Cadmus.Seed.Itinera.Parts.Codicology;
 using Cadmus.Seed.Itinera.Parts.Epistolography;
 using Fusi.Tools.Config;
 using System;
@@ -47,9 +45,7 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Epistolography
 
             TestHelper.AssertPartMetadata(p);
 
-            throw new NotImplementedException();
-
-            // TODO other assertions...
+            Assert.NotEmpty(p.Exchanges);
         }
     }
 }
