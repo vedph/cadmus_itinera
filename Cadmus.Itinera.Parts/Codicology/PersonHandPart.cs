@@ -119,7 +119,7 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (!string.IsNullOrEmpty(Type))
                 builder.AddValue("type", Type, filter: true, filterOptions: true);
 
-            builder.Set("img-count", ImageIds?.Count ?? 0, false);
+            builder.Set("img", ImageIds?.Count ?? 0, false);
 
             if (Signs?.Count > 0)
             {
@@ -151,6 +151,9 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new DataPinDefinition(DataPinValueType.Integer,
                     "img-count",
                     "The images count."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "sign-tot-count",
+                    "The signs count."),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "sign-{SIGN}-count",
                     "The count of each type of described sign.")
