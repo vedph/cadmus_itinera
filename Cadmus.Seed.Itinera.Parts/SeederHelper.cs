@@ -16,9 +16,7 @@ namespace Cadmus.Seed.Itinera.Parts
         {
             List<DocReference> refs = new List<DocReference>();
 
-            int count = Randomizer.Seed.Next(min, max + 1);
-
-            for (int n = 1; n <= count; n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
             {
                 refs.Add(new Faker<DocReference>()
                     .RuleFor(r => r.Tag, f => f.PickRandom(null, "tag"))
@@ -33,19 +31,30 @@ namespace Cadmus.Seed.Itinera.Parts
             return refs;
         }
 
-        public static List<DecoratedId> GetDecoratedIds(int count)
+        public static List<DecoratedId> GetDecoratedIds(int min, int max)
         {
             List<DecoratedId> ids = new List<DecoratedId>();
 
-            for (int n = 1; n <= count; n++)
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
             {
                 ids.Add(new Faker<DecoratedId>()
                     .RuleFor(i => i.Id, f => f.Lorem.Word())
                     .RuleFor(i => i.Rank, f => f.Random.Short(1, 3))
                     .RuleFor(i => i.Tag, f => f.PickRandom(null, f.Lorem.Word()))
-                    .RuleFor(i => i.Sources, GetDocReferences(1, 3))
+                    .RuleFor(i => i.Sources, GetDocReferences(min, max))
                     .Generate());
             }
+
+            return ids;
+        }
+
+        public static List<string> GetExternalIds(int min, int max)
+        {
+            List<string> ids = new List<string>();
+
+            Faker faker = new Faker();
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
+                ids.Add(faker.Lorem.Word() + n);
 
             return ids;
         }

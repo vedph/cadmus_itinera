@@ -57,8 +57,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                             }
                         })
                     })
-                    .RuleFor(p => p.Ids,
-                        f => SeederHelper.GetDecoratedIds(f.Random.Number(1, 2)))
+                    .RuleFor(p => p.Ids, SeederHelper.GetDecoratedIds(1, 2))
                     .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
             }

@@ -74,8 +74,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                     .RuleFor(e => e.IsFromParticipant, f => f.Random.Bool())
                     .RuleFor(e => e.From, GetChronotope(1200))
                     .RuleFor(e => e.To, GetChronotope(1201))
-                    .RuleFor(p => p.Participants,
-                        f => SeederHelper.GetDecoratedIds(f.Random.Number(1, 2)))
+                    .RuleFor(p => p.Participants, SeederHelper.GetDecoratedIds(1, 2))
                     .RuleFor(d => d.Sources, SeederHelper.GetDocReferences(1, 3))
                     .RuleFor(e => e.Attachments, GetAttachments())
                     .Generate());
