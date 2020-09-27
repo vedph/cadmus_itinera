@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
     /// Information about a poetic text related to some letters.
-    /// <para>Tag: <c>it.vedph.itinera.poetic-text</c>.</para>
+    /// <para>Tag: <c>it.vedph.itinera.poetic-text-info</c>.</para>
     /// </summary>
-    [Tag("it.vedph.itinera.poetic-text")]
+    [Tag("it.vedph.itinera.poetic-text-info")]
     public sealed class PoeticTextInfoPart : PartBase
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the author(s) this text is attributed to.
         /// </summary>
-        public List<CitedThing> Authors { get; set; }
+        public List<CitedPerson> Authors { get; set; }
 
         /// <summary>
         /// Gets or sets the references to related text passages.
@@ -44,7 +44,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public PoeticTextInfoPart()
         {
-            Authors = new List<CitedThing>();
+            Authors = new List<CitedPerson>();
             Related = new List<DocReference>();
         }
 
@@ -70,9 +70,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (Authors?.Count > 0)
             {
                 builder.AddValues("author-name",
-                    from a in Authors select a.Name, filter: true);
+                    from a in Authors select a.Name.GetFullName(), filter: true);
 
-                foreach (CitedThing author in Authors)
+                foreach (CitedPerson author in Authors)
                 {
                     builder.AddValues("author-id",
                         from a in author.Ids

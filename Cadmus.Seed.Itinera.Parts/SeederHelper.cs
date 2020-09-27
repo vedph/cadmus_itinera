@@ -58,5 +58,36 @@ namespace Cadmus.Seed.Itinera.Parts
 
             return ids;
         }
+
+        public static List<CitedPerson> GetCitedPersons(int min, int max)
+        {
+            List<CitedPerson> names = new List<CitedPerson>();
+
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
+            {
+                names.Add(new Faker<CitedPerson>()
+                    .RuleFor(t => t.Ids, GetDecoratedIds(1, 2))
+                    .RuleFor(t => t.Sources, GetDocReferences(1, 3))
+                    .RuleFor(t => t.Name, new Faker<PersonName>()
+                        .RuleFor(pn => pn.Language, "lat")
+                        .RuleFor(pn => pn.Parts, f =>
+                            new List<PersonNamePart>(new[]
+                            {
+                                new PersonNamePart
+                                {
+                                    Type = "first",
+                                    Value = f.Lorem.Word(),
+                                },
+                                new PersonNamePart
+                                {
+                                    Type = "last",
+                                    Value = f.Lorem.Word(),
+                                }
+                            })))
+                    .Generate());
+            }
+
+            return names;
+        }
     }
 }

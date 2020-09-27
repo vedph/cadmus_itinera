@@ -9,17 +9,24 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
     public sealed class PoeticTextInfoPartTest
     {
-        private static List<CitedThing> GetAuthors(int count)
+        private static List<CitedPerson> GetAuthors(int count)
         {
-            List<CitedThing> authors = new List<CitedThing>();
+            List<CitedPerson> authors = new List<CitedPerson>();
 
             for (int n = 1; n <= count; n++)
             {
                 string name = new string((char)('A' + n - 1), 3);
 
-                authors.Add(new CitedThing
+                authors.Add(new CitedPerson
                 {
-                    Name = name,
+                    Name = new PersonName
+                    {
+                        Language = "eng",
+                        Parts = new List<PersonNamePart>(new[]
+                        {
+                            new PersonNamePart{ Type = "last", Value = name}
+                        })
+                    },
                     Ids = new List<DecoratedId>(new[]
                     {
                         new DecoratedId
