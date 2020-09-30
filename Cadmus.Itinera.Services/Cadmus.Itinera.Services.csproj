@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Daniele Fusi</Authors>
+    <Company>Fusi</Company>
+    <Product>Cadmus</Product>
+    <Description>Cadmus Itinera project services.</Description>
+    <Copyright>By Daniele Fusi 2020</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cadmus.Core" Version="2.3.0" />
+    <PackageReference Include="Cadmus.Index.Sql" Version="1.1.0" />
+    <PackageReference Include="Cadmus.Parts" Version="2.3.0" />
+    <PackageReference Include="Cadmus.Philology.Parts" Version="2.3.0" />
+    <PackageReference Include="Cadmus.Seed.Parts" Version="1.1.0" />
+    <PackageReference Include="Cadmus.Seed.Philology.Parts" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cadmus.Itinera.Parts\Cadmus.Itinera.Parts.csproj" />
+    <ProjectReference Include="..\Cadmus.Seed.Itinera.Parts\Cadmus.Seed.Itinera.Parts.csproj" />
+  </ItemGroup>
+
+</Project>
