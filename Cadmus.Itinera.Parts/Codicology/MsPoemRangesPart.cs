@@ -1,7 +1,8 @@
 ﻿using Cadmus.Core;
+using Fusi.Tools;
 using Fusi.Tools.Config;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Codicology
@@ -38,25 +39,51 @@ namespace Cadmus.Itinera.Parts.Codicology
             Ranges = new List<AlnumRange>();
         }
 
+        private int GetPoemCount()
+        {
+            if (Ranges?.Count == 0) return 0;
+
+            int n = 0;
+
+            foreach (AlnumRange range in Ranges)
+            {
+                if (range.A == null) continue;  // defensive
+
+                if (range.B != null)
+                {
+                    Alphanumeric start = Alphanumeric.Parse(range.A);
+                    Alphanumeric end = Alphanumeric.Parse(range.B);
+                    if (!start.IsNull() && !end.IsNull()
+                        && start.Alpha == null && end.Alpha == null)
+                    {
+                        n += (int)end.Number - (int)start.Number;
+                    }
+                }
+                else n++;
+            }
+            return n;
+        }
+
         /// <summary>
         /// Get all the key=value pairs (pins) exposed by the implementor.
         /// </summary>
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins.</returns>
+        /// <returns>The pins: <c>tag</c>=tag (if any); <c>poem-count</c>=
+        /// count of poems calculated from their ranges.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
-            throw new NotImplementedException();
+            List<DataPin> pins = new List<DataPin>();
 
-            // TODO: implement indexing logic...
-            // sample:
-            // return Tag != null
-            //    ? new[]
-            //    {
-            //        CreateDataPin("tag", Tag)
-            //    }
-            //    : Enumerable.Empty<DataPin>();
+            if (!string.IsNullOrEmpty(Tag))
+                pins.Add(CreateDataPin("tag", Tag));
+
+            int n = GetPoemCount();
+            pins.Add(CreateDataPin("poem-count",
+                n.ToString(CultureInfo.InvariantCulture)));
+
+            return pins;
         }
 
         /// <summary>
@@ -65,11 +92,15 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <returns>Data pins definitions.</returns>
         public override IList<DataPinDefinition> GetDataPinDefinitions()
         {
-            List<DataPinDefinition> pins = new List<DataPinDefinition>();
-
-            // TODO
-
-            return pins;
+            return new List<DataPinDefinition>(new[]
+            {
+                new DataPinDefinition(DataPinValueType.String,
+                    "tag",
+                    "The tag if any."),
+                new DataPinDefinition(DataPinValueType.Integer,
+                    "poem-count",
+                    "The counts of the poems calculated from their ranges."),
+            });
         }
 
         /// <summary>
@@ -82,9 +113,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[MsPoemRanges]");
+            sb.Append("[MsPoemRanges]: ").Append(Ranges?.Count ?? 0);
 
-            // TODO: append summary data...
+            if (!string.IsNullOrEmpty(Tag)) sb.Append(' ').Append(Tag);
 
             return sb.ToString();
         }
