@@ -13,7 +13,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 namespace Cadmus.Itinera.Services
 {
     /// <summary>
-    /// Cadmus Itinera repository service.
+    /// Cadmus Itinera repository provider.
     /// </summary>
     public sealed class ItineraRepositoryProvider : IRepositoryProvider
     {
@@ -22,7 +22,8 @@ namespace Cadmus.Itinera.Services
         private readonly IPartTypeProvider _partTypeProvider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StandardRepositoryProvider"/> class.
+        /// Initializes a new instance of the <see cref="StandardRepositoryProvider"/>
+        /// class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <exception cref="ArgumentNullException">configuration</exception>

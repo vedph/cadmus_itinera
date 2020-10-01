@@ -12,9 +12,10 @@ using System.Reflection;
 namespace CadmusApi.Services
 {
     /// <summary>
-    /// Standard seeders service.
+    /// Itinera part seeders provider.
     /// </summary>
-    public sealed class ItineraPartSeederFactoryProvider : IPartSeederFactoryProvider
+    public sealed class ItineraPartSeederFactoryProvider :
+        IPartSeederFactoryProvider
     {
         /// <summary>
         /// Gets the part/fragment seeders factory.
