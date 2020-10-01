@@ -1,5 +1,6 @@
 ﻿using Cadmus.Core.Config;
 using Cadmus.Seed;
+using Cadmus.Seed.Itinera.Parts.Codicology;
 using Cadmus.Seed.Parts.General;
 using Cadmus.Seed.Philology.Parts.Layers;
 using Fusi.Microsoft.Extensions.Configuration.InMemoryJson;
@@ -32,7 +33,9 @@ namespace CadmusApi.Services
                 // Cadmus.Seed.Parts
                 typeof(NotePartSeeder).Assembly,
                 // Cadmus.Seed.Philology.Parts
-                typeof(ApparatusLayerFragmentSeeder).Assembly
+                typeof(ApparatusLayerFragmentSeeder).Assembly,
+                // Cadmus.Seed.Itinera.Parts
+                typeof(MsBindingPartSeeder).GetTypeInfo().Assembly
             };
             TagAttributeToTypeMap map = new TagAttributeToTypeMap();
             map.Add(seedAssemblies);
