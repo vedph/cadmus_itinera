@@ -1,9 +1,9 @@
 ﻿using Cadmus.Core;
 using Cadmus.Core.Layers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test
@@ -73,6 +73,17 @@ namespace Cadmus.Itinera.Parts.Test
                 });
             }
             return citations;
+        }
+
+        static public bool IsDataPinNameValid(string name) =>
+            Regex.IsMatch(name, @"^[a-zA-Z0-9\-_\.]+$");
+
+        static public void AssertValidDataPinNames(IList<DataPin> pins)
+        {
+            foreach (DataPin pin in pins)
+            {
+                Assert.True(IsDataPinNameValid(pin.Name), pin.ToString());
+            }
         }
     }
 }

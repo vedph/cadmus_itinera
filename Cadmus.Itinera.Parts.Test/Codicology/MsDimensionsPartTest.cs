@@ -98,6 +98,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
             Assert.Equal(6, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             for (int n = 1; n <= 3; n++)
             {

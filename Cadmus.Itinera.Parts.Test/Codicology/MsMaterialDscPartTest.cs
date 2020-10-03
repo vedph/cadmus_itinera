@@ -69,7 +69,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             MsMaterialDscPart part = GetPart();
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
+
             Assert.Equal(6, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "material");
             Assert.NotNull(pin);

@@ -51,6 +51,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
             Assert.Equal(5, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "area");
             Assert.NotNull(pin);

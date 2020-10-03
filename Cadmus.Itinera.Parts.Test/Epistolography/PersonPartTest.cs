@@ -78,6 +78,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
             Assert.Equal(10, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "person-id");
             Assert.NotNull(pin);

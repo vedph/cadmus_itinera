@@ -88,6 +88,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             MsDecorationsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
+            TestHelper.AssertValidDataPinNames(pins);
 
             Assert.Single(pins);
             DataPin pin = pins[0];
@@ -104,6 +105,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
             Assert.Equal(12, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);

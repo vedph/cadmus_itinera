@@ -80,6 +80,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
             Assert.Equal(16, pins.Count);
+            TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "sheet-count");
             Assert.NotNull(pin);

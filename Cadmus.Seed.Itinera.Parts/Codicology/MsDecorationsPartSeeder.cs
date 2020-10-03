@@ -87,7 +87,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
 
                 part.Decorations.Add(new Faker<MsDecoration>()
                     .RuleFor(d => d.Type, f => f.Lorem.Word())
-                    .RuleFor(d => d.Subject, f => f.Lorem.Sentence(1, 5))
+                    .RuleFor(d => d.Subject, f => f.Lorem.Word())
                     .RuleFor(d => d.Colors, GetColors())
                     .RuleFor(d => d.Layout, f => f.Lorem.Word())
                     .RuleFor(d => d.Tool, f => f.Lorem.Word())
