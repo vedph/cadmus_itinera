@@ -109,12 +109,14 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     {
                         W = new PhysicalDimension
                         {
-                            Value = f.Random.Float(2, 6),
+                            Value = (float)SeederHelper.Truncate(
+                                f.Random.Float(2, 6), 2),
                             Unit = "cm"
                         },
                         H = new PhysicalDimension
                         {
-                            Value = f.Random.Float(2, 6),
+                            Value = (float)SeederHelper.Truncate(
+                                f.Random.Float(2, 6), 2),
                             Unit = "cm"
                         }
                     })

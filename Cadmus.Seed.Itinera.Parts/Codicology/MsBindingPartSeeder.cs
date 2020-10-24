@@ -45,17 +45,20 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     {
                         W = new PhysicalDimension
                         {
-                            Value = f.Random.Float(6, 21),
+                            Value = (float)SeederHelper.Truncate(
+                                f.Random.Float(6, 21), 2),
                             Unit = "cm"
                         },
                         H = new PhysicalDimension
                         {
-                            Value = f.Random.Float(8, 29),
+                            Value = (float)SeederHelper.Truncate(
+                                f.Random.Float(8, 29), 2),
                             Unit = "cm"
                         },
                         D = new PhysicalDimension
                         {
-                            Value = f.Random.Float(0.5f, 1.5f),
+                            Value = (float)SeederHelper.Truncate(
+                                f.Random.Float(0.5f, 1.5f), 2),
                             Unit = "cm"
                         },
                     };

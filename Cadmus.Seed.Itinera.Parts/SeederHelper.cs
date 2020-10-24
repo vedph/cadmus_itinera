@@ -1,11 +1,24 @@
 ﻿using Bogus;
 using Cadmus.Itinera.Parts;
+using System;
 using System.Collections.Generic;
 
 namespace Cadmus.Seed.Itinera.Parts
 {
     internal static class SeederHelper
     {
+        /// <summary>
+        /// Truncates the specified value to the specified number of decimals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="decimals">The decimals.</param>
+        /// <returns>Truncated value.</returns>
+        public static double Truncate(double value, int decimals)
+        {
+            double factor = (double)Math.Pow(10, decimals);
+            return Math.Truncate(factor * value) / factor;
+        }
+
         /// <summary>
         /// Gets a random number of document references.
         /// </summary>

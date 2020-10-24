@@ -39,7 +39,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             {
                 MsHandInstance hand = new Faker<MsHandInstance>()
                     .RuleFor(i => i.Id, f => f.Lorem.Word())
-                    .RuleFor(i => i.IdReason, f => f.Lorem.Sentence())
+                    .RuleFor(i => i.IdReason, f => f.Lorem.Word())
                     .RuleFor(i => i.Start, f => new MsLocation
                     {
                         N = (short)f.Random.Number(1, 30),

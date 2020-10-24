@@ -47,7 +47,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             {
                 part.Dimensions.Add(new Faker<PhysicalDimension>()
                     .RuleFor(d => d.Tag, f => f.Lorem.Word())
-                    .RuleFor(d => d.Value, f => f.Random.Float(2, 10))
+                    .RuleFor(d => d.Value, f => (float)SeederHelper.Truncate(
+                        f.Random.Float(2, 10), 2))
                     .RuleFor(d => d.Unit, "cm")
                     .Generate());
             }
