@@ -52,7 +52,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(s => s.Date,
-                        HistoricalDate.Parse(("1300" + n)
+                        HistoricalDate.Parse((1300 + n)
                         .ToString(CultureInfo.InvariantCulture)))
                     .RuleFor(s => s.Note, f => f.Lorem.Sentence())
                     .Generate());
@@ -78,7 +78,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(s => s.Date,
-                        HistoricalDate.Parse(("1300" + n)
+                        HistoricalDate.Parse((1300 + n)
                             .ToString(CultureInfo.InvariantCulture)))
                     .Generate());
             }

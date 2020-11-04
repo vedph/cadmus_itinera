@@ -33,7 +33,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
 
             PoeticTextInfoPart part = new Faker<PoeticTextInfoPart>()
                 .RuleFor(p => p.Language, f => f.PickRandom("lat", "ita"))
-                .RuleFor(p => p.Subject, f => f.Lorem.Word())
+                .RuleFor(p => p.Subject, f => f.Lorem.Sentence())
                 .RuleFor(p => p.Metre, f => f.Lorem.Word())
                 .RuleFor(p => p.Authors, SeederHelper.GetCitedPersons(1, 2))
                 .RuleFor(p => p.Related, SeederHelper.GetDocReferences(1, 3))
