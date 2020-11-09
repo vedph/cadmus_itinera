@@ -46,7 +46,7 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Epistolography
             TestHelper.AssertPartMetadata(ap);
             Assert.NotNull(ap.Language);
             Assert.NotNull(ap.Subject);
-            Assert.NotNull(ap.Heading);
+            Assert.NotNull(ap.Headings);
             Assert.NotNull(ap.Note);
         }
     }

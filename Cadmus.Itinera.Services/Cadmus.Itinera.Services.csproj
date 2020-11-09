@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="Cadmus.Core" Version="2.3.0" />
-    <PackageReference Include="Cadmus.Index.Sql" Version="1.1.1" />
-    <PackageReference Include="Cadmus.Mongo" Version="2.3.2" />
+    <PackageReference Include="Cadmus.Index.Sql" Version="1.1.2" />
+    <PackageReference Include="Cadmus.Mongo" Version="2.3.3" />
     <PackageReference Include="Cadmus.Parts" Version="2.3.0" />
     <PackageReference Include="Cadmus.Philology.Parts" Version="2.3.0" />
     <PackageReference Include="Cadmus.Seed.Parts" Version="1.1.1" />

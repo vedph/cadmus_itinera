@@ -3,6 +3,7 @@ using Cadmus.Core;
 using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Tools.Config;
 using System;
+using System.Collections.Generic;
 
 namespace Cadmus.Seed.Itinera.Parts.Epistolography
 {
@@ -34,7 +35,11 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             LetterInfoPart part = new Faker<LetterInfoPart>()
                 .RuleFor(p => p.Language, f => f.PickRandom("ita", "fra", "lat"))
                 .RuleFor(p => p.Subject, f => f.Lorem.Sentence(2, 4))
-                .RuleFor(p => p.Heading, f => f.Lorem.Sentence(3, 5))
+                .RuleFor(p => p.AuthorId, f => f.Name.FullName())
+                .RuleFor(p => p.Headings, f =>
+                    new List<string>(new[] { f.Lorem.Sentence(3, 5) }))
+                .RuleFor(p => p.Recipients, SeederHelper.GetDecoratedIds(1, 3))
+                .RuleFor(p => p.ReplyingTo, SeederHelper.GetDecoratedIds(1, 3))
                 .RuleFor(p => p.Note, f => f.Lorem.Sentence())
                 .Generate();
             SetPartMetadata(part, roleId, item);
