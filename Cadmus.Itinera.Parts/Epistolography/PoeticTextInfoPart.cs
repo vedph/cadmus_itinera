@@ -29,6 +29,24 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public string Metre { get; set; }
 
         /// <summary>
+        /// Gets or sets the heading(s) found in the manuscript text,
+        /// sorted by their relevance (the most relevant first).
+        /// </summary>
+        public List<string> Headings { get; set; }
+
+        /// <summary>
+        /// Gets or sets the recipient(s) IDs. At least 1 recipient
+        /// should be defined.
+        /// </summary>
+        public List<DecoratedId> Recipients { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IDs of the document(s) this text is
+        /// replying to.
+        /// </summary>
+        public List<DecoratedId> ReplyingTo { get; set; }
+
+        /// <summary>
         /// Gets or sets the author(s) this text is attributed to.
         /// </summary>
         public List<CitedPerson> Authors { get; set; }
@@ -44,6 +62,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public PoeticTextInfoPart()
         {
+            Headings = new List<string>();
+            Recipients = new List<DecoratedId>();
+            ReplyingTo = new List<DecoratedId>();
             Authors = new List<CitedPerson>();
             Related = new List<DocReference>();
         }
@@ -56,7 +77,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>language</c>, <c>subject</c> (filtered, with
         /// digits), <c>metre</c>; also, for each author: <c>author-name</c>
-        /// (filtered, with digits), <c>author-id</c> (prefixed by rank and :).
+        /// (filtered, with digits), <c>author-id</c> (prefixed by rank and :);
+        /// finally, for each recipient/text this text is replying to:
+        /// <c>recipient</c>, <c>reply-to</c> (both filtered, with digits).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -77,6 +100,33 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     builder.AddValues("author-id",
                         from a in author.Ids
                         select $"{a.Rank}:{a.Id}");
+                }
+            }
+
+            if (Headings?.Count > 0)
+            {
+                foreach (string heading in Headings)
+                {
+                    builder.AddValue("heading", heading,
+                        filter: true, filterOptions: true);
+                }
+            }
+
+            if (Recipients?.Count > 0)
+            {
+                foreach (DecoratedId id in Recipients)
+                {
+                    builder.AddValue("recipient", id.Id,
+                        filter: true, filterOptions: true);
+                }
+            }
+
+            if (ReplyingTo?.Count > 0)
+            {
+                foreach (DecoratedId id in ReplyingTo)
+                {
+                    builder.AddValue("reply-to", id.Id,
+                        filter: true, filterOptions: true);
                 }
             }
 
@@ -107,7 +157,19 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "f"),
                 new DataPinDefinition(DataPinValueType.String,
                     "metre",
-                    "The author ID, prefixed by his rank plus :.")
+                    "The author ID, prefixed by his rank plus :."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "heading",
+                    "The text's heading.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "recipient",
+                    "The text's recipient ID.",
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "reply-to",
+                    "The ID of the document the text is replying to.",
+                    "Mf")
             });
         }
 

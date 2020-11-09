@@ -55,7 +55,41 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 Subject = "The Subject",
                 Metre = "metre",
                 Authors = GetAuthors(2),
-                Related = TestHelper.GetDocReferences(2)
+                Related = TestHelper.GetDocReferences(2),
+                Recipients = new List<DecoratedId>(new[]
+                {
+                    new DecoratedId
+                    {
+                        Id = "alpha",
+                        Rank = 1,
+                        Tag = "tag",
+                        Sources = new List<DocReference>(new[] {
+                            new DocReference
+                            {
+                                Author = "author",
+                                Work = "work",
+                                Location = "loc"
+                            }
+                        })
+                    }
+                }),
+                ReplyingTo = new List<DecoratedId>(new[]
+                {
+                    new DecoratedId
+                    {
+                        Id = "beta",
+                        Rank = 1,
+                        Tag = "tag",
+                        Sources = new List<DocReference>(new[] {
+                            new DocReference
+                            {
+                                Author = "author",
+                                Work = "work",
+                                Location = "loc"
+                            }
+                        })
+                    }
+                })
             };
         }
 
@@ -85,7 +119,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(7, pins.Count);
+            Assert.Equal(9, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "language");
@@ -117,6 +151,14 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }
+
+            pin = pins.Find(p => p.Name == "recipient");
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("alpha", pin.Value);
+
+            pin = pins.Find(p => p.Name == "reply-to");
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("beta", pin.Value);
         }
     }
 }
