@@ -31,7 +31,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the century number.
         /// </summary>
-        public short Century { get; set; }
+        public int Century { get; set; }
 
         /// <summary>
         /// Gets or sets the position of numbers in the page.

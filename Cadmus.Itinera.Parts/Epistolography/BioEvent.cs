@@ -53,7 +53,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// 2=dubious, etc. This is often used in connection with <see cref="Work"/>
         /// when the work's attribution is not sure.
         /// </summary>
-        public short Rank { get; set; }
+        public int Rank { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether <see cref="Work"/> is lost.

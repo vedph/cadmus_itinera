@@ -17,7 +17,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the binding's century.
         /// </summary>
-        public short Century { get; set; }
+        public int Century { get; set; }
 
         /// <summary>
         /// Gets or sets the binding's description.

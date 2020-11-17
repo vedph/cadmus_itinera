@@ -16,22 +16,22 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the start quire number.
         /// </summary>
-        public short StartNr { get; set; }
+        public int StartNr { get; set; }
 
         /// <summary>
         /// Gets or sets the end quire number (inclusive).
         /// </summary>
-        public short EndNr { get; set; }
+        public int EndNr { get; set; }
 
         /// <summary>
         /// Gets or sets the sheets count in the quire.
         /// </summary>
-        public short SheetCount { get; set; }
+        public int SheetCount { get; set; }
 
         /// <summary>
         /// Gets or sets the sheet(s) count difference (plus/minus N).
         /// </summary>
-        public short SheetDelta { get; set; }
+        public int SheetDelta { get; set; }
 
         /// <summary>
         /// Gets or sets an optional note about this quire.
