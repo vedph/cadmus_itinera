@@ -56,6 +56,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public int Rank { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether <see cref="Work"/> is dubious.
+        /// </summary>
+        public bool IsWorkDubious { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether <see cref="Work"/> is lost.
         /// </summary>
         public bool IsWorkLost { get; set; }

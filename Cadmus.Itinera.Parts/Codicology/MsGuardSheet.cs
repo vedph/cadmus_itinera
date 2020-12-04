@@ -3,7 +3,7 @@
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Manuscript's guard sheet description. Used in <see cref="MsGuardSheetsPart"/>.
+    /// Manuscript's guard sheet description.
     /// </summary>
     public class MsGuardSheet
     {

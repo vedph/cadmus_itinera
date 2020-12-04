@@ -22,6 +22,11 @@ namespace Cadmus.Itinera.Parts
         public string Place { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the place is dubious.
+        /// </summary>
+        public bool IsPlaceDubious { get; set; }
+
+        /// <summary>
         /// Gets or sets the date.
         /// </summary>
         public HistoricalDate Date { get; set; }
@@ -54,7 +59,7 @@ namespace Cadmus.Itinera.Parts
         /// </returns>
         public override string ToString()
         {
-            return $"[{Tag}] {Place}, {Date}";
+            return $"[{Tag}] {Place}{(IsPlaceDubious ? "?" : "")}, {Date}";
         }
     }
 }

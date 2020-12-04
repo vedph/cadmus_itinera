@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using Cadmus.Core;
 using Cadmus.Itinera.Parts.Epistolography;
-using Fusi.Antiquity.Chronology;
 using Fusi.Tools.Config;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,12 @@ using System.Collections.Generic;
 namespace Cadmus.Seed.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Seeder for <see cref="PersonEventsPart"/>.
-    /// Tag: <c>seed.it.vedph.itinera.person-events</c>.
+    /// Person works part seeder.
+    /// Tag: <c>seed.it.vedph.itinera.person-works</c>.
     /// </summary>
     /// <seealso cref="PartSeederBase" />
-    [Tag("seed.it.vedph.itinera.person-events")]
-    public sealed class PersonEventsPartSeeder : PartSeederBase
+    [Tag("seed.it.vedph.itinera.person-works")]
+    public sealed class PersonWorksPartSeeder : PartSeederBase
     {
         /// <summary>
         /// Creates and seeds a new part.
@@ -33,25 +32,22 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            PersonEventsPart part = new PersonEventsPart();
+            PersonWorksPart part = new PersonWorksPart();
             SetPartMetadata(part, roleId, item);
+            string[] languages = new[] { "eng", "ita", "fra", "deu", "spa" };
 
             for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
-                part.Events.Add(new Faker<BioEvent>()
-                    .RuleFor(e => e.Type, f => n == 1?
-                        "birth" : f.PickRandom("work", "marriage"))
-                    .RuleFor(e => e.Date, HistoricalDate.Parse($"{n} AD"))
-                    .RuleFor(e => e.Places,
-                        f => new List<string>(new[] { f.Lorem.Word() }))
-                    .RuleFor(e => e.Description, f => f.Lorem.Sentence())
-                    .RuleFor(e => e.Sources, SeederHelper.GetDocReferences(1, 3))
-                    .RuleFor(e => e.Participants, SeederHelper.GetDecoratedIds(1, 3))
-                    .RuleFor(e => e.Work, f => f.Lorem.Sentence(1, 3))
-                    .RuleFor(e => e.Rank, f => f.Random.Short(0, 3))
-                    .RuleFor(e => e.IsWorkDubious, f => f.Random.Bool(0.2f))
-                    .RuleFor(e => e.IsWorkLost, f => f.Random.Bool(0.2f))
-                    .RuleFor(e => e.ExternalIds, SeederHelper.GetExternalIds(1, 3))
+                part.Works.Add(new Faker<PersonWork>()
+                    .RuleFor(a => a.Language, f => f.PickRandom(languages))
+                    .RuleFor(a => a.IsDubious, f => f.Random.Bool(0.2f))
+                    .RuleFor(a => a.IsLost, f => f.Random.Bool(0.2f))
+                    .RuleFor(a => a.Genre, f => f.Lorem.Word())
+                    .RuleFor(a => a.Titles, f => new List<string>(new[] {f.Lorem.Sentence()}))
+                    .RuleFor(a => a.Chronotopes, SeederHelper.GetChronotopes(1, 3))
+                    .RuleFor(a => a.References, SeederHelper.GetDocReferences(1, 3))
+                    .RuleFor(a => a.Note,
+                        f => f.Random.Bool(0.2f)? f.Lorem.Sentence() : null)
                     .Generate());
             }
 

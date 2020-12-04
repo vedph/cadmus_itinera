@@ -1,5 +1,6 @@
 ﻿using Cadmus.Core;
 using Cadmus.Core.Layers;
+using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -61,18 +62,38 @@ namespace Cadmus.Itinera.Parts.Test
         {
             List<DocReference> citations = new List<DocReference>();
 
-            for (int i = 1; i <= count; i++)
+            for (int n = 1; n <= count; n++)
             {
                 citations.Add(new DocReference
                 {
                     Author = "Hom.",
                     Work = "Il.",
                     Location = "1.23",
-                    Note = $"Note {i}",
-                    Tag = i % 2 == 0 ? "even" : "odd"
+                    Note = $"Note {n}",
+                    Tag = n % 2 == 0 ? "even" : "odd"
                 });
             }
             return citations;
+        }
+
+        public static List<Chronotope> GetChronotopes(int count)
+        {
+            List<Chronotope> chronotopes = new List<Chronotope>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                chronotopes.Add(new Chronotope
+                {
+                    Place = $"place-{n}",
+                    Date = HistoricalDate.Parse((1300 + n) + " AD"),
+                    IsPlaceDubious = n % 1 != 0,
+                    Sources = TestHelper.GetDocReferences(1),
+                    Tag = "tag",
+                    TextDate = "text date"
+                });
+            }
+
+            return chronotopes;
         }
 
         static public bool IsDataPinNameValid(string name) =>

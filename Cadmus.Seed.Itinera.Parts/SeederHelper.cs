@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Cadmus.Itinera.Parts;
+using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
 
@@ -38,6 +39,31 @@ namespace Cadmus.Seed.Itinera.Parts
                     .RuleFor(r => r.Location,
                         f => $"{f.Random.Number(1, 24)}.{f.Random.Number(1, 1000)}")
                     .RuleFor(r => r.Note, f => f.Lorem.Sentence())
+                    .Generate());
+            }
+
+            return refs;
+        }
+
+        /// <summary>
+        /// Gets a random number of chronotopes.
+        /// </summary>
+        /// <param name="min">The min number of chronotopes to get.</param>
+        /// <param name="max">The max number of chronotopes to get.</param>
+        /// <returns>References.</returns>
+        public static List<Chronotope> GetChronotopes(int min, int max)
+        {
+            List<Chronotope> refs = new List<Chronotope>();
+
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
+            {
+                refs.Add(new Faker<Chronotope>()
+                    .RuleFor(r => r.Tag, f => f.PickRandom(null, "tag"))
+                    .RuleFor(r => r.Place, f => f.Address.City())
+                    .RuleFor(r => r.IsPlaceDubious, f => f.Random.Bool(0.2f))
+                    .RuleFor(r => r.Date, HistoricalDate.Parse($"{1300 + n} AD"))
+                    .RuleFor(r => r.TextDate, f => f.PickRandom(null, "text date"))
+                    .RuleFor(r => r.Sources, GetDocReferences(1, 3))
                     .Generate());
             }
 
