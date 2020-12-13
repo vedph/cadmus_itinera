@@ -7,7 +7,7 @@
     <Product>Cadmus</Product>
     <Description>Cadmus components for the Itinera project.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cadmus.Core" Version="2.3.1" />
-    <PackageReference Include="Cadmus.Parts" Version="2.3.1" />
+    <PackageReference Include="Cadmus.Core" Version="2.3.2" />
+    <PackageReference Include="Cadmus.Parts" Version="2.3.2" />
     <PackageReference Include="Fusi.Antiquity" Version="1.1.25" />
   </ItemGroup>
 
