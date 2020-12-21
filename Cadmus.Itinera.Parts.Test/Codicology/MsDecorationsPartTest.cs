@@ -29,8 +29,18 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Colors = new List<string>(new[]{ $"c{n}" }),
                     Layout = $"l{n}",
                     Tool = $"t{n}",
-                    Start = new MsLocation { N = 2, V = true, L = 1 },
-                    End = new MsLocation { N = 4, V = true, L = 12 },
+                    Start = new MsLocation
+                    {
+                        N = 2,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = 1
+                    },
+                    End = new MsLocation
+                    {
+                        N = 4,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = 12
+                    },
                     Position = "position",
                     Size = new PhysicalSize
                     {

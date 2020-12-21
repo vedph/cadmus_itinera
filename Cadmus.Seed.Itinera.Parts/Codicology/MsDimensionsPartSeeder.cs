@@ -37,7 +37,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     f => new MsLocation
                     {
                         N = (short)f.Random.Number(1, 60),
-                        V = f.Random.Bool()
+                        S = f.Random.Bool()?
+                            MsLocationSides.Verso : MsLocationSides.Recto,
                     })
                 .Generate();
             SetPartMetadata(part, roleId, item);

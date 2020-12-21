@@ -31,7 +31,12 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     IsBack = n % 2 == 0,
                     Material = oddEven,
-                    Location = new MsLocation { N = 2, V = true, L = 1 },
+                    Location = new MsLocation
+                    {
+                        N = 2,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = 1
+                    },
                     Date = HistoricalDate.Parse(n + 1300 + " AD")
                 });
 
@@ -43,7 +48,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Start = new MsLocation
                     {
                         N = (short)n,
-                        V = n % 2 != 0,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                         L = 1
                     }
                 });

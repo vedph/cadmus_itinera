@@ -62,15 +62,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(c => c.Work, f => f.Lorem.Word())
                     .RuleFor(c => c.Start, f => new MsLocation
                     {
-                        N = (short)sn,
-                        V = (sn % 2 == 0),
-                        L = (short)f.Random.Number(1, 20)
+                        N = sn,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = f.Random.Number(1, 20)
                     })
                     .RuleFor(c => c.End, f => new MsLocation
                     {
-                        N = (short)(sn + 1),
-                        V = (sn + 1) % 2 == 0,
-                        L = (short)f.Random.Number(1, 20)
+                        N = sn + 1,
+                        S = (sn + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = f.Random.Number(1, 20)
                     })
                     .RuleFor(c => c.State, f => f.PickRandom("partial", "integral"))
                     .RuleFor(c => c.Note, f => f.Lorem.Sentence())

@@ -43,13 +43,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(i => i.Start, f => new MsLocation
                     {
                         N = (short)f.Random.Number(1, 30),
-                        V = f.Random.Bool(),
+                        S = n % 2 == 0 ?
+                            MsLocationSides.Verso : MsLocationSides.Recto,
                         L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(i => i.End, f => new MsLocation
                     {
                         N = (short)f.Random.Number(31, 60),
-                        V = f.Random.Bool(),
+                        S = n % 2 == 0 ?
+                            MsLocationSides.Verso : MsLocationSides.Recto,
                         L = (short)f.Random.Number(1, 20)
                     })
                     .RuleFor(i => i.ExtentNote, f => f.Lorem.Sentence())
@@ -62,7 +64,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         .RuleFor(r => r.Location, f => new MsLocation
                         {
                             N = (short)f.Random.Number(1, 60),
-                            V = f.Random.Bool(),
+                            S = rn % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                             L = (short)f.Random.Number(1, 20)
                         })
                         .RuleFor(r => r.Type, f => f.Lorem.Word())
@@ -79,7 +81,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         .RuleFor(s => s.Location, f => new MsLocation
                         {
                             N = (short)f.Random.Number(1, 60),
-                            V = f.Random.Bool(),
+                            S = f.Random.Bool() ?
+                                MsLocationSides.Verso : MsLocationSides.Recto,
                             L = (short)f.Random.Number(1, 20)
                         })
                         .RuleFor(s => s.Language, f => f.PickRandom("lat", "ita"))

@@ -20,7 +20,12 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 Area = "Provence",
                 Address = "Toulon, Bibliothéque Civique",
                 Subscriber = "Pusillus",
-                SubscriptionLoc = new MsLocation { N = 21, V = true, L = 10 }
+                SubscriptionLoc = new MsLocation
+                {
+                    N = 21,
+                    S = MsLocationSides.Verso,
+                    L = 10
+                }
             };
         }
 

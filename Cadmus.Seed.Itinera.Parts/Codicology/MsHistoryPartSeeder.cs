@@ -100,13 +100,13 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(s => s.Start, f => new MsLocation
                     {
                         N = (short)((n - 1) * 2),
-                        V = n % 2 == 0,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                         L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(s => s.End, f => new MsLocation
                     {
                         N = (short)((n - 1) * 2 + 1),
-                        V = n % 2 == 0,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                         L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(f => f.Sources, SeederHelper.GetDocReferences(1, 3))

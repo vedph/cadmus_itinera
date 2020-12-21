@@ -24,14 +24,15 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Work = $"work-{suffix}",
                     Start = new MsLocation
                     {
-                        N = (short)(i + 1),
-                        V = (i + 1) % 2 == 0,
+                        N = i + 1,
+                        S = (i + 1) % 2 == 0 ?
+                            MsLocationSides.Verso : MsLocationSides.Recto,
                         L = 1
                     },
                     End = new MsLocation
                     {
-                        N = (short)(i + 1),
-                        V = (i + 1) % 2 == 0,
+                        N = (i + 1),
+                        S = (i + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                         L = 1
                     },
                     State = "state",

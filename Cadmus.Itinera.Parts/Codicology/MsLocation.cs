@@ -1,4 +1,7 @@
-﻿namespace Cadmus.Itinera.Parts.Codicology
+﻿using System;
+using System.Text;
+
+namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// A location (sheet number, recto/verso, and optional line number) in a
@@ -12,10 +15,15 @@
         public int N { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this location refers to the
-        /// sheet's recto (false) or verso (true).
+        /// Gets or sets a value indicating whether this <see cref="MsLocation"/>
+        /// is a Roman number.
         /// </summary>
-        public bool V { get; set; }
+        public bool R { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sheet's side(s) this location refers to.
+        /// </summary>
+        public MsLocationSides S { get; set; }
 
         /// <summary>
         /// Gets or sets the line number.
@@ -30,7 +38,28 @@
         /// </returns>
         public override string ToString()
         {
-            return $"{N}{(V? 'v':'r')}" + (L > 0? " l." + L : "");
+            StringBuilder sb = new StringBuilder();
+            sb.Append(N);
+            if ((S & MsLocationSides.Recto) != 0) sb.Append('r');
+            if ((S & MsLocationSides.Verso) != 0) sb.Append('v');
+            if (L > 0) sb.Append(" l.").Append(L);
+            return sb.ToString();
         }
+    }
+
+    /// <summary>
+    /// Sheet sides for a <see cref="MsLocation"/>.
+    /// </summary>
+    [Flags]
+    public enum MsLocationSides
+    {
+        /// <summary>Undefined</summary>
+        Undefined = 0,
+        /// <summary>Recto</summary>
+        Recto = 0x01,
+        /// <summary>Verso</summary>
+        Verso = 0x02,
+        /// <summary>Both recto and verso</summary>
+        RectoAndVerso = Recto | Verso
     }
 }

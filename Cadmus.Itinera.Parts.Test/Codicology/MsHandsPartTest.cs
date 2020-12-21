@@ -25,15 +25,30 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     Id = $"hand-{n}",
                     IdReason = "Reason",
-                    Start = new MsLocation { N = 2, V = true, L = 3 },
-                    End = new MsLocation { N = 4, V = true, L = 5 },
+                    Start = new MsLocation
+                    {
+                        N = 2,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = 3
+                    },
+                    End = new MsLocation
+                    {
+                        N = 4,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = 5
+                    },
                     ExtentNote = "Extent",
                     Rubrications = new List<MsRubrication>(new[]
                     {
                         new MsRubrication
                         {
                             Type = "type",
-                            Location = new MsLocation { N = 2, V = true, L = 3 },
+                            Location = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
+                                L = 3
+                            },
                             Description = "Description",
                             Issues = "Issues"
                         }
@@ -42,7 +57,12 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     {
                         new MsSubscription
                         {
-                            Location = new MsLocation { N = 4, V = true, L = 1 },
+                            Location = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
+                                L = 1
+                            },
                             Language = "eng",
                             Text = "Text"
                         }

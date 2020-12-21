@@ -19,9 +19,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     Location = new MsLocation
                     {
-                        N = (short)n,
-                        V = n % 2 == 0,
-                        L = (short)(n * 5)
+                        N = n,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = n * 5
                     },
                     Type = "type",
                     Description = "description",
@@ -42,9 +42,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     Location = new MsLocation
                     {
-                        N = (short)n,
-                        V = n % 2 == 0,
-                        L = (short)(n * 5)
+                        N = n,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = n * 5
                     },
                     Language = "lat",
                     Text = "Subscription text"

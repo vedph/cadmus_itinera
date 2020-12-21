@@ -1,6 +1,5 @@
 ﻿using Bogus;
 using Cadmus.Core;
-using Cadmus.Itinera.Parts;
 using Cadmus.Itinera.Parts.Codicology;
 using Cadmus.Parts.General;
 using Fusi.Tools.Config;
@@ -93,15 +92,15 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Tool, f => f.Lorem.Word())
                     .RuleFor(d => d.Start, f => new MsLocation
                     {
-                        N = (short)sn,
-                        V = (sn % 2 == 0),
-                        L = (short)f.Random.Number(1, 20)
+                        N = sn,
+                        S = sn % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.End, f => new MsLocation
                     {
-                        N = (short)(sn + 1),
-                        V = (sn + 1) % 2 == 0,
-                        L = (short)f.Random.Number(1, 20)
+                        N = sn + 1,
+                        S = (sn + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.Position,
                         f => f.PickRandom("bottom", "top", "left", "right"))
