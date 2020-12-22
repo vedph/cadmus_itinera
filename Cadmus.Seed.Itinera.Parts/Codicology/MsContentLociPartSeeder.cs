@@ -42,6 +42,13 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(l => l.Citation,
                         f => $"{f.Random.Number(24)}.{f.Random.Number(800)}")
                     .RuleFor(l => l.Text, f => f.Lorem.Sentence())
+                    .RuleFor(l => l.RefSheet, f => new MsLocation
+                    {
+                        N = n,
+                        S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = f.Random.Number(1, 20)
+                    })
+                    .RuleFor(l => l.ImageId, f => $"img{f.Random.Number(1, 100)}-")
                     .Generate());
             }
 

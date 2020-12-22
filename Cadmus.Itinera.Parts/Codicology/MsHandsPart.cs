@@ -16,14 +16,14 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the hands.
         /// </summary>
-        public List<MsHandInstance> Hands { get; set; }
+        public List<MsHand> Hands { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MsHandsPart"/> class.
         /// </summary>
         public MsHandsPart()
         {
-            Hands = new List<MsHandInstance>();
+            Hands = new List<MsHand>();
         }
 
         /// <summary>
@@ -42,8 +42,20 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (Hands?.Count > 0)
             {
-                builder.AddValues("id", from h in Hands
-                                        select h.Id);
+                foreach (MsHand hand in Hands)
+                {
+                    if (!string.IsNullOrEmpty(hand.Id))
+                        builder.AddValue("id", hand.Id);
+
+                    if (!string.IsNullOrEmpty(hand.PersonId))
+                        builder.AddValue("person-id", hand.PersonId);
+
+                    if (hand.Types?.Count > 0)
+                    {
+                        foreach (string type in hand.Types)
+                            builder.AddValue("type", type);
+                    }
+                }
             }
 
             return builder.Build(this);
@@ -52,7 +64,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets the definitions of data pins used by the implementor.
         /// </summary>
-        /// <returns>Data pins definitions.</returns>
+        /// <returns>Data pins definitions: <c>tot-count</c> and a list of
+        /// pins with keys: <c>id</c>, <c>person-id</c>, <c>type</c>.</returns>
         public override IList<DataPinDefinition> GetDataPinDefinitions()
         {
             return new List<DataPinDefinition>(new[]
@@ -63,6 +76,14 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new DataPinDefinition(DataPinValueType.String,
                     "id",
                     "The list of hands IDs.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "person-id",
+                    "The list of person IDs.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "type",
+                    "The list of script types.",
                     "M")
             });
         }

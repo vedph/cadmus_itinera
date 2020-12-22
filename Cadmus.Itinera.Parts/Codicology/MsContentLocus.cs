@@ -16,6 +16,16 @@
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or sets the reference sheet for this locus.
+        /// </summary>
+        public MsLocation RefSheet { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image identifier for this locus.
+        /// </summary>
+        public string ImageId { get; set; }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

@@ -25,6 +25,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 string eo = n % 2 == 0 ? "even" : "odd";
                 part.Numberings.Add(new MsNumbering
                 {
+                    IsMain = n == 1,
+                    IsPagination = n % 2 == 0,
                     Era = eo,
                     System = "s-" + eo,
                     Technique = "t-" + eo,

@@ -87,11 +87,11 @@ namespace Cadmus.Itinera.Parts.Codicology
             {
                 sb.Append(' ');
                 int n = 0;
-                foreach (MsCatchword recall in Catchwords)
+                foreach (MsCatchword catchword in Catchwords)
                 {
                     if (++n > 3) break;
                     if (n > 1) sb.Append("; ");
-                    sb.Append(recall);
+                    sb.Append(catchword);
                 }
                 if (Catchwords.Count > 3)
                     sb.Append("...(").Append(Catchwords.Count).Append(')');

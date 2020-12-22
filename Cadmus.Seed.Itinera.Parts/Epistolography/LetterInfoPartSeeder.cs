@@ -33,6 +33,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                 throw new ArgumentNullException(nameof(factory));
 
             LetterInfoPart part = new Faker<LetterInfoPart>()
+                .RuleFor(p => p.LetterId, f => f.Lorem.Word().ToLowerInvariant())
                 .RuleFor(p => p.Language, f => f.PickRandom("ita", "fra", "lat"))
                 .RuleFor(p => p.Subject, f => f.Lorem.Sentence(2, 4))
                 .RuleFor(p => p.AuthorId, f => f.Name.FullName())

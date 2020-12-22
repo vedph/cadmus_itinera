@@ -38,6 +38,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             {
                 part.Numberings.Add(new Faker<MsNumbering>()
                     .RuleFor(p => p.IsMain, n == 1)
+                    .RuleFor(p => p.IsPagination, n == 1)
                     .RuleFor(p => p.Era, f => f.PickRandom("ancient", "modern"))
                     .RuleFor(p => p.System, f => f.PickRandom("roman", "arabic"))
                     .RuleFor(p => p.Technique, f => f.Lorem.Word())

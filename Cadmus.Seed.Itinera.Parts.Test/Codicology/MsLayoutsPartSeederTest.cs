@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
 {
-    public sealed class MsDimensionsPartSeederTest
+    public sealed class MsLayoutsPartSeederTest
     {
         private static readonly PartSeederFactory _factory;
         private static readonly SeedOptions _seedOptions;
         private static readonly IItem _item;
 
-        static MsDimensionsPartSeederTest()
+        static MsLayoutsPartSeederTest()
         {
             _factory = TestHelper.GetFactory();
             _seedOptions = _factory.GetSeedOptions();
@@ -24,28 +24,27 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
         [Fact]
         public void TypeHasTagAttribute()
         {
-            Type t = typeof(MsDimensionsPartSeeder);
+            Type t = typeof(MsLayoutsPartSeeder);
             TagAttribute attr = t.GetTypeInfo().GetCustomAttribute<TagAttribute>();
             Assert.NotNull(attr);
-            Assert.Equal("seed.it.vedph.itinera.ms-dimensions", attr.Tag);
+            Assert.Equal("seed.it.vedph.itinera.ms-layouts", attr.Tag);
         }
 
         [Fact]
         public void Seed_Ok()
         {
-            MsDimensionsPartSeeder seeder = new MsDimensionsPartSeeder();
+            MsLayoutsPartSeeder seeder = new MsLayoutsPartSeeder();
             seeder.SetSeedOptions(_seedOptions);
 
             IPart part = seeder.GetPart(_item, null, _factory);
 
             Assert.NotNull(part);
 
-            MsDimensionsPart dp = part as MsDimensionsPart;
+            MsLayoutsPart dp = part as MsLayoutsPart;
             Assert.NotNull(dp);
 
             TestHelper.AssertPartMetadata(dp);
-            Assert.NotEmpty(dp.Dimensions);
-            Assert.NotEmpty(dp.Counts);
+            Assert.NotEmpty(dp.Layouts);
         }
     }
 }

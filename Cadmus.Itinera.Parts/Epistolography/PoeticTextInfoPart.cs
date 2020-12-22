@@ -14,6 +14,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
     public sealed class PoeticTextInfoPart : PartBase
     {
         /// <summary>
+        /// Gets or sets a human-readable, arbitrarily-defined identifier
+        /// for this text.
+        /// </summary>
+        public string TextId { get; set; }
+
+        /// <summary>
         /// Gets or sets the (prevalent) language (ISO 639-3).
         /// </summary>
         public string Language { get; set; }
@@ -86,6 +92,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             DataPinBuilder builder = new DataPinBuilder(
                 new StandardDataPinTextFilter());
 
+            builder.AddValue("id", TextId);
             builder.AddValue("language", Language);
             builder.AddValue("subject", Subject, filter: true, filterOptions: true);
             builder.AddValue("metre", Metre);
@@ -142,6 +149,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             return new List<DataPinDefinition>(new[]
             {
                 new DataPinDefinition(DataPinValueType.String,
+                    "id",
+                    "The text's ID."),
+                new DataPinDefinition(DataPinValueType.String,
                     "language",
                     "The text's (main) language."),
                 new DataPinDefinition(DataPinValueType.String,
@@ -184,6 +194,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             StringBuilder sb = new StringBuilder();
 
             sb.Append("[PoeticTextInfo]");
+
+            if (!string.IsNullOrEmpty(TextId))
+                sb.Append(TextId).Append(": ");
 
             sb.Append('[').Append(Language).Append("] ")
                 .Append(Subject)

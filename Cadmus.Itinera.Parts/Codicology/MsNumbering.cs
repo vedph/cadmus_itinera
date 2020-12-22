@@ -14,6 +14,12 @@ namespace Cadmus.Itinera.Parts.Codicology
         public bool IsMain { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this numbering refers
+        /// to cartulation or pagination.
+        /// </summary>
+        public bool IsPagination { get; set; }
+
+        /// <summary>
         /// Gets or sets the era (e.g. "coeva", "antica", "moderna", "recente").
         /// </summary>
         public string Era { get; set; }
@@ -63,6 +69,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                 sb.Append(": ").Append(Technique);
 
             if (IsMain) sb.Append('*');
+            sb.Append(IsPagination ? 'P' : 'C');
 
             return sb.ToString();
         }

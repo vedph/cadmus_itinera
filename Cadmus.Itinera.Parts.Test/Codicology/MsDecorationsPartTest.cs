@@ -27,7 +27,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Type = n % 2 == 0? "even" : "odd",
                     Subject = $"s{n}",
                     Colors = new List<string>(new[]{ $"c{n}" }),
-                    Layout = $"l{n}",
                     Tool = $"t{n}",
                     Start = new MsLocation
                     {
@@ -58,6 +57,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         }
                     }),
                     ImageId = "imageid",
+                    Note = "note",
                     Artist = new MsDecorationArtist
                     {
                         Id = "artist",

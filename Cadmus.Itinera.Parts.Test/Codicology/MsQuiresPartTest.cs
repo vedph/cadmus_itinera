@@ -23,9 +23,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             {
                 part.Quires.Add(new MsQuire
                 {
-                    IsNormal = n == 1,
-                    StartNr = (short)(n * 4),
-                    EndNr = (short)(n * 4 + 3),
+                    Tag = "tag",
+                    StartNr = n * 4,
+                    EndNr = n * 4 + 3,
                     SheetCount = 4,
                     SheetDelta = 1,
                     Note = "note"

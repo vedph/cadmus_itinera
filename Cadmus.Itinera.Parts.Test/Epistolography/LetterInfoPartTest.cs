@@ -18,6 +18,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 AuthorId = "author",
                 CreatorId = "zeus",
                 UserId = "another",
+                LetterId = "id-1",
                 Language = "eng",
                 Subject = "Subject",
                 Headings = new List<string>(new[] { "Heading" }),
@@ -75,6 +76,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             Assert.Equal(part.CreatorId, part2.CreatorId);
             Assert.Equal(part.UserId, part2.UserId);
 
+            Assert.Equal(part.LetterId, part2.LetterId);
             Assert.Equal(part.Language, part2.Language);
             Assert.Equal(part.Subject, part2.Subject);
             Assert.Equal(part.Headings?.Count, part2.Headings?.Count);
@@ -90,10 +92,14 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(6, pins.Count);
+            Assert.Equal(7, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
-            DataPin pin = pins.Find(p => p.Name == "language");
+            DataPin pin = pins.Find(p => p.Name == "id");
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("id-1", pin.Value);
+
+            pin = pins.Find(p => p.Name == "language");
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("eng", pin.Value);
 

@@ -15,6 +15,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
     public sealed class LetterInfoPart : PartBase
     {
         /// <summary>
+        /// Gets or sets a human-readable, arbitrarily-defined identifier
+        /// for this letter.
+        /// </summary>
+        public string LetterId { get; set; }
+
+        /// <summary>
         /// Gets or sets the language (ISO 639-3).
         /// </summary>
         public string Language { get; set; }
@@ -78,6 +84,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             List<DataPin> pins = new List<DataPin>();
             IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
+            if (!string.IsNullOrEmpty(LetterId))
+                pins.Add(CreateDataPin("id", LetterId));
+
             if (!string.IsNullOrEmpty(Language))
                 pins.Add(CreateDataPin("language", Language));
 
@@ -117,6 +126,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             return new List<DataPinDefinition>(new[]
             {
                 new DataPinDefinition(DataPinValueType.String,
+                    "id",
+                    "The letter's ID."),
+                new DataPinDefinition(DataPinValueType.String,
                     "language",
                     "The letter's (main) language."),
                 new DataPinDefinition(DataPinValueType.String,
@@ -153,6 +165,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
             StringBuilder sb = new StringBuilder();
 
             sb.Append("[LetterInfo]");
+
+            if (!string.IsNullOrEmpty(LetterId))
+                sb.Append(LetterId).Append(": ");
 
             if (!string.IsNullOrEmpty(Language))
                 sb.Append(" [").Append(Language).Append(']');

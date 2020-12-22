@@ -28,6 +28,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         public MsLocation End { get; set; }
 
         /// <summary>
+        /// Gets or sets the era.
+        /// </summary>
+        public string Era { get; set; }
+
+        /// <summary>
         /// Gets or sets the date for this section.
         /// </summary>
         public HistoricalDate Date { get; set; }

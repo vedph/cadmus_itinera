@@ -1,7 +1,7 @@
 ﻿namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// Description of any graphical sign drawn by a <see cref="MsHandInstance"/>.
+    /// Description of any graphical sign drawn by a <see cref="MsHand"/>.
     /// </summary>
     public class MsHandSign
     {

@@ -47,15 +47,6 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
 
             Assert.NotNull(p.PersonId);
             Assert.NotNull(p.Job);
-            Assert.NotNull(p.Type);
-            Assert.NotNull(p.ExtentNote);
-            Assert.NotNull(p.Description);
-            Assert.NotNull(p.Initials);
-            Assert.NotNull(p.Corrections);
-            Assert.NotNull(p.Punctuation);
-            Assert.NotNull(p.Abbreviations);
-            Assert.NotEmpty(p.Rubrications);
-            Assert.NotEmpty(p.Subscriptions);
         }
     }
 }

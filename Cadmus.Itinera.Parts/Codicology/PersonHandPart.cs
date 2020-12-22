@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Cadmus.Core;
+﻿using Cadmus.Core;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
 using System.Text;
@@ -26,73 +25,16 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Job { get; set; }
 
         /// <summary>
-        /// Gets or sets the hand's type.
+        /// Gets or sets the other manuscripts written by this person.
         /// </summary>
-        public string Type { get; set; }
-
-        /// <summary>
-        /// Gets or sets a note about the hand's extent.
-        /// </summary>
-        public string ExtentNote { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hand's description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the initials description.
-        /// </summary>
-        public string Initials { get; set; }
-
-        /// <summary>
-        /// Gets or sets the corrections description.
-        /// </summary>
-        public string Corrections { get; set; }
-
-        /// <summary>
-        /// Gets or sets the punctuation description.
-        /// </summary>
-        public string Punctuation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the abbreviations description.
-        /// </summary>
-        public string Abbreviations { get; set; }
-
-        /// <summary>
-        /// Gets or sets the rubrications description.
-        /// </summary>
-        public List<MsRubrication> Rubrications { get; set; }
-
-        /// <summary>
-        /// Gets or sets the subscriptions description.
-        /// </summary>
-        public List<MsSubscription> Subscriptions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the images IDs. These IDs represent the prefixes for
-        /// all the images depicting something related to this hand; e.g. if the
-        /// ID is <c>ae</c>, we would expect any number of image resources
-        /// named after it plus a conventional numbering, like <c>ae00001</c>,
-        /// <c>ae00002</c>, etc.
-        /// </summary>
-        public List<string> ImageIds { get; set; }
-
-        /// <summary>
-        /// Gets or sets the signs description.
-        /// </summary>
-        public List<MsHandSign> Signs { get; set; }
+        public List<DocReference> Others { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonHandPart"/> class.
         /// </summary>
         public PersonHandPart()
         {
-            Rubrications = new List<MsRubrication>();
-            Subscriptions = new List<MsSubscription>();
-            ImageIds = new List<string>();
-            Signs = new List<MsHandSign>();
+            Others = new List<DocReference>();
         }
 
         /// <summary>
@@ -101,9 +43,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>id</c>, <c>job</c>
-        /// (filtered, with digits), <c>type</c> (filtered, with digits),
-        /// <c>img-count</c>, <c>sign-tot-count</c>, <c>sign-X-count</c>.
+        /// <returns>The pins: <c>person-id</c>; <c>job</c> (filtered, with digits).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -111,20 +51,10 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new StandardDataPinTextFilter());
 
             if (!string.IsNullOrEmpty(PersonId))
-                builder.AddValue("id", PersonId);
+                builder.AddValue("person-id", PersonId);
 
             if (!string.IsNullOrEmpty(Job))
                 builder.AddValue("job", Job, filter: true, filterOptions: true);
-
-            if (!string.IsNullOrEmpty(Type))
-                builder.AddValue("type", Type, filter: true, filterOptions: true);
-
-            builder.Set("img", ImageIds?.Count ?? 0, false);
-
-            if (Signs?.Count > 0)
-            {
-                builder.Increase(from s in Signs select s.Id, true, "sign-");
-            }
 
             return builder.Build(this);
         }
@@ -138,25 +68,12 @@ namespace Cadmus.Itinera.Parts.Codicology
             return new List<DataPinDefinition>(new[]
             {
                 new DataPinDefinition(DataPinValueType.String,
-                    "id",
-                    "The hand's ID."),
+                    "person-id",
+                    "The person ID."),
                 new DataPinDefinition(DataPinValueType.String,
                     "job",
                     "The person's job.",
-                    "f"),
-                new DataPinDefinition(DataPinValueType.String,
-                    "type",
-                    "The hand's type.",
-                    "f"),
-                new DataPinDefinition(DataPinValueType.Integer,
-                    "img-count",
-                    "The images count."),
-                new DataPinDefinition(DataPinValueType.Integer,
-                    "sign-tot-count",
-                    "The signs count."),
-                new DataPinDefinition(DataPinValueType.Integer,
-                    "sign-{SIGN}-count",
-                    "The count of each type of described sign.")
+                    "f")
             });
         }
 
@@ -174,9 +91,6 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (!string.IsNullOrEmpty(PersonId))
                 sb.Append(' ').Append(PersonId);
-
-            if (!string.IsNullOrEmpty(Type))
-                sb.Append(" [").Append(Type).Append(']');
 
             return sb.ToString();
         }

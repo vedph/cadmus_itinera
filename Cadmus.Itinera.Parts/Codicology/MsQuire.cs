@@ -8,10 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
     public class MsQuire
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this quire represents the
-        /// "normal" pattern in the collation.
+        /// Gets or sets a generic tag.
         /// </summary>
-        public bool IsNormal { get; set; }
+        public string Tag { get; set; }
 
         /// <summary>
         /// Gets or sets the start quire number.

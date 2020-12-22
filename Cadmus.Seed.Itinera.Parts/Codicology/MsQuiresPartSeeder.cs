@@ -38,7 +38,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Quires.Add(new Faker<MsQuire>()
-                    .RuleFor(q => q.IsNormal, n == 1)
+                    .RuleFor(q => q.Tag, f => f.Lorem.Word())
                     .RuleFor(q => q.StartNr, nr)
                     .RuleFor(q => q.EndNr, (short)(nr + 3))
                     .RuleFor(q => q.SheetCount, (short)4)

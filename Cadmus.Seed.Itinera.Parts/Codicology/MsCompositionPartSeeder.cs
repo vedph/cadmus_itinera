@@ -77,6 +77,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                         S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
                         L = f.Random.Number(1, 20)
                     })
+                    .RuleFor(s => s.Era, f => f.PickRandom("c15", "c16"))
                     .RuleFor(s => s.Date,
                         HistoricalDate.Parse((1300 + n)
                             .ToString(CultureInfo.InvariantCulture)))

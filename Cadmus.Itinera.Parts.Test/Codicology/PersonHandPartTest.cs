@@ -54,23 +54,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             return subscriptions;
         }
 
-        private static List<MsHandSign> GetSigns(int count)
-        {
-            List<MsHandSign> signs = new List<MsHandSign>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                signs.Add(new MsHandSign
-                {
-                    Id = "s" + n,
-                    Type = n % 2 == 0 ? "even" : "odd",
-                    Description = "description",
-                    ImageId = "s" + n
-                });
-            }
-
-            return signs;
-        }
 
         private static PersonHandPart GetPart()
         {
@@ -82,17 +65,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 UserId = "another",
                 PersonId = "pusillus",
                 Job = "copyst",
-                Type = "capital",
-                ExtentNote = "Extent note",
-                Description = "Description",
-                Initials = "Initials",
-                Corrections = "Corrections",
-                Punctuation = "Punctuation",
-                Abbreviations = "Abbreviations",
-                Rubrications = GetRubrications(2),
-                Subscriptions = GetSubscriptions(2),
-                ImageIds = new List<string>(new string[] { "draco" }),
-                Signs = GetSigns(3)
+                Others = TestHelper.GetDocReferences(1)
             };
         }
 
@@ -122,10 +95,10 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(8, pins.Count);
+            Assert.Equal(2, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
-            DataPin pin = pins.Find(p => p.Name == "id");
+            DataPin pin = pins.Find(p => p.Name == "person-id");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("pusillus", pin.Value);
@@ -134,29 +107,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("copyst", pin.Value);
-
-            pin = pins.Find(p => p.Name == "type");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("capital", pin.Value);
-
-            pin = pins.Find(p => p.Name == "img-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("1", pin.Value);
-
-            pin = pins.Find(p => p.Name == "sign-tot-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("3", pin.Value);
-
-            for (int n = 1; n <= 3; n++)
-            {
-                pin = pins.Find(p => p.Name == $"sign-s{n}-count");
-                Assert.NotNull(pin);
-                TestHelper.AssertPinIds(part, pin);
-                Assert.Equal("1", pin.Value);
-            }
         }
     }
 }

@@ -9,6 +9,24 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 {
     public sealed class MsHandsPartTest
     {
+        private static List<MsHandSign> GetSigns(int count)
+        {
+            List<MsHandSign> signs = new List<MsHandSign>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                signs.Add(new MsHandSign
+                {
+                    Id = "s" + n,
+                    Type = n % 2 == 0 ? "even" : "odd",
+                    Description = "description",
+                    ImageId = "s" + n
+                });
+            }
+
+            return signs;
+        }
+
         private static MsHandsPart GetPart(int count)
         {
             MsHandsPart part = new MsHandsPart
@@ -21,22 +39,39 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= count; n++)
             {
-                part.Hands.Add(new MsHandInstance
+                part.Hands.Add(new MsHand
                 {
                     Id = $"hand-{n}",
+                    Types = new List<string>(new[] { $"type-{n}" }),
+                    PersonId = $"person-{n}",
+                    Description = "Description",
+                    Initials = "Initials",
+                    Corrections = "Corrections",
+                    Punctuation = "Punctuation",
+                    Abbreviations = "Abbreviations",
                     IdReason = "Reason",
-                    Start = new MsLocation
+                    Ranges = new List<MsLocationRange>(new[]
                     {
-                        N = 2,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = 3
-                    },
-                    End = new MsLocation
-                    {
-                        N = 4,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = 5
-                    },
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0
+                                    ? MsLocationSides.Verso
+                                    : MsLocationSides.Recto,
+                                L = 3
+                            },
+                            End = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0
+                                    ? MsLocationSides.Verso
+                                    : MsLocationSides.Recto,
+                                L = 5
+                            }
+                        }
+                    }),
                     ExtentNote = "Extent",
                     Rubrications = new List<MsRubrication>(new[]
                     {
@@ -53,20 +88,19 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                             Issues = "Issues"
                         }
                     }),
-                    Subscriptions = new List<MsSubscription>(new[]
+                    Subscription = new MsSubscription
                     {
-                        new MsSubscription
+                        Location = new MsLocation
                         {
-                            Location = new MsLocation
-                            {
-                                N = 4,
-                                S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
-                                L = 1
-                            },
-                            Language = "eng",
-                            Text = "Text"
-                        }
-                    })
+                            N = 4,
+                            S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
+                            L = 1
+                        },
+                        Language = "eng",
+                        Text = "Text"
+                    },
+                    Signs = GetSigns(1),
+                    ImageIds = new List<string>(new string[] { "draco" })
                 });
             }
 
@@ -116,7 +150,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(4, pins.Count);
+            Assert.Equal(10, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
@@ -127,6 +161,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             for (int n = 1; n <= 3; n++)
             {
                 pin = pins.Find(p => p.Name == "id" && p.Value == $"hand-{n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+
+                pin = pins.Find(p => p.Name == "person-id" && p.Value == $"person-{n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+
+                pin = pins.Find(p => p.Name == "type" && p.Value == $"type-{n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

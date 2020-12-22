@@ -3,6 +3,7 @@ using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
 using Fusi.Tools.Config;
 using System;
+using System.Collections.Generic;
 
 namespace Cadmus.Seed.Itinera.Parts.Codicology
 {
@@ -14,6 +15,60 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
     [Tag("seed.it.vedph.itinera.ms-hands")]
     public sealed class MsHandsPartSeeder : PartSeederBase
     {
+        private List<MsRubrication> GetRubrications(int count)
+        {
+            List<MsRubrication> rubrications = new List<MsRubrication>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                rubrications.Add(new Faker<MsRubrication>()
+                    .RuleFor(r => r.Location, f => new MsLocation
+                    {
+                        N = (short)n,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = (short)f.Random.Number(1, 20)
+                    })
+                    .RuleFor(r => r.Type, f => f.Lorem.Word())
+                    .RuleFor(r => r.Description, f => f.Lorem.Sentence())
+                    .RuleFor(r => r.Issues, f => f.Lorem.Sentence())
+                    .Generate());
+            }
+
+            return rubrications;
+        }
+
+        private MsSubscription GetSubscription()
+        {
+            return new Faker<MsSubscription>()
+                .RuleFor(r => r.Location, f => new MsLocation
+                {
+                    N = f.Random.Number(1, 40),
+                    S = f.Random.Bool() ? MsLocationSides.Verso : MsLocationSides.Recto,
+                    L = f.Random.Number(1, 20)
+                })
+                .RuleFor(r => r.Language, f => f.PickRandom("lat", "ita"))
+                .RuleFor(r => r.Text, f => f.Lorem.Sentence())
+                .Generate();
+        }
+
+        private List<MsHandSign> GetSigns(int count)
+        {
+            List<MsHandSign> signs = new List<MsHandSign>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                signs.Add(new Faker<MsHandSign>()
+                    .RuleFor(s => s.Id,
+                        f => new string((char)('A' + f.Random.Number(0, 25)), 1))
+                    .RuleFor(s => s.Type, f => f.PickRandom("let", "pct"))
+                    .RuleFor(s => s.Description, f => f.Lorem.Sentence())
+                    .RuleFor(s => s.ImageId, f => "img" + f.Random.Number(1, 100) + "-" )
+                    .Generate());
+            }
+
+            return signs;
+        }
+
         /// <summary>
         /// Creates and seeds a new part.
         /// </summary>
@@ -37,58 +92,45 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             int count = Randomizer.Seed.Next(1, 3);
             for (int n = 1; n <= count; n++)
             {
-                MsHandInstance hand = new Faker<MsHandInstance>()
-                    .RuleFor(i => i.Id, f => f.Lorem.Word())
-                    .RuleFor(i => i.IdReason, f => f.Lorem.Word())
-                    .RuleFor(i => i.Start, f => new MsLocation
-                    {
-                        N = (short)f.Random.Number(1, 30),
-                        S = n % 2 == 0 ?
-                            MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = (short)f.Random.Number(1, 20)
-                    })
-                    .RuleFor(i => i.End, f => new MsLocation
-                    {
-                        N = (short)f.Random.Number(31, 60),
-                        S = n % 2 == 0 ?
-                            MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = (short)f.Random.Number(1, 20)
-                    })
-                    .RuleFor(i => i.ExtentNote, f => f.Lorem.Sentence())
+                MsHand hand = new Faker<MsHand>()
+                    .RuleFor(h => h.Id, f => f.Lorem.Word())
+                    .RuleFor(h => h.Types, f => new List<string>(
+                        new[] { f.PickRandom("got", "mea") }))
+                    .RuleFor(h => h.PersonId, f => f.Name.FirstName().ToLowerInvariant())
+                    .RuleFor(h => h.Description, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.Initials, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.Corrections, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.Punctuation, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.Abbreviations, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.IdReason, f => f.Lorem.Word())
+                    .RuleFor(h => h.Ranges, f =>
+                        new List<MsLocationRange>(new[] {
+                            new MsLocationRange
+                            {
+                                Start = new MsLocation
+                                {
+                                    N = f.Random.Number(1, 30),
+                                    S = n % 2 == 0 ?
+                                        MsLocationSides.Verso : MsLocationSides.Recto,
+                                    L = f.Random.Number(1, 20)
+                                },
+                                End = new MsLocation
+                                {
+                                    N = f.Random.Number(31, 60),
+                                    S = n % 2 == 0 ?
+                                        MsLocationSides.Verso : MsLocationSides.Recto,
+                                    L = f.Random.Number(1, 20)
+                                }
+                            }
+                        }))
+                    .RuleFor(h => h.ExtentNote, f => f.Lorem.Sentence())
+                    .RuleFor(h => h.Rubrications,
+                        f => GetRubrications(f.Random.Number(1, 2)))
+                    .RuleFor(h => h.Subscription, GetSubscription())
+                    .RuleFor(h => h.Signs, f => GetSigns(f.Random.Number(1, 2)))
+                    .RuleFor(h => h.ImageIds,
+                        f => new List<string>(new[] { "img" + f.Random.Number(1, 100) + "-" }))
                     .Generate();
-
-                // rubrications
-                for (int rn = 1; rn <= Randomizer.Seed.Next(1, 3 + 1); rn++)
-                {
-                    hand.Rubrications.Add(new Faker<MsRubrication>()
-                        .RuleFor(r => r.Location, f => new MsLocation
-                        {
-                            N = (short)f.Random.Number(1, 60),
-                            S = rn % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                            L = (short)f.Random.Number(1, 20)
-                        })
-                        .RuleFor(r => r.Type, f => f.Lorem.Word())
-                        .RuleFor(r => r.Description, f => f.Lorem.Sentence())
-                        .RuleFor(r => r.Issues,
-                            f => f.PickRandom(null, f.Lorem.Sentence()))
-                        .Generate());
-                }
-
-                // subscriptions
-                for (int sn = 1; sn <= Randomizer.Seed.Next(1, 3 + 1); sn++)
-                {
-                    hand.Subscriptions.Add(new Faker<MsSubscription>()
-                        .RuleFor(s => s.Location, f => new MsLocation
-                        {
-                            N = (short)f.Random.Number(1, 60),
-                            S = f.Random.Bool() ?
-                                MsLocationSides.Verso : MsLocationSides.Recto,
-                            L = (short)f.Random.Number(1, 20)
-                        })
-                        .RuleFor(s => s.Language, f => f.PickRandom("lat", "ita"))
-                        .RuleFor(s => s.Text, f => f.Lorem.Sentence())
-                        .Generate());
-                }
 
                 part.Hands.Add(hand);
             }

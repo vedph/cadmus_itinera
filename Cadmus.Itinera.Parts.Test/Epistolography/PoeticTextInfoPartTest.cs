@@ -51,6 +51,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 RoleId = "some-role",
                 CreatorId = "zeus",
                 UserId = "another",
+                TextId = "id-1",
                 Language = "eng",
                 Subject = "The Subject",
                 Metre = "metre",
@@ -119,10 +120,15 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(9, pins.Count);
+            Assert.Equal(10, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
-            DataPin pin = pins.Find(p => p.Name == "language");
+            DataPin pin = pins.Find(p => p.Name == "id");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+            Assert.Equal("id-1", pin.Value);
+
+            pin = pins.Find(p => p.Name == "language");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("eng", pin.Value);

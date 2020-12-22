@@ -24,7 +24,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 part.Loci.Add(new MsContentLocus
                 {
                     Citation = $"{n}.1",
-                    Text = $"text {n}"
+                    Text = $"text {n}",
+                    RefSheet = new MsLocation
+                    {
+                        N = n,
+                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        L = n + 10
+                    },
+                    ImageId = "img-"
                 });
             }
 

@@ -88,7 +88,6 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Type, f => f.Lorem.Word())
                     .RuleFor(d => d.Subject, f => f.Lorem.Word())
                     .RuleFor(d => d.Colors, GetColors())
-                    .RuleFor(d => d.Layout, f => f.Lorem.Word())
                     .RuleFor(d => d.Tool, f => f.Lorem.Word())
                     .RuleFor(d => d.Start, f => new MsLocation
                     {
@@ -122,6 +121,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Description, f => f.Lorem.Sentence())
                     .RuleFor(d => d.TextRelation, f => f.Lorem.Sentence())
                     .RuleFor(d => d.ImageId, f => f.Lorem.Word())
+                    .RuleFor(d => d.Note, f => f.Random.Bool(0.25f)
+                        ? f.Lorem.Sentence() : null)
                     .RuleFor(d => d.GuideLetters, GetGuideLetters())
                     .RuleFor(d => d.Artist, GetArtist())
                     .Generate());

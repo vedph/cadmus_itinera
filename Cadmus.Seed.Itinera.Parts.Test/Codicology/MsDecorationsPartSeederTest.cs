@@ -51,7 +51,6 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
                 Assert.NotNull(decoration.Type);
                 Assert.NotNull(decoration.Subject);
                 Assert.NotEmpty(decoration.Colors);
-                Assert.NotNull(decoration.Layout);
                 Assert.NotNull(decoration.Tool);
                 Assert.NotNull(decoration.Start);
                 Assert.NotNull(decoration.End);

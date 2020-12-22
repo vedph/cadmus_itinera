@@ -15,49 +15,6 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
     [Tag("seed.it.vedph.itinera.person-hand")]
     public sealed class PersonHandPartSeeder : PartSeederBase
     {
-        private List<MsRubrication> GetRubrications(int count)
-        {
-            List<MsRubrication> rubrications = new List<MsRubrication>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                rubrications.Add(new Faker<MsRubrication>()
-                    .RuleFor(r => r.Location, f => new MsLocation
-                    {
-                        N = (short)n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = (short)f.Random.Number(1, 20)
-                    })
-                    .RuleFor(r => r.Type, f => f.Lorem.Word())
-                    .RuleFor(r => r.Description, f => f.Lorem.Sentence())
-                    .RuleFor(r => r.Issues, f => f.Lorem.Sentence())
-                    .Generate());
-            }
-
-            return rubrications;
-        }
-
-        private List<MsSubscription> GetSubscriptions(int count)
-        {
-            List<MsSubscription> subscriptions = new List<MsSubscription>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                subscriptions.Add(new Faker<MsSubscription>()
-                    .RuleFor(r => r.Location, f => new MsLocation
-                    {
-                        N = (short)n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = (short)f.Random.Number(1, 20)
-                    })
-                    .RuleFor(r => r.Language, f => f.PickRandom("lat", "ita"))
-                    .RuleFor(r => r.Text, f => f.Lorem.Sentence())
-                    .Generate());
-            }
-
-            return subscriptions;
-        }
-
         /// <summary>
         /// Creates and seeds a new part.
         /// </summary>
@@ -78,17 +35,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             PersonHandPart part = new Faker<PersonHandPart>()
                 .RuleFor(p => p.PersonId, f => f.Lorem.Word())
                 .RuleFor(p => p.Job, f => f.PickRandom("copyst", "writer", "poet"))
-                .RuleFor(p => p.Type, f => f.Lorem.Word())
-                .RuleFor(p => p.ExtentNote, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Description, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Initials, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Corrections, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Punctuation, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Abbreviations, f => f.Lorem.Sentence())
-                .RuleFor(p => p.Rubrications,
-                    f => GetRubrications(f.Random.Number(1, 3)))
-                .RuleFor(p => p.Subscriptions,
-                    f => GetSubscriptions(f.Random.Number(1, 3)))
+                .RuleFor(p => p.Others, SeederHelper.GetDocReferences(0, 3))
                 .Generate();
 
             SetPartMetadata(part, roleId, item);

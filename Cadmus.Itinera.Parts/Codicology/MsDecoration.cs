@@ -29,11 +29,6 @@ namespace Cadmus.Itinera.Parts.Codicology
         public List<string> Colors { get; set; }
 
         /// <summary>
-        /// Gets or sets the layout.
-        /// </summary>
-        public string Layout { get; set; }
-
-        /// <summary>
         /// Gets or sets the tool used for this decoration.
         /// </summary>
         public string Tool { get; set; }
@@ -76,6 +71,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <c>draco00002</c>, etc.
         /// </summary>
         public string ImageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets an optional note.
+        /// </summary>
+        public string Note { get; set; }
 
         /// <summary>
         /// Gets or sets the guide letters.
