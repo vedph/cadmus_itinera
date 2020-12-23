@@ -15,6 +15,22 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
     [Tag("seed.it.vedph.itinera.ms-hands")]
     public sealed class MsHandsPartSeeder : PartSeederBase
     {
+        private static List<MsLocation> GetLocations(int count)
+        {
+            List<MsLocation> locations = new List<MsLocation>();
+            for (int n = 1; n <= count; n++)
+            {
+                locations.Add(new Faker<MsLocation>()
+                    .RuleFor(l => l.N, f => f.Random.Number(1, 50))
+                    .RuleFor(l => l.S, n % 2 == 0
+                        ? MsLocationSides.Verso
+                        : MsLocationSides.Recto)
+                    .RuleFor(l => l.L, f => f.Random.Number(1, 20))
+                    .Generate());
+            }
+            return locations;
+        }
+
         private List<MsRubrication> GetRubrications(int count)
         {
             List<MsRubrication> rubrications = new List<MsRubrication>();
@@ -22,12 +38,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             for (int n = 1; n <= count; n++)
             {
                 rubrications.Add(new Faker<MsRubrication>()
-                    .RuleFor(r => r.Location, f => new MsLocation
-                    {
-                        N = (short)n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = (short)f.Random.Number(1, 20)
-                    })
+                    .RuleFor(r => r.Locations, f => GetLocations(f.Random.Number(1, 2)))
                     .RuleFor(r => r.Type, f => f.Lorem.Word())
                     .RuleFor(r => r.Description, f => f.Lorem.Sentence())
                     .RuleFor(r => r.Issues, f => f.Lorem.Sentence())
@@ -40,12 +51,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
         private MsSubscription GetSubscription()
         {
             return new Faker<MsSubscription>()
-                .RuleFor(r => r.Location, f => new MsLocation
-                {
-                    N = f.Random.Number(1, 40),
-                    S = f.Random.Bool() ? MsLocationSides.Verso : MsLocationSides.Recto,
-                    L = f.Random.Number(1, 20)
-                })
+                .RuleFor(r => r.Locations, f => GetLocations(f.Random.Number(1, 2)))
                 .RuleFor(r => r.Language, f => f.PickRandom("lat", "ita"))
                 .RuleFor(r => r.Text, f => f.Lorem.Sentence())
                 .Generate();

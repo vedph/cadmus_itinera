@@ -42,7 +42,7 @@ namespace Cadmus.Itinera.Parts.Codicology
             sb.Append(N);
             if ((S & MsLocationSides.Recto) != 0) sb.Append('r');
             if ((S & MsLocationSides.Verso) != 0) sb.Append('v');
-            if (L > 0) sb.Append(" l.").Append(L);
+            if (L > 0) sb.Append(L);
             return sb.ToString();
         }
     }

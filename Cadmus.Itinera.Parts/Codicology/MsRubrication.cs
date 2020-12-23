@@ -1,4 +1,6 @@
-﻿namespace Cadmus.Itinera.Parts.Codicology
+﻿using System.Collections.Generic;
+
+namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// Manuscript's rubrication description.
@@ -6,9 +8,9 @@
     public class MsRubrication
     {
         /// <summary>
-        /// Gets or sets the location of the rubrication in the manuscript.
+        /// Gets or sets the location(s) of the rubrication in the manuscript.
         /// </summary>
-        public MsLocation Location { get; set; }
+        public List<MsLocation> Locations { get; set; }
 
         /// <summary>
         /// Gets or sets the rubrication's type.
@@ -26,6 +28,14 @@
         public string Issues { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="MsRubrication"/> class.
+        /// </summary>
+        public MsRubrication()
+        {
+            Locations = new List<MsLocation>();
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>
@@ -33,7 +43,9 @@
         /// </returns>
         public override string ToString()
         {
-            return $"{Type} @{Location}";
+            return Locations?.Count > 0
+                ? $"{Type}: " + string.Join(" ", Locations)
+                : Type;
         }
     }
 }

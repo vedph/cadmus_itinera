@@ -1,4 +1,7 @@
-﻿namespace Cadmus.Itinera.Parts.Codicology
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
     /// A manuscript's subscription.
@@ -6,9 +9,9 @@
     public class MsSubscription
     {
         /// <summary>
-        /// Gets or sets the location of the subscription in the manuscript.
+        /// Gets or sets the location(s) of the subscription in the manuscript.
         /// </summary>
-        public MsLocation Location { get; set; }
+        public List<MsLocation> Locations { get; set; }
 
         /// <summary>
         /// Gets or sets the subscription's language (ISO 639-3).
@@ -21,6 +24,14 @@
         public string Text { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="MsSubscription"/> class.
+        /// </summary>
+        public MsSubscription()
+        {
+            Locations = new List<MsLocation>();
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>
@@ -28,8 +39,21 @@
         /// </returns>
         public override string ToString()
         {
-            return $"[{Language}] @{Location}: " +
-                (Text.Length > 60 ? Text.Substring(0, 60) + "..." : Text);
+            StringBuilder sb = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(Language))
+                sb.Append('[').Append(Language).Append(']');
+
+            if (Locations?.Count > 0)
+                sb.Append('@').Append(string.Join(" ", Locations));
+
+            if (!string.IsNullOrEmpty(Text))
+            {
+                sb.Append(": ")
+                  .Append(Text.Length > 60 ? Text.Substring(0, 60) + "..." : Text);
+            }
+
+            return sb.ToString();
         }
     }
 }

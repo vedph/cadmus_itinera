@@ -78,24 +78,34 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         new MsRubrication
                         {
                             Type = "type",
-                            Location = new MsLocation
+                            Locations = new List<MsLocation>(new[]
                             {
-                                N = 2,
-                                S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
-                                L = 3
-                            },
+                                new MsLocation
+                                {
+                                    N = 2,
+                                    S = n % 2 == 0
+                                        ? MsLocationSides.Verso
+                                        : MsLocationSides.Recto,
+                                    L = 3
+                                }
+                            }),
                             Description = "Description",
                             Issues = "Issues"
                         }
                     }),
                     Subscription = new MsSubscription
                     {
-                        Location = new MsLocation
-                        {
-                            N = 4,
-                            S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
-                            L = 1
-                        },
+                        Locations = new List<MsLocation>(new[]
+                            {
+                                new MsLocation
+                                {
+                                    N = 4,
+                                    S = n % 2 == 0
+                                        ? MsLocationSides.Verso
+                                        : MsLocationSides.Recto,
+                                    L = 5
+                                }
+                            }),
                         Language = "eng",
                         Text = "Text"
                     },

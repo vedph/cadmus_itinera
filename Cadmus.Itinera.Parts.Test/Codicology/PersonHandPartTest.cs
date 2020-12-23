@@ -17,12 +17,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             {
                 rubrications.Add(new MsRubrication
                 {
-                    Location = new MsLocation
-                    {
-                        N = n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = n * 5
-                    },
+                    Locations = new List<MsLocation>(new[] {
+                        new MsLocation
+                        {
+                            N = n,
+                            S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                            L = n * 5
+                        }
+                    }),
                     Type = "type",
                     Description = "description",
                     Issues = "issues",
@@ -40,12 +42,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             {
                 subscriptions.Add(new MsSubscription
                 {
-                    Location = new MsLocation
-                    {
-                        N = n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
-                        L = n * 5
-                    },
+                    Locations = new List<MsLocation>(new[] {
+                        new MsLocation
+                        {
+                            N = n,
+                            S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                            L = n * 5
+                        }
+                    }),
                     Language = "lat",
                     Text = "Subscription text"
                 });
