@@ -1,13 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Daniele Fusi</Authors>
     <Company>Fusi</Company>
     <Product>Cadmus</Product>
     <Description>Cadmus components for the Itinera project.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <Copyright>by Daniele Fusi</Copyright>
+    <PackageTags>Cadmus;itinera parts</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,9 +20,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cadmus.Core" Version="2.3.2" />
-    <PackageReference Include="Cadmus.Parts" Version="2.3.2" />
-    <PackageReference Include="Fusi.Antiquity" Version="1.1.25" />
+    <PackageReference Include="Cadmus.Core" Version="2.3.4" />
+    <PackageReference Include="Cadmus.Parts" Version="2.3.7" />
+    <PackageReference Include="Fusi.Antiquity" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
