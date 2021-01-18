@@ -34,7 +34,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Location = new MsLocation
                     {
                         N = 2,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0 ? "v" : "r",
                         L = 1
                     },
                     Date = HistoricalDate.Parse(n + 1300 + " AD")
@@ -49,7 +49,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Start = new MsLocation
                     {
                         N = (short)n,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0 ? "v" : "r",
                         L = 1
                     }
                 });

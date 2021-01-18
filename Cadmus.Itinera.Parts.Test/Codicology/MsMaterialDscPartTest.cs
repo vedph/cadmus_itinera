@@ -40,7 +40,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         Location = new MsLocation
                         {
                             N = 3,
-                            S = MsLocationSides.Verso,
+                            S = "v",
                             L = 1
                         },
                         Date = HistoricalDate.Parse("1200 AD"),

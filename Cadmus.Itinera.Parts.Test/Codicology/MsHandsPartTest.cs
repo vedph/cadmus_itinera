@@ -58,16 +58,16 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                             {
                                 N = 2,
                                 S = n % 2 == 0
-                                    ? MsLocationSides.Verso
-                                    : MsLocationSides.Recto,
+                                    ? "v"
+                                    : "r",
                                 L = 3
                             },
                             End = new MsLocation
                             {
                                 N = 4,
                                 S = n % 2 == 0
-                                    ? MsLocationSides.Verso
-                                    : MsLocationSides.Recto,
+                                    ? "v"
+                                    : "r",
                                 L = 5
                             }
                         }
@@ -84,8 +84,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                                 {
                                     N = 2,
                                     S = n % 2 == 0
-                                        ? MsLocationSides.Verso
-                                        : MsLocationSides.Recto,
+                                        ? "v"
+                                        : "r",
                                     L = 3
                                 }
                             }),
@@ -101,8 +101,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                                 {
                                     N = 4,
                                     S = n % 2 == 0
-                                        ? MsLocationSides.Verso
-                                        : MsLocationSides.Recto,
+                                        ? "v"
+                                        : "r",
                                     L = 5
                                 }
                             }),

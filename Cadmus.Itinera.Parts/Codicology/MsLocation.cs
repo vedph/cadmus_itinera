@@ -1,11 +1,13 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
     /// <summary>
-    /// A location (sheet number, recto/verso, and optional line number) in a
-    /// manuscript.
+    /// A location in a manuscript.
+    /// The location includes a number (either Arabic or Roman, always uppercase)
+    /// plus 0, 1 or 2 lowercase letters, where <c>r</c>=recto, <c>v</c>=verso,
+    /// <c>rv</c>=both, while the first letters of the alphabet represent
+    /// columns (<c>a</c>=1st column etc.).
     /// </summary>
     public class MsLocation
     {
@@ -21,9 +23,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         public bool R { get; set; }
 
         /// <summary>
-        /// Gets or sets the sheet's side(s) this location refers to.
+        /// Gets or sets the suffix, containing 0-2 lowercase letters.
         /// </summary>
-        public MsLocationSides S { get; set; }
+        public string S { get; set; }
 
         /// <summary>
         /// Gets or sets the line number.
@@ -40,26 +42,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(N);
-            if ((S & MsLocationSides.Recto) != 0) sb.Append('r');
-            if ((S & MsLocationSides.Verso) != 0) sb.Append('v');
+            if (!string.IsNullOrEmpty(S)) sb.Append(S);
             if (L > 0) sb.Append(L);
             return sb.ToString();
         }
-    }
-
-    /// <summary>
-    /// Sheet sides for a <see cref="MsLocation"/>.
-    /// </summary>
-    [Flags]
-    public enum MsLocationSides
-    {
-        /// <summary>Undefined</summary>
-        Undefined = 0,
-        /// <summary>Recto</summary>
-        Recto = 0x01,
-        /// <summary>Verso</summary>
-        Verso = 0x02,
-        /// <summary>Both recto and verso</summary>
-        RectoAndVerso = Recto | Verso
     }
 }

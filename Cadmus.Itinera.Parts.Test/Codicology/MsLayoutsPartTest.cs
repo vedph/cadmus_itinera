@@ -55,7 +55,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Sample = new MsLocation
                     {
                         N = n,
-                        S = MsLocationSides.Recto
+                        S = "r"
                     },
                     ColumnCount = n,
                     RulingTechnique = "ruling",

@@ -92,13 +92,13 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Start, f => new MsLocation
                     {
                         N = sn,
-                        S = sn % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = sn % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.End, f => new MsLocation
                     {
                         N = sn + 1,
-                        S = (sn + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = (sn + 1) % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(d => d.Position,

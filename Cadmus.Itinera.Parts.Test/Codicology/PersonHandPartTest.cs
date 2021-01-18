@@ -21,7 +21,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         new MsLocation
                         {
                             N = n,
-                            S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                            S = n % 2 == 0 ? "v" : "r",
                             L = n * 5
                         }
                     }),
@@ -46,7 +46,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         new MsLocation
                         {
                             N = n,
-                            S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                            S = n % 2 == 0 ? "v" : "r",
                             L = n * 5
                         }
                     }),

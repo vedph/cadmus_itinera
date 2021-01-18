@@ -41,7 +41,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     {
                         N = (short)f.Random.Number(20, 60),
                         S = f.Random.Bool() ?
-                            MsLocationSides.Verso : MsLocationSides.Recto,
+                            "v" : "r",
                         L = (short)f.Random.Number(1, 20)
                     })
                 .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))

@@ -23,7 +23,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 SubscriptionLoc = new MsLocation
                 {
                     N = 21,
-                    S = MsLocationSides.Verso,
+                    S = "v",
                     L = 10
                 }
             };

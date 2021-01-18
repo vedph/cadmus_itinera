@@ -63,13 +63,13 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(c => c.Start, f => new MsLocation
                     {
                         N = sn,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(c => c.End, f => new MsLocation
                     {
                         N = sn + 1,
-                        S = (sn + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = (sn + 1) % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(c => c.State, f => f.PickRandom("partial", "integral"))

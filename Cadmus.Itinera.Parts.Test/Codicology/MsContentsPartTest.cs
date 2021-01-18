@@ -26,13 +26,13 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     {
                         N = i + 1,
                         S = (i + 1) % 2 == 0 ?
-                            MsLocationSides.Verso : MsLocationSides.Recto,
+                            "v" : "r",
                         L = 1
                     },
                     End = new MsLocation
                     {
                         N = (i + 1),
-                        S = (i + 1) % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = (i + 1) % 2 == 0 ? "v" : "r",
                         L = 1
                     },
                     State = "state",

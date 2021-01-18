@@ -23,8 +23,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 locations.Add(new Faker<MsLocation>()
                     .RuleFor(l => l.N, f => f.Random.Number(1, 50))
                     .RuleFor(l => l.S, n % 2 == 0
-                        ? MsLocationSides.Verso
-                        : MsLocationSides.Recto)
+                        ? "v"
+                        : "r")
                     .RuleFor(l => l.L, f => f.Random.Number(1, 20))
                     .Generate());
             }
@@ -117,14 +117,14 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                                 {
                                     N = f.Random.Number(1, 30),
                                     S = n % 2 == 0 ?
-                                        MsLocationSides.Verso : MsLocationSides.Recto,
+                                        "v" : "r",
                                     L = f.Random.Number(1, 20)
                                 },
                                 End = new MsLocation
                                 {
                                     N = f.Random.Number(31, 60),
                                     S = n % 2 == 0 ?
-                                        MsLocationSides.Verso : MsLocationSides.Recto,
+                                        "v" : "r",
                                     L = f.Random.Number(1, 20)
                                 }
                             }

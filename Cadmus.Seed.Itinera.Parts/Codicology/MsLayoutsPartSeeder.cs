@@ -57,7 +57,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     {
                         N = f.Random.Number(1, 60),
                         S = f.Random.Bool() ?
-                            MsLocationSides.Verso : MsLocationSides.Recto,
+                            "v" : "r",
                     })
                 .RuleFor(p => p.Dimensions, f => GetDimensions(f.Random.Number(1, 3)))
                 .RuleFor(p => p.ColumnCount, f => f.Random.Number(1, 4))

@@ -48,7 +48,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(s => s.Location, f => new MsLocation
                     {
                         N = (short)n,
-                        S = n % 2 == 0? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0? "v" : "r",
                         L = (short)(f.Random.Number(1, 20))
                     })
                     .RuleFor(s => s.Date,
@@ -68,13 +68,13 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(s => s.Start, f => new MsLocation
                     {
                         N = (n - 1) * 2,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(s => s.End, f => new MsLocation
                     {
                         N = (n - 1) * 2 + 1,
-                        S = n % 2 == 0 ? MsLocationSides.Verso : MsLocationSides.Recto,
+                        S = n % 2 == 0 ? "v" : "r",
                         L = f.Random.Number(1, 20)
                     })
                     .RuleFor(s => s.Era, f => f.PickRandom("c15", "c16"))
