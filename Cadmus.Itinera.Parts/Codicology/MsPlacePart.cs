@@ -28,6 +28,16 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Address { get; set; }
 
         /// <summary>
+        /// Gets or sets the city.
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the site inside the city.
+        /// </summary>
+        public string Site { get; set; }
+
+        /// <summary>
         /// Gets or sets the subscriber.
         /// </summary>
         public string Subscriber { get; set; }
@@ -48,9 +58,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: <c>area</c>, <c>address</c>, <c>subscriber</c>,
-        /// and each component of the address named after the pattern
-        /// <c>address-N</c> where N is the ordinal of each component;
+        /// <returns>The pins: <c>area</c>, <c>address</c>, <c>city</c>,
+        /// <c>subscriber</c>, and each component of the address named after
+        /// the pattern <c>address-N</c> where N is the ordinal of each component;
         /// all filtered, with digits.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -59,6 +69,9 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (!string.IsNullOrEmpty(Area))
                 pins.Add(CreateDataPin("area", filter.Apply(Area, true)));
+
+            if (!string.IsNullOrEmpty(City))
+                pins.Add(CreateDataPin("city", filter.Apply(City, true)));
 
             if (!string.IsNullOrEmpty(Address))
             {
@@ -87,6 +100,10 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new DataPinDefinition(DataPinValueType.String,
                     "area",
                     "The manuscript's area, if any.",
+                    "f"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "city",
+                    "The manuscript's city, if any.",
                     "f"),
                 new DataPinDefinition(DataPinValueType.String,
                     "address",

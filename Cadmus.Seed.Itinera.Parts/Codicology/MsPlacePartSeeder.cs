@@ -35,6 +35,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 .RuleFor(p => p.Area,
                     f => f.PickRandom("France", "Germany", "Italy"))
                 .RuleFor(p => p.Address, f => $"{f.Lorem.Word()}, {f.Lorem.Word()}")
+                .RuleFor(p => p.City, f => f.Address.City())
+                .RuleFor(p => p.Site, f => f.PickRandom("A library", "A monastery"))
                 .RuleFor(p => p.Subscriber, f => f.Lorem.Word())
                 .RuleFor(p => p.SubscriptionLoc, f =>
                     new MsLocation
