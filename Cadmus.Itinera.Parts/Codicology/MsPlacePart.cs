@@ -78,7 +78,7 @@ namespace Cadmus.Itinera.Parts.Codicology
                 pins.Add(CreateDataPin("address", filter.Apply(Address, true)));
                 int n = 0;
                 foreach (string c in Address.Split(','))
-                    pins.Add(CreateDataPin($"address-{++n}", filter.Apply(c, true)));
+                    pins.Add(CreateDataPin($"address-{++n}", filter.Apply(c.Trim(), true)));
             }
 
             if (!string.IsNullOrEmpty(Subscriber))
