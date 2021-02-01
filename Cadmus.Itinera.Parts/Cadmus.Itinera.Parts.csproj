@@ -9,7 +9,7 @@
     <Product>Cadmus</Product>
     <Description>Cadmus components for the Itinera project.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Copyright>by Daniele Fusi</Copyright>
     <PackageTags>Cadmus;itinera parts</PackageTags>
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cadmus.Core" Version="2.3.4" />
-    <PackageReference Include="Cadmus.Parts" Version="2.3.7" />
+    <PackageReference Include="Cadmus.Core" Version="2.3.5" />
+    <PackageReference Include="Cadmus.Parts" Version="2.3.8" />
     <PackageReference Include="Fusi.Antiquity" Version="1.2.0" />
   </ItemGroup>
 
