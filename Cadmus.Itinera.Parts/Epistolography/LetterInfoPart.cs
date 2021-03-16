@@ -82,7 +82,6 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
-            IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
             if (!string.IsNullOrEmpty(LetterId))
                 pins.Add(CreateDataPin("id", LetterId));
@@ -91,27 +90,27 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 pins.Add(CreateDataPin("language", Language));
 
             if (!string.IsNullOrEmpty(Subject))
-                pins.Add(CreateDataPin("subject", filter.Apply(Subject, true)));
+                pins.Add(CreateDataPin("subject", DataPinHelper.DefaultFilter.Apply(Subject, true)));
 
             if (!string.IsNullOrEmpty(AuthorId))
-                pins.Add(CreateDataPin("author", filter.Apply(AuthorId, true)));
+                pins.Add(CreateDataPin("author", DataPinHelper.DefaultFilter.Apply(AuthorId, true)));
 
             if (Headings?.Count > 0)
             {
                 foreach (string heading in Headings)
-                    pins.Add(CreateDataPin("heading", filter.Apply(heading, true)));
+                    pins.Add(CreateDataPin("heading", DataPinHelper.DefaultFilter.Apply(heading, true)));
             }
 
             if (Recipients?.Count > 0)
             {
                 foreach (DecoratedId id in Recipients)
-                    pins.Add(CreateDataPin("recipient", filter.Apply(id.Id, true)));
+                    pins.Add(CreateDataPin("recipient", DataPinHelper.DefaultFilter.Apply(id.Id, true)));
             }
 
             if (ReplyingTo?.Count > 0)
             {
                 foreach (DecoratedId id in ReplyingTo)
-                    pins.Add(CreateDataPin("reply-to", filter.Apply(id.Id, true)));
+                    pins.Add(CreateDataPin("reply-to", DataPinHelper.DefaultFilter.Apply(id.Id, true)));
             }
 
             return pins;

@@ -61,19 +61,21 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     IsDubious = n % 2 == 0,
                     IsIndirect = n % 2 == 0,
                     IsFromParticipant = n % 2 != 0,
-                    From = new Chronotope
+                    Chronotopes = new List<Chronotope>(new[] {
+                    new Chronotope
                     {
+                        Tag = "from",
                         Date = HistoricalDate.Parse(n + 1200 + " AD"),
                         TextDate = "kal.apr.",
-                        Tag = "tag",
                         Place = (n % 2 == 0? "Even" : "Odd") + " town",
                         Sources = TestHelper.GetDocReferences(2)
                     },
-                    To = new Chronotope
+                    new Chronotope
                     {
+                        Tag = "to",
                         Date = HistoricalDate.Parse(n + 1201 + " AD"),
                         Place = (n % 2 == 0 ? "Even" : "Odd") + " lake"
-                    },
+                    } }),
                     Participants = GetParticipants(2),
                     Sources = TestHelper.GetDocReferences(2),
                     Attachments = GetAttachments(2)

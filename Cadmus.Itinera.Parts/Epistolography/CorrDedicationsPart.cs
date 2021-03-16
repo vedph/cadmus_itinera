@@ -41,7 +41,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder(
-                new StandardDataPinTextFilter());
+                DataPinHelper.DefaultFilter);
 
             foreach (CorrDedication dedication in Dedications)
             {

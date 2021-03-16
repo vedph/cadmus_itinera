@@ -95,7 +95,6 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
-            IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
             if (!string.IsNullOrEmpty(PersonId))
                 pins.Add(CreateDataPin("person-id", PersonId));
@@ -112,7 +111,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 {
                     pins.Add(CreateDataPin(
                         "name",
-                        filter.Apply(name.GetFullName(), true)));
+                        DataPinHelper.DefaultFilter.Apply(name.GetFullName(), true)));
                 }
             }
 
@@ -129,7 +128,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (!string.IsNullOrEmpty(BirthPlace))
             {
                 pins.Add(CreateDataPin("birth-place",
-                    filter.Apply(BirthPlace, true)));
+                    DataPinHelper.DefaultFilter.Apply(BirthPlace, true)));
             }
 
             if (DeathDate != null)
@@ -141,7 +140,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (!string.IsNullOrEmpty(DeathPlace))
             {
                 pins.Add(CreateDataPin("death-place",
-                    filter.Apply(DeathPlace, true)));
+                    DataPinHelper.DefaultFilter.Apply(DeathPlace, true)));
             }
 
             int cc = Bio?.Length ?? 0;

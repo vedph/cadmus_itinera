@@ -51,7 +51,6 @@ namespace Cadmus.Itinera.Parts.Codicology
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
-            IDataPinTextFilter filter = null;
 
             if (Century != 0)
             {
@@ -61,17 +60,14 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (!string.IsNullOrEmpty(CoverMaterial))
             {
-                filter = new StandardDataPinTextFilter();
                 pins.Add(CreateDataPin("cover-mat",
-                    filter.Apply(CoverMaterial, true)));
+                    DataPinHelper.DefaultFilter.Apply(CoverMaterial, true)));
             }
 
             if (!string.IsNullOrEmpty(SupportMaterial))
             {
-                if (filter == null)
-                    filter = new StandardDataPinTextFilter();
                 pins.Add(CreateDataPin("support-mat",
-                    filter.Apply(SupportMaterial, true)));
+                    DataPinHelper.DefaultFilter.Apply(SupportMaterial, true)));
             }
 
             if (Size?.W != null)

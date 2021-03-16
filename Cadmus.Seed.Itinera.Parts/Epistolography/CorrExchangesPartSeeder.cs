@@ -17,10 +17,10 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
     [Tag("seed.it.vedph.itinera.corr-exchanges")]
     public sealed class CorrExchangesPartSeeder : PartSeederBase
     {
-        private static Chronotope GetChronotope(int year)
+        private static Chronotope GetChronotope(string tag, int year)
         {
             return new Faker<Chronotope>()
-                .RuleFor(c => c.Tag, f => f.PickRandom(null, f.Lorem.Word()))
+                .RuleFor(c => c.Tag, tag)
                 .RuleFor(c => c.Place, f => f.Lorem.Word())
                 .RuleFor(c => c.Date, HistoricalDate.Parse($"{year} AD"))
                 .RuleFor(c => c.TextDate, f => f.Lorem.Sentence(3))
@@ -72,10 +72,10 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                     .RuleFor(e => e.IsDubious, f => f.Random.Bool(0.3f))
                     .RuleFor(e => e.IsIndirect, f => f.Random.Bool())
                     .RuleFor(e => e.IsFromParticipant, f => f.Random.Bool())
-                    .RuleFor(e => e.From, GetChronotope(1200))
-                    .RuleFor(e => e.To, GetChronotope(1201))
-                    .RuleFor(p => p.Participants, SeederHelper.GetDecoratedIds(1, 2))
-                    .RuleFor(d => d.Sources, SeederHelper.GetDocReferences(1, 3))
+                    .RuleFor(e => e.Chronotopes,
+                        new List<Chronotope> { GetChronotope("from", 1200) })
+                    .RuleFor(e => e.Participants, SeederHelper.GetDecoratedIds(1, 2))
+                    .RuleFor(e => e.Sources, SeederHelper.GetDocReferences(1, 3))
                     .RuleFor(e => e.Attachments, GetAttachments())
                     .Generate());
             }

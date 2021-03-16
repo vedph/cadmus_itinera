@@ -38,7 +38,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder =
-                new DataPinBuilder(new StandardDataPinTextFilter());
+                new DataPinBuilder(DataPinHelper.DefaultFilter);
 
             builder.Set("tot", Contents?.Count ?? 0, false);
 

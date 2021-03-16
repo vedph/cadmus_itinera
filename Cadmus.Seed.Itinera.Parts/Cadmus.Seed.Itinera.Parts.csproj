@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="32.0.2" />
-    <PackageReference Include="Cadmus.Seed" Version="1.1.6" />
+    <PackageReference Include="Bogus" Version="33.0.2" />
+    <PackageReference Include="Cadmus.Seed" Version="1.1.7" />
     <PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="1.0.3" />
   </ItemGroup>
 

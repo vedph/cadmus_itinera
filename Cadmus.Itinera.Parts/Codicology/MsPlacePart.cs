@@ -65,25 +65,35 @@ namespace Cadmus.Itinera.Parts.Codicology
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             List<DataPin> pins = new List<DataPin>();
-            IDataPinTextFilter filter = new StandardDataPinTextFilter();
 
             if (!string.IsNullOrEmpty(Area))
-                pins.Add(CreateDataPin("area", filter.Apply(Area, true)));
+            {
+                pins.Add(CreateDataPin("area",
+                    DataPinHelper.DefaultFilter.Apply(Area, true)));
+            }
 
             if (!string.IsNullOrEmpty(City))
-                pins.Add(CreateDataPin("city", filter.Apply(City, true)));
+            {
+                pins.Add(CreateDataPin("city",
+                    DataPinHelper.DefaultFilter.Apply(City, true)));
+            }
 
             if (!string.IsNullOrEmpty(Address))
             {
-                pins.Add(CreateDataPin("address", filter.Apply(Address, true)));
+                pins.Add(CreateDataPin("address",
+                    DataPinHelper.DefaultFilter.Apply(Address, true)));
                 int n = 0;
                 foreach (string c in Address.Split(','))
-                    pins.Add(CreateDataPin($"address-{++n}", filter.Apply(c.Trim(), true)));
+                {
+                    pins.Add(CreateDataPin($"address-{++n}",
+                        DataPinHelper.DefaultFilter.Apply(c.Trim(), true)));
+                }
             }
 
             if (!string.IsNullOrEmpty(Subscriber))
             {
-                pins.Add(CreateDataPin("subscriber", filter.Apply(Subscriber, true)));
+                pins.Add(CreateDataPin("subscriber",
+                    DataPinHelper.DefaultFilter.Apply(Subscriber, true)));
             }
 
             return pins;

@@ -42,7 +42,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder(
-                new StandardDataPinTextFilter());
+                DataPinHelper.DefaultFilter);
 
             builder.Set("tot", Pseudonyms?.Count ?? 0, false);
 

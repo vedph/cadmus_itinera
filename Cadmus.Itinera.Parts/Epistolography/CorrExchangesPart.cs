@@ -36,8 +36,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <returns>The pins: a collection of pins with keys:
         /// <c>tot-count</c>=total count of exchanges in the part;
         /// <c>dubious-count</c>, <c>indirect-count</c>, <c>incoming-count</c>,
-        /// <c>from-date-value</c>, <c>to-date-value</c>, <c>from-place</c>
-        /// (filtered, including digits), <c>to-place</c> (filtered, including
+        /// <c>{TAG}-date-value</c>, <c>{TAG}-place</c> (filtered, including
         /// digits), <c>participant.ROLE</c> (filtered including digits),
         /// <c>att-TYPE-count</c>=count of attachment of type TYPE (one count
         /// for each distinct type found in the part), <c>att-tot-count</c>=
@@ -45,7 +44,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder =
-                new DataPinBuilder(new StandardDataPinTextFilter());
+                new DataPinBuilder(DataPinHelper.DefaultFilter);
 
             builder.Set("tot", Exchanges?.Count ?? 0, false);
 
@@ -55,28 +54,18 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 if (exchange.IsIndirect) builder.Increase("indirect", false);
                 if (exchange.IsFromParticipant) builder.Increase("incoming", false);
 
-                if (exchange.From?.Date != null)
+                if (exchange.Chronotopes?.Count > 0)
                 {
-                    builder.AddValue("from-date-value",
-                        exchange.From.Date.GetSortValue());
-                }
-
-                if (!string.IsNullOrEmpty(exchange.From?.Place))
-                {
-                    builder.AddValue("from-place",
-                        exchange.From.Place, filter: true, filterOptions: true);
-                }
-
-                if (exchange.To?.Date != null)
-                {
-                    builder.AddValue("to-date-value",
-                        exchange.To.Date.GetSortValue());
-                }
-
-                if (!string.IsNullOrEmpty(exchange.To?.Place))
-                {
-                    builder.AddValue("to-place",
-                        exchange.To.Place, filter: true, filterOptions: true);
+                    foreach (Chronotope c in exchange.Chronotopes)
+                    {
+                        builder.AddValue(c.Tag.ToLowerInvariant() + "-date-value",
+                            c.Date.GetSortValue());
+                        if (!string.IsNullOrEmpty(c.Place))
+                        {
+                            builder.AddValue(c.Tag.ToLowerInvariant() + "-place",
+                                c.Place, filter: true, filterOptions: true);
+                        }
+                    }
                 }
 
                 if (exchange.Participants?.Count > 0)
@@ -119,20 +108,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "incoming-count",
                     "The count of exchanges originated from participants."),
                 new DataPinDefinition(DataPinValueType.Decimal,
-                    "from-date-value",
-                    "The list of the exchange's origin sortable date values.",
-                    "M"),
-                new DataPinDefinition(DataPinValueType.Decimal,
-                    "to-date-value",
-                    "The list of the exchange's destination sortable date values.",
+                    "{TAG}-date-value",
+                    "The list of the exchange's sortable date values.",
                     "M"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "from-place",
+                    "{TAG}-place",
                     "The list of the exchange's places of origin.",
-                    "Mf"),
-                new DataPinDefinition(DataPinValueType.String,
-                    "to-place",
-                    "The list of the exchange's places of destination.",
                     "Mf"),
                 new DataPinDefinition(DataPinValueType.String,
                     "participant.{TAG}",

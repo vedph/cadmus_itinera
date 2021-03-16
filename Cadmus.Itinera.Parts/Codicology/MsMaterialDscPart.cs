@@ -66,7 +66,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder(
-                new StandardDataPinTextFilter());
+                DataPinHelper.DefaultFilter);
 
             builder.Set("palimpsest", Palimpsests?.Count ?? 0, false);
 

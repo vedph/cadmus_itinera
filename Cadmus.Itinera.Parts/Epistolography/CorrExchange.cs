@@ -32,14 +32,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public bool IsFromParticipant { get; set; }
 
         /// <summary>
-        /// Gets or sets the date and place of origin.
+        /// Gets or sets the chronotopes for this exchange (e.g. from, to, etc.).
         /// </summary>
-        public Chronotope From { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date and place of destination.
-        /// </summary>
-        public Chronotope To { get; set; }
+        public List<Chronotope> Chronotopes { get; set; }
 
         /// <summary>
         /// Gets or sets the participants involved in this exchange, at the
@@ -62,6 +57,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </summary>
         public CorrExchange()
         {
+            Chronotopes = new List<Chronotope>();
             Participants = new List<DecoratedId>();
             Sources = new List<DocReference>();
             Attachments = new List<Attachment>();
@@ -81,9 +77,6 @@ namespace Cadmus.Itinera.Parts.Epistolography
             sb.Append(IsFromParticipant? $"[<{arrow}]" : $"[{arrow}>]");
             if (Participants?.Count > 0)
                 sb.Append(string.Join("; ", Participants));
-
-            if (From != null) sb.Append(' ').Append(From);
-            if (To != null) sb.Append(" - ").Append(To);
 
             sb.Append(": ").Append(Attachments?.Count ?? 0);
 
