@@ -1,13 +1,13 @@
-﻿using Fusi.Antiquity.Chronology;
+﻿using System.Linq;
+using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// A dedication by the reference author to the correspondent, or vice-versa.
-    /// Used in <see cref="CorrDedicationsPart"/>.
+    /// A literary dedication, used in <see cref="LitDedicationsPart"/>.
     /// </summary>
-    public class CorrDedication
+    public class LitDedication
     {
         /// <summary>
         /// Gets or sets the title.
@@ -25,12 +25,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public HistoricalDate DateSent { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this dedication is by
-        /// the author to the correspondent, or vice-versa. Given that the
-        /// focus is on the author, the dedication by the author to the
-        /// correspondent can be the marked case of the binary opposition.
+        /// Gets or sets the persons involded in the dedication.
         /// </summary>
-        public bool IsByAuthor { get; set; }
+        public List<DecoratedId> Participants { get; set; }
 
         /// <summary>
         /// Gets or sets the source citations related to this dedication.
@@ -38,9 +35,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public List<DocReference> Sources { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CorrDedication"/> class.
+        /// Initializes a new instance of the <see cref="LitDedication"/> class.
         /// </summary>
-        public CorrDedication()
+        public LitDedication()
         {
             Sources = new List<DocReference>();
         }
@@ -53,7 +50,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// </returns>
         public override string ToString()
         {
-            return $"{Title}" + (IsByAuthor? "*":"") +
+            return $"{Title}" +
+                (Participants?.Count > 0
+                    ? string.Join(", ", from p in Participants select p.Id)
+                    : "") +
                 (Date != null? ": " + Date.ToString() : "");
         }
     }

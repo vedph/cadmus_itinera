@@ -9,11 +9,11 @@ using Xunit;
 
 namespace Cadmus.Itinera.Parts.Test.Epistolography
 {
-    public sealed class CorrDedicationsPartTest
+    public sealed class LitDedicationsPartTest
     {
-        private static CorrDedicationsPart GetPart(int count)
+        private static LitDedicationsPart GetPart(int count)
         {
-            CorrDedicationsPart part = new CorrDedicationsPart
+            LitDedicationsPart part = new LitDedicationsPart
             {
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
@@ -24,12 +24,21 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             for (int n = 1; n <= count; n++)
             {
                 HistoricalDate date = HistoricalDate.Parse(n + 1200 + " AD");
-                var dedication = new CorrDedication
+                var dedication = new LitDedication
                 {
                     Title = $"Dedication {n}",
                     Date = date,
-                    DateSent = n % 2 == 0? date : null,
-                    IsByAuthor = n % 2 == 0,
+                    DateSent = n % 2 == 0 ? date : null,
+                    Participants = new List<DecoratedId>(new[]
+                    {
+                        new DecoratedId
+                        {
+                            Id = $"guy{n}",
+                            Rank = 1,
+                            Tag = "target",
+                            Sources = TestHelper.GetDocReferences(1)
+                        }
+                    }),
                     Sources = TestHelper.GetDocReferences(2)
                 };
                 part.Dedications.Add(dedication);
@@ -41,11 +50,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void Part_Is_Serializable()
         {
-            CorrDedicationsPart part = GetPart(2);
+            LitDedicationsPart part = GetPart(2);
 
             string json = TestHelper.SerializePart(part);
-            CorrDedicationsPart part2 =
-                TestHelper.DeserializePart<CorrDedicationsPart>(json);
+            LitDedicationsPart part2 =
+                TestHelper.DeserializePart<LitDedicationsPart>(json);
 
             Assert.Equal(part.Id, part2.Id);
             Assert.Equal(part.TypeId, part2.TypeId);
@@ -61,7 +70,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_NoDedication_Ok()
         {
-            CorrDedicationsPart part = GetPart(0);
+            LitDedicationsPart part = GetPart(0);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
@@ -77,27 +86,15 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
         [Fact]
         public void GetDataPins_Dedications_Ok()
         {
-            CorrDedicationsPart part = GetPart(3);
+            LitDedicationsPart part = GetPart(3);
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(9, pins.Count);
+            Assert.Equal(10, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
-            // auth-count
-            DataPin pin = pins.Find(p => p.Name == "auth-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("1", pin.Value);
-
-            // corr-count
-            pin = pins.Find(p => p.Name == "corr-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("2", pin.Value);
-
             // tot-count
-            pin = pins.Find(p => p.Name == "tot-count");
+            DataPin pin = pins.Find(p => p.Name == "tot-count");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("3", pin.Value);
@@ -114,6 +111,11 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 double value = date.GetSortValue();
                 pin = pins.Find(p => p.Name == "date-value"
                     && p.Value == value.ToString(CultureInfo.InvariantCulture));
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+
+                // pid
+                pin = pins.Find(p => p.Name == "pid" && p.Value == $"guy{n}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }

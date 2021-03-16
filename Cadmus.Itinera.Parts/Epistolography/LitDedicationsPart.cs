@@ -1,30 +1,31 @@
 ﻿using Cadmus.Core;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {
     /// <summary>
-    /// Dedications by the reference author to a correspondent, or vice-versa.
-    /// Tag: <c>it.vedph.itinera.corr-dedications</c>.
+    /// Literary dedications.
+    /// Tag: <c>it.vedph.itinera.lit-dedications</c>.
     /// </summary>
     /// <seealso cref="PartBase" />
-    [Tag("it.vedph.itinera.corr-dedications")]
-    public sealed class CorrDedicationsPart : PartBase
+    [Tag("it.vedph.itinera.lit-dedications")]
+    public sealed class LitDedicationsPart : PartBase
     {
         /// <summary>
         /// Gets or sets the dedications.
         /// </summary>
-        public List<CorrDedication> Dedications { get; set; }
+        public List<LitDedication> Dedications { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CorrDedicationsPart"/>
+        /// Initializes a new instance of the <see cref="LitDedicationsPart"/>
         /// class.
         /// </summary>
-        public CorrDedicationsPart()
+        public LitDedicationsPart()
         {
-            Dedications = new List<CorrDedication>();
+            Dedications = new List<LitDedication>();
         }
 
         /// <summary>
@@ -34,16 +35,17 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
         /// <returns>The pins: collections of unique values keyed under these
-        /// IDs: <c>title</c> (filtered, including digits) and <c>date-value</c>;
-        /// in addition, <c>auth-count</c>=count of dedications by author;
-        /// <c>corr-count</c>=count of dedications by correspondents;
-        /// <c>tot-count</c>=total count of dedications (including 0).</returns>
+        /// IDs: <c>title</c> (filtered, including digits) and <c>date-value</c>,
+        /// plus a list of participant IDs in <c>pid</c>.
+        /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder(
                 DataPinHelper.DefaultFilter);
 
-            foreach (CorrDedication dedication in Dedications)
+            builder.Set("tot", Dedications?.Count ?? 0, false);
+
+            foreach (LitDedication dedication in Dedications)
             {
                 builder.AddValue("title",
                     dedication.Title, filter: true, filterOptions: true);
@@ -51,10 +53,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 if (dedication.Date != null)
                     builder.AddValue("date-value", dedication.Date.GetSortValue());
 
-                builder.Increase(dedication.IsByAuthor? "auth" : "corr");
+                if (dedication.Participants?.Count > 0)
+                {
+                    builder.AddValues("pid",
+                        dedication.Participants.Select(p => p.Id));
+                }
             }
 
-            return builder.Build(this, "tot");
+            return builder.Build(this);
         }
 
         /// <summary>
@@ -77,8 +83,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "The list of dedications sortable date values.",
                     "M"),
                 new DataPinDefinition(DataPinValueType.Integer,
-                    "auth-count",
-                    "The count of dedications by the author."),
+                    "pid",
+                    "The list of dedications person IDs.",
+                    "M"),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "corr-count",
                     "The count of dedications by the correspondent.")
@@ -95,7 +102,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("[CorrDedications]");
+            sb.Append("[LitDedications]");
 
             if (Dedications?.Count > 0)
             {
