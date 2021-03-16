@@ -128,7 +128,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 {
                     pins.Add(CreateDataPin("author",
                         DataPinHelper.DefaultFilter.Apply(
-                            author.Name.ToString(), true)));
+                            author.Name.GetFullName(), true)));
                 }
             }
 
