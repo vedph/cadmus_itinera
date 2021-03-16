@@ -34,9 +34,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// to access further data.</param>
         /// <returns>The pins: <c>tot-count</c> and a collection of pins with
         /// these keys: <c>type-X-count</c>, <c>subject-X-count</c>,
-        /// <c>color-X-count</c>, <c>tag-X-count</c>
-        /// (all the keys with X are filtered, with digits), <c>artist-id</c>
-        /// (filtered, with digits).
+        /// <c>color-X-count</c>, (all the keys with X are filtered, with digits),
+        /// <c>artist-id</c> (filtered, with digits).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -47,16 +46,24 @@ namespace Cadmus.Itinera.Parts.Codicology
 
             if (Decorations?.Count > 0)
             {
-                foreach (var decoration in Decorations)
+                foreach (MsDecoration decoration in Decorations)
                 {
                     builder.Increase(decoration.Type, false, "type-");
-                    builder.Increase(decoration.Subject, false, "subject-");
-                    builder.Increase(decoration.Tag, false, "tag-");
 
-                    if (decoration.Colors?.Count > 0)
+                    foreach (MsDecorationElement element in decoration?.Elements)
                     {
-                        foreach (string color in decoration.Colors)
-                            builder.Increase(color, false, "color-");
+                        builder.Increase(
+                            DataPinHelper.DefaultFilter.Apply(element.Subject, true),
+                            false,
+                            "subject-");
+
+                        foreach (string color in element.Colors)
+                        {
+                            builder.Increase(
+                                DataPinHelper.DefaultFilter.Apply(color, true),
+                                false,
+                                "color-");
+                        }
                     }
 
                     if (!string.IsNullOrEmpty(decoration.Artist?.Id))
@@ -90,10 +97,6 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new DataPinDefinition(DataPinValueType.Integer,
                     "color-{COLOR}-count",
                     "The count of each decoration's colors."),
-                new DataPinDefinition(DataPinValueType.Integer,
-                    "tag-{TAG}-count",
-                    "The count of each decoration's tag.",
-                    "f"),
                 new DataPinDefinition(DataPinValueType.String,
                     "artist-id",
                     "The list of decorations artists IDs.",

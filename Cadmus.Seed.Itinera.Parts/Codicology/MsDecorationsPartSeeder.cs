@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
-using Cadmus.Parts.General;
 using Fusi.Tools.Config;
 using System;
 using System.Collections.Generic;
@@ -15,10 +14,14 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
     [Tag("seed.it.vedph.itinera.ms-decorations")]
     public sealed class MsDecorationsPartSeeder : PartSeederBase
     {
+        private readonly string[] _types;
+        private readonly string[] _flags;
         private readonly string[] _colors;
 
         public MsDecorationsPartSeeder()
         {
+            _types = new[] { "pag-inc", "pag-dec", "ill" };
+            _flags = new[] { "original", "unitary", "complete" };
             _colors = new[] { "red", "green", "blue", "violet", "gold" };
         }
 
@@ -32,22 +35,6 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             return colors;
         }
 
-        private static List<MsGuideLetter> GetGuideLetters()
-        {
-            List<MsGuideLetter> letters = new List<MsGuideLetter>();
-            int count = Randomizer.Seed.Next(1, 3 + 1);
-
-            for (int n = 1; n <= count; n++)
-            {
-                letters.Add(new Faker<MsGuideLetter>()
-                    .RuleFor(l => l.Position, f => f.PickRandom("top", "bottom"))
-                    .RuleFor(l => l.Morphology, f => f.Lorem.Word())
-                    .Generate());
-            }
-
-            return letters;
-        }
-
         private MsDecorationArtist GetArtist()
         {
             return new Faker<MsDecorationArtist>()
@@ -57,6 +44,63 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 .RuleFor(a => a.Note, f => f.Lorem.Sentence())
                 .RuleFor(a => a.Sources, SeederHelper.GetDocReferences(1, 3))
                 .Generate();
+        }
+
+        private List<MsDecorationElement> GetElements(int count, Faker faker)
+        {
+            List<MsDecorationElement> elements = new List<MsDecorationElement>();
+            string[] typologies = new[] { "frieze", "frame" };
+            string[] gildings = new[] { "leaf", "powder" };
+            string[] positions = new[]
+            {
+                "top-left", "top-right", "bottom-left", "bottom-right"
+            };
+
+            for (int n = 1; n <= count; n++)
+            {
+                elements.Add(new MsDecorationElement
+                {
+                    Key = n == 1 ? "e1" : null,
+                    ParentKey = n == 2 ? "e1" : null,
+                    Type = faker.PickRandom(new[] { "pag-inc", "ill" }),
+                    Flags = new List<string>(new[] { faker.PickRandom(_flags) }),
+                    Ranges = new List<MsLocationRange>(new[]
+                    {
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = n,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = faker.Random.Number(1, 30)
+                            },
+                            End = new MsLocation
+                            {
+                                N = n * 2,
+                                S = "r",
+                                L = faker.Random.Number(1, 30)
+                            }
+                        }
+                    }),
+                    Typologies = new List<string>(new[] { faker.PickRandom(typologies) }),
+                    Subject = faker.Lorem.Word(),
+                    Colors = GetColors(),
+                    Gilding = faker.PickRandom(gildings),
+                    // TODO: add from thesaurus
+                    Technique = faker.Lorem.Word(),
+                    Tool = faker.Lorem.Word(),
+                    Position = faker.PickRandom(positions),
+                    LineHeight = faker.Random.Short(1, 10),
+                    TextRelation = faker.Lorem.Sentence(),
+                    Description = faker.Lorem.Sentence(),
+                    ImageId = "e" + n,
+                    Note = faker.Random.Bool(0.25F)? faker.Lorem.Sentence() : null
+                });
+            }
+
+            return elements;
         }
 
         /// <summary>
@@ -85,46 +129,17 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 int sn = (n - 1) * 2;
 
                 part.Decorations.Add(new Faker<MsDecoration>()
-                    .RuleFor(d => d.Type, f => f.Lorem.Word())
-                    .RuleFor(d => d.Subject, f => f.Lorem.Word())
-                    .RuleFor(d => d.Colors, GetColors())
-                    .RuleFor(d => d.Tool, f => f.Lorem.Word())
-                    .RuleFor(d => d.Start, f => new MsLocation
-                    {
-                        N = sn,
-                        S = sn % 2 == 0 ? "v" : "r",
-                        L = f.Random.Number(1, 20)
-                    })
-                    .RuleFor(d => d.End, f => new MsLocation
-                    {
-                        N = sn + 1,
-                        S = (sn + 1) % 2 == 0 ? "v" : "r",
-                        L = f.Random.Number(1, 20)
-                    })
-                    .RuleFor(d => d.Position,
-                        f => f.PickRandom("bottom", "top", "left", "right"))
-                    .RuleFor(d => d.Size, f => new PhysicalSize
-                    {
-                        W = new PhysicalDimension
-                        {
-                            Value = (float)SeederHelper.Truncate(
-                                f.Random.Float(2, 6), 2),
-                            Unit = "cm"
-                        },
-                        H = new PhysicalDimension
-                        {
-                            Value = (float)SeederHelper.Truncate(
-                                f.Random.Float(2, 6), 2),
-                            Unit = "cm"
-                        }
-                    })
-                    .RuleFor(d => d.Description, f => f.Lorem.Sentence())
-                    .RuleFor(d => d.TextRelation, f => f.Lorem.Sentence())
-                    .RuleFor(d => d.ImageId, f => f.Lorem.Word())
+                    .RuleFor(d => d.Id, f => "d" + f.UniqueIndex)
+                    .RuleFor(d => d.Name, f => f.Lorem.Word())
+                    .RuleFor(d => d.Type, f => f.PickRandom(_types))
+                    .RuleFor(d => d.Flags,
+                        f => new List<string>(new[] { f.PickRandom(_flags) }))
+                    .RuleFor(d => d.Type, f => f.Address.Country())
+                    .RuleFor(d => d.Artist, GetArtist())
                     .RuleFor(d => d.Note, f => f.Random.Bool(0.25f)
                         ? f.Lorem.Sentence() : null)
-                    .RuleFor(d => d.GuideLetters, GetGuideLetters())
-                    .RuleFor(d => d.Artist, GetArtist())
+                    .RuleFor(d => d.References, SeederHelper.GetDocReferences(1, 3))
+                    .RuleFor(d => d.Elements, f => GetElements(f.Random.Number(1, 3), f))
                     .Generate());
             }
 

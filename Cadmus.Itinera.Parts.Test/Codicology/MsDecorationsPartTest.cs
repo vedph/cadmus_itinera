@@ -1,6 +1,5 @@
 ﻿using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
-using Cadmus.Parts.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,60 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 {
     public sealed class MsDecorationsPartTest
     {
+        private static List<MsDecorationElement> GetElements(int count)
+        {
+            List<MsDecorationElement> elements = new List<MsDecorationElement>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                string alt = n % 2 == 0 ? "even" : "odd";
+
+                elements.Add(new MsDecorationElement
+                {
+                    Key = n == 1? "e1" : null,
+                    ParentKey = n == 2? "e1" : null,
+                    Type = alt,
+                    Flags = new List<string>(new[] {"f-" + alt}),
+                    Ranges = new List<MsLocationRange>(new[]
+                    {
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 3
+                            },
+                            End = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 5
+                            }
+                        }
+                    }),
+                    Typologies = new List<string>(new[] {"t-" + alt}),
+                    Subject = "s" + n,
+                    Colors = new List<string>(new[] {"c" + n}),
+                    Gilding = "gilding",
+                    Technique = "technique",
+                    Tool = "tool",
+                    Position = "position",
+                    LineHeight = (short)n,
+                    TextRelation = "relation",
+                    Description = "description",
+                    ImageId = "iid",
+                    Note = "note"
+                });
+            }
+
+            return elements;
+        }
+
         private static MsDecorationsPart GetPart(int count)
         {
             MsDecorationsPart part = new MsDecorationsPart
@@ -22,42 +75,15 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= count; n++)
             {
+                string alt = n % 2 == 0 ? "even" : "odd";
                 part.Decorations.Add(new MsDecoration
                 {
+                    Id = $"d{n}",
+                    Name = "Decoration " + n,
                     Type = n % 2 == 0? "even" : "odd",
-                    Subject = $"s{n}",
-                    Colors = new List<string>(new[]{ $"c{n}" }),
-                    Tool = $"t{n}",
-                    Start = new MsLocation
-                    {
-                        N = 2,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = 1
-                    },
-                    End = new MsLocation
-                    {
-                        N = 4,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = 12
-                    },
-                    Position = "position",
-                    Size = new PhysicalSize
-                    {
-                        W = new PhysicalDimension { Value = n, Unit = "cm" },
-                        H = new PhysicalDimension { Value = n * 2, Unit = "cm" }
-                    },
-                    Description = "description",
-                    TextRelation = "text relation",
-                    Tag = n % 2 == 0 ? "even" : "odd",
-                    GuideLetters = new List<MsGuideLetter>(new[]
-                    {
-                        new MsGuideLetter
-                        {
-                            Morphology = "morphology", Position = "position"
-                        }
-                    }),
-                    ImageId = "imageid",
-                    Note = "note",
+                    Flags = new List<string>(new[] { "f-" + alt }),
+                    Place = "Paris",
+                    Note = "Note",
                     Artist = new MsDecorationArtist
                     {
                         Id = "artist",
@@ -65,7 +91,9 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         Note = "note",
                         Type = "type",
                         Sources = TestHelper.GetDocReferences(2)
-                    }
+                    },
+                    References = TestHelper.GetDocReferences(1),
+                    Elements = GetElements(3)
                 });
             }
 
@@ -114,7 +142,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(12, pins.Count);
+            Assert.Equal(10, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
@@ -132,16 +160,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1", pin.Value);
 
-            pin = pins.Find(p => p.Name == "tag-odd-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("2", pin.Value);
-
-            pin = pins.Find(p => p.Name == "tag-even-count");
-            Assert.NotNull(pin);
-            TestHelper.AssertPinIds(part, pin);
-            Assert.Equal("1", pin.Value);
-
             pin = pins.Find(p => p.Name == "artist-id");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
@@ -152,12 +170,12 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 pin = pins.Find(p => p.Name == $"subject-s{n}-count");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
-                Assert.Equal("1", pin.Value);
+                Assert.Equal("3", pin.Value);
 
                 pin = pins.Find(p => p.Name == $"color-c{n}-count");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
-                Assert.Equal("1", pin.Value);
+                Assert.Equal("3", pin.Value);
             }
         }
     }

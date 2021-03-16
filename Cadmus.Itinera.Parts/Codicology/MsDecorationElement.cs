@@ -41,7 +41,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the typologies assigned to this element. These are
         /// typically drawn from a thesaurus, organized in sub-sets according
-        /// to the element's <see cref="Type"/>.
+        /// to the element's <see cref="Type"/>; for instance, for type
+        /// "ornamentation" you would have typologies like "fregi", "cornici",
+        /// "grottesche", "stemmi", etc.
         /// </summary>
         public List<string> Typologies { get; set; }
 
@@ -106,6 +108,18 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// Gets or sets an optional note.
         /// </summary>
         public string Note { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsDecorationElement"/>
+        /// class.
+        /// </summary>
+        public MsDecorationElement()
+        {
+            Flags = new List<string>();
+            Ranges = new List<MsLocationRange>();
+            Typologies = new List<string>();
+            Colors = new List<string>();
+        }
 
         /// <summary>
         /// Converts to string.

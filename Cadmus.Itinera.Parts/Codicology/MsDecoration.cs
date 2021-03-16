@@ -1,5 +1,4 @@
-﻿using Cadmus.Parts.General;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
@@ -9,68 +8,35 @@ namespace Cadmus.Itinera.Parts.Codicology
     public class MsDecoration
     {
         /// <summary>
-        /// Gets or sets the decoration's type.
+        /// Gets or sets an identifier which can be arbitrarily assigned to this
+        /// decoration.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the human-friendly name of this decoration.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the decoration's type, usually drawn from a thesaurus,
+        /// like "pagina incipitaria", "pagina decorata", "illustrazione",
+        /// "ornamentazione", "iniziali", etc.
         /// </summary>
         public string Type { get; set; }
 
         /// <summary>
-        /// Gets or sets a tag used to categorize or group decorations.
+        /// Gets or sets the flags. These are typically drawn from a thesaurus,
+        /// and represent single features of the element, which may or not be
+        /// present in it, like "original", "unitary", "complete", "has tips",
+        /// etc.
         /// </summary>
-        public string Tag { get; set; }
+        public List<string> Flags { get; set; }
 
         /// <summary>
-        /// Gets or sets the decoration's subject.
+        /// Gets or sets the place of origin for this decoration.
         /// </summary>
-        public string Subject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the decoration's colors.
-        /// </summary>
-        public List<string> Colors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tool used for this decoration.
-        /// </summary>
-        public string Tool { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location of the start sheet for this decoration.
-        /// </summary>
-        public MsLocation Start { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location of the end sheet for this decoration.
-        /// </summary>
-        public MsLocation End { get; set; }
-
-        /// <summary>
-        /// Gets or sets the position of the decoration in the page.
-        /// </summary>
-        public string Position { get; set; }
-
-        /// <summary>
-        /// Gets or sets the decoration's 2D size.
-        /// </summary>
-        public PhysicalSize Size { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the relationship of this decoration with the text.
-        /// </summary>
-        public string TextRelation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the image IDs. This ID represents the prefix for
-        /// all the images depicting something related to this hand; e.g. if the
-        /// ID is <c>draco</c>, we would expect any number of image resources
-        /// named after it plus a conventional numbering, like <c>draco00001</c>,
-        /// <c>draco00002</c>, etc.
-        /// </summary>
-        public string ImageId { get; set; }
+        public string Place { get; set; }
 
         /// <summary>
         /// Gets or sets an optional note.
@@ -78,22 +44,28 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Note { get; set; }
 
         /// <summary>
-        /// Gets or sets the guide letters.
-        /// </summary>
-        public List<MsGuideLetter> GuideLetters { get; set; }
-
-        /// <summary>
         /// Gets or sets the artist for this decoration.
         /// </summary>
         public MsDecorationArtist Artist { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional references for this decoration.
+        /// </summary>
+        public List<DocReference> References { get; set; }
+
+        /// <summary>
+        /// Gets or sets the elements this decoration consists of.
+        /// </summary>
+        public List<MsDecorationElement> Elements { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MsDecoration"/> class.
         /// </summary>
         public MsDecoration()
         {
-            Colors = new List<string>();
-            GuideLetters = new List<MsGuideLetter>();
+            Flags = new List<string>();
+            References = new List<DocReference>();
+            Elements = new List<MsDecorationElement>();
         }
 
         /// <summary>
@@ -104,7 +76,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{Type}] {Subject}: {Start} - {End}";
+            return $"[{Type}] {Name} ({Elements?.Count ?? 0})";
         }
     }
 }

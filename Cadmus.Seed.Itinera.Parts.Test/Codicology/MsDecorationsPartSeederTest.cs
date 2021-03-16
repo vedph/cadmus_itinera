@@ -45,23 +45,6 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
 
             TestHelper.AssertPartMetadata(dp);
             Assert.NotEmpty(dp.Decorations);
-
-            foreach (MsDecoration decoration in dp.Decorations)
-            {
-                Assert.NotNull(decoration.Type);
-                Assert.NotNull(decoration.Subject);
-                Assert.NotEmpty(decoration.Colors);
-                Assert.NotNull(decoration.Tool);
-                Assert.NotNull(decoration.Start);
-                Assert.NotNull(decoration.End);
-                Assert.NotNull(decoration.Position);
-                Assert.NotNull(decoration.Size);
-                Assert.NotNull(decoration.Description);
-                Assert.NotNull(decoration.TextRelation);
-                Assert.NotNull(decoration.ImageId);
-                Assert.NotEmpty(decoration.GuideLetters);
-                Assert.NotNull(decoration.Artist);
-            }
         }
     }
 }
