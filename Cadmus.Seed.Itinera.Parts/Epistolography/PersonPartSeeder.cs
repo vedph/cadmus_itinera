@@ -60,10 +60,11 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                         .Generate()
                 }))
                 .RuleFor(p => p.Sex, f => f.PickRandom('M', 'F'))
-                .RuleFor(p => p.BirthDate, HistoricalDate.Parse($"{birthYear} AD"))
-                .RuleFor(p => p.BirthPlace, f => f.Lorem.Word())
-                .RuleFor(p => p.DeathDate, HistoricalDate.Parse($"{birthYear + 80} AD"))
-                .RuleFor(p => p.DeathPlace, f => f.Lorem.Word())
+                .RuleFor(e => e.Chronotopes, new List<Chronotope>
+                {
+                    SeederHelper.GetChronotope("birth", birthYear),
+                    SeederHelper.GetChronotope("death", birthYear + 80),
+                })
                 .RuleFor(p => p.Bio, f => f.Lorem.Sentence())
                 .Generate();
 

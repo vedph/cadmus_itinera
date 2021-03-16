@@ -1,5 +1,4 @@
 ﻿using Cadmus.Core;
-using Fusi.Antiquity.Chronology;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
 using System.Text;
@@ -44,24 +43,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public char Sex { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional birth date.
+        /// Gets or sets a list of date/place pairs, typically used for
+        /// birth and death.
         /// </summary>
-        public HistoricalDate BirthDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional birth place.
-        /// </summary>
-        public string BirthPlace { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional death date.
-        /// </summary>
-        public HistoricalDate DeathDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional death place.
-        /// </summary>
-        public string DeathPlace { get; set; }
+        public List<Chronotope> Chronotopes { get; set; }
 
         /// <summary>
         /// Gets or sets the person's bio. Usually this is a rich text
@@ -76,6 +61,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         {
             ExternalIds = new List<string>();
             Names = new List<PersonName>();
+            Chronotopes = new List<Chronotope>();
         }
 
         /// <summary>
@@ -86,11 +72,10 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>person-id</c> (when <see cref="PersonId"/>
         /// is specified); 0 or more <c>ext-id</c>'s; 0 or more <c>name</c>'s,
-        /// filtered, with digits; <c>sex</c>, if specified;
-        /// <c>birth-date-value</c> if specified; <c>death-date-value</c> if
-        /// specified; <c>birth-place</c> and <c>death-place</c> if specified,
-        /// filtered with digits; count of characters in <see cref="Bio"/>
-        /// in <c>bio-length</c>.
+        /// filtered, with digits; <c>sex</c>, if specified; count of characters
+        /// in <see cref="Bio"/> in <c>bio-length</c>; and a list of
+        /// <c>{TAG}-date-value</c> and <c>{TAG}-place</c> (filtered, with
+        /// digits).
         /// </returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
@@ -118,29 +103,21 @@ namespace Cadmus.Itinera.Parts.Epistolography
             if (Sex != '\0')
                 pins.Add(CreateDataPin("sex", new string(Sex, 1)));
 
-            if (BirthDate != null)
+            if (Chronotopes?.Count > 0)
             {
-                pins.Add(CreateDataPin("birth-date-value",
-                    BirthDate.GetSortValue()
-                    .ToString(CultureInfo.InvariantCulture)));
-            }
+                foreach (Chronotope c in Chronotopes)
+                {
+                    pins.Add(CreateDataPin(
+                        c.Tag.ToLowerInvariant() + "-date-value",
+                        c.Date.GetSortValue().ToString(CultureInfo.InvariantCulture)));
 
-            if (!string.IsNullOrEmpty(BirthPlace))
-            {
-                pins.Add(CreateDataPin("birth-place",
-                    DataPinHelper.DefaultFilter.Apply(BirthPlace, true)));
-            }
-
-            if (DeathDate != null)
-            {
-                pins.Add(CreateDataPin("death-date-value",
-                    DeathDate.GetSortValue().ToString(CultureInfo.InvariantCulture)));
-            }
-
-            if (!string.IsNullOrEmpty(DeathPlace))
-            {
-                pins.Add(CreateDataPin("death-place",
-                    DataPinHelper.DefaultFilter.Apply(DeathPlace, true)));
+                    if (!string.IsNullOrEmpty(c.Place))
+                    {
+                        pins.Add(CreateDataPin(
+                            c.Tag.ToLowerInvariant() + "-place",
+                            DataPinHelper.DefaultFilter.Apply(c.Place, true)));
+                    }
+                }
             }
 
             int cc = Bio?.Length ?? 0;
@@ -173,17 +150,13 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "sex",
                     "The person's sex, if any."),
                 new DataPinDefinition(DataPinValueType.Decimal,
-                    "birth-date-value",
-                    "The sortable value of the person's birth date, if any."),
-                new DataPinDefinition(DataPinValueType.Decimal,
-                    "death-date-value",
-                    "The sortable value of the person's death date, if any."),
+                    "{TAG}-date-value",
+                    "The list of the exchange's sortable date values.",
+                    "M"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "birth-place",
-                    "The person's birth place, if any."),
-                new DataPinDefinition(DataPinValueType.String,
-                    "death-place",
-                    "The person's death place, if any."),
+                    "{TAG}-place",
+                    "The list of the exchange's places of origin.",
+                    "Mf"),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "bio-length",
                     "The length (in characters) of the bio resume.")

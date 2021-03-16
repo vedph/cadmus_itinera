@@ -46,6 +46,23 @@ namespace Cadmus.Seed.Itinera.Parts
         }
 
         /// <summary>
+        /// Gets a chronotope.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <param name="year">The year.</param>
+        /// <returns>The chronotope.</returns>
+        public static Chronotope GetChronotope(string tag, int year)
+        {
+            return new Faker<Chronotope>()
+                .RuleFor(c => c.Tag, tag)
+                .RuleFor(c => c.Place, f => f.Address.City())
+                .RuleFor(c => c.Date, HistoricalDate.Parse($"{year} AD"))
+                .RuleFor(c => c.TextDate, f => f.Lorem.Sentence(3))
+                .RuleFor(c => c.Sources, GetDocReferences(1, 3))
+                .Generate();
+        }
+
+        /// <summary>
         /// Gets a random number of chronotopes.
         /// </summary>
         /// <param name="min">The min number of chronotopes to get.</param>

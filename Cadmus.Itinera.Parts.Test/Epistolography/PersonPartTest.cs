@@ -43,10 +43,21 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                     }
                 }),
                 Sex = 'M',
-                BirthDate = HistoricalDate.Parse("1903"),
-                BirthPlace = "Indianapolis",
-                DeathDate = HistoricalDate.Parse("1934"),
-                DeathPlace = "Chicago",
+                Chronotopes = new List<Chronotope>(new[] {
+                    new Chronotope
+                    {
+                        Tag = "birth",
+                        Date = HistoricalDate.Parse("1903"),
+                        TextDate = "A text date.",
+                        Place = "Indianapolis",
+                        Sources = TestHelper.GetDocReferences(2)
+                    },
+                    new Chronotope
+                    {
+                        Tag = "death",
+                        Date = HistoricalDate.Parse("1934"),
+                        Place = "Chicago"
+                    } }),
                 Bio = "The bio."
             };
         }

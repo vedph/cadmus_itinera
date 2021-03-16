@@ -49,10 +49,7 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Epistolography
             Assert.NotEmpty(p.ExternalIds);
             Assert.NotEmpty(p.Names);
             Assert.True(p.Sex == 'M' || p.Sex == 'F');
-            Assert.NotNull(p.BirthDate);
-            Assert.NotNull(p.BirthPlace);
-            Assert.NotNull(p.DeathDate);
-            Assert.NotNull(p.DeathPlace);
+            Assert.NotEmpty(p.Chronotopes);
             Assert.NotNull(p.Bio);
         }
     }
