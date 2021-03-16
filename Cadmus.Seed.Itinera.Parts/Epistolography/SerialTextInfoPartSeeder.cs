@@ -37,6 +37,14 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                 .RuleFor(p => p.TextId, f => f.Lorem.Word().ToLowerInvariant())
                 .RuleFor(p => p.Language, f => f.PickRandom("ita", "fra", "lat"))
                 .RuleFor(p => p.Subject, f => f.Lorem.Sentence(2, 4))
+                .RuleFor(p => p.Genre, f => f.PickRandom(new string[]
+                    { "lettera", "canzone" }))
+                .RuleFor(p => p.Verse, f => f.PickRandom(new string[]
+                    {"settenario", "ottonario"}))
+                .RuleFor(p => p.Rhyme, f => f.PickRandom(new string[]
+                {
+                    "AABBCC", "ABCA"
+                }))
                 .RuleFor(p => p.Authors, f => new List<RankedCitedPerson>(new[]
                 {
                     new RankedCitedPerson
