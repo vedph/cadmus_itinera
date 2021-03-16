@@ -34,9 +34,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <param name="item">The optional item. The item with its parts
         /// can optionally be passed to this method for those parts requiring
         /// to access further data.</param>
-        /// <returns>The pins: collections of dimensions with keys <c>d.TAG</c>,
-        /// and <c>count-id</c> with collections of counts/descriptions IDs
-        /// values.</returns>
+        /// <returns>The pins: list with these keys: <c>cols</c>=columns count;
+        /// <c>ruling</c>=ruling technique; <c>derolez</c>=Derolez classification;
+        /// <c>pricking</c>=pricking; <c>d.{TAG}</c>=dimensions.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
@@ -49,6 +49,12 @@ namespace Cadmus.Itinera.Parts.Codicology
 
                     if (!string.IsNullOrEmpty(layout.RulingTechnique))
                         builder.AddValue("ruling", layout.RulingTechnique);
+
+                    if (!string.IsNullOrEmpty(layout.Derolez))
+                        builder.AddValue("derolez", layout.Derolez);
+
+                    if (!string.IsNullOrEmpty(layout.Pricking))
+                        builder.AddValue("pricking", layout.Pricking);
 
                     if (layout.Dimensions?.Count > 0)
                     {
@@ -76,10 +82,20 @@ namespace Cadmus.Itinera.Parts.Codicology
             {
                 new DataPinDefinition(DataPinValueType.Integer,
                     "cols",
-                    "The number of columns."),
+                    "The number of columns.",
+                    "M"),
                 new DataPinDefinition(DataPinValueType.String,
                     "ruling",
-                    "The ruling technique."),
+                    "The ruling technique.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "derolez",
+                    "The Derolez classification.",
+                    "M"),
+                new DataPinDefinition(DataPinValueType.String,
+                    "pricking",
+                    "The pricking type.",
+                    "M"),
                 new DataPinDefinition(DataPinValueType.Decimal,
                     "d.{TAG}",
                     "The list of dimensions grouped by their tag, " +

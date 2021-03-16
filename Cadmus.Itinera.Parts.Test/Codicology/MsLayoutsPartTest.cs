@@ -59,6 +59,8 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     },
                     ColumnCount = n,
                     RulingTechnique = "ruling",
+                    Derolez = "derolez",
+                    Pricking = "pricking",
                     Counts = GetCounts(1),
                     Dimensions = GetDimensions(1),
                 });
@@ -111,7 +113,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(5, pins.Count);
+            Assert.Equal(7, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "d.a"
@@ -120,6 +122,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             TestHelper.AssertPinIds(part, pin);
 
             pin = pins.Find(p => p.Name == "ruling" && p.Value == "ruling");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
+            pin = pins.Find(p => p.Name == "derolez" && p.Value == "derolez");
+            Assert.NotNull(pin);
+            TestHelper.AssertPinIds(part, pin);
+
+            pin = pins.Find(p => p.Name == "pricking" && p.Value == "pricking");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 

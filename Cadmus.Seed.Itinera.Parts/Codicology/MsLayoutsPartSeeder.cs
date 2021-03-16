@@ -61,8 +61,9 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     })
                 .RuleFor(p => p.Dimensions, f => GetDimensions(f.Random.Number(1, 3)))
                 .RuleFor(p => p.ColumnCount, f => f.Random.Number(1, 4))
-                // TODO: use thesaurus value when defined
-                .RuleFor(p => p.RulingTechnique, f => f.Lorem.Word())
+                .RuleFor(p => p.RulingTechnique, f => f.PickRandom(new[] { "dry", "color" }))
+                .RuleFor(p => p.Derolez, f => f.Lorem.Word())
+                .RuleFor(p => p.Pricking, f => f.Lorem.Word())
                 .RuleFor(p => p.Counts, f => GetCounts(f.Random.Number(1, 3)))
                 .Generate();
         }

@@ -24,6 +24,16 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string RulingTechnique { get; set; }
 
         /// <summary>
+        /// Gets or sets the Derolez classification.
+        /// </summary>
+        public string Derolez { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pricking type.
+        /// </summary>
+        public string Pricking { get; set; }
+
+        /// <summary>
         /// Gets or sets the columns count.
         /// </summary>
         public int ColumnCount { get; set; }
