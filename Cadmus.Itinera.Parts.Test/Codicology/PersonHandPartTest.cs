@@ -9,56 +9,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 {
     public sealed class PersonHandPartTest
     {
-        private static List<MsRubrication> GetRubrications(int count)
-        {
-            List<MsRubrication> rubrications = new List<MsRubrication>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                rubrications.Add(new MsRubrication
-                {
-                    Locations = new List<MsLocation>(new[] {
-                        new MsLocation
-                        {
-                            N = n,
-                            S = n % 2 == 0 ? "v" : "r",
-                            L = n * 5
-                        }
-                    }),
-                    Type = "type",
-                    Description = "description",
-                    Issues = "issues",
-                });
-            }
-
-            return rubrications;
-        }
-
-        private static List<MsSubscription> GetSubscriptions(int count)
-        {
-            List<MsSubscription> subscriptions = new List<MsSubscription>();
-
-            for (int n = 1; n <= count; n++)
-            {
-                subscriptions.Add(new MsSubscription
-                {
-                    Locations = new List<MsLocation>(new[] {
-                        new MsLocation
-                        {
-                            N = n,
-                            S = n % 2 == 0 ? "v" : "r",
-                            L = n * 5
-                        }
-                    }),
-                    Language = "lat",
-                    Text = "Subscription text"
-                });
-            }
-
-            return subscriptions;
-        }
-
-
         private static PersonHandPart GetPart()
         {
             return new PersonHandPart
@@ -69,7 +19,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 UserId = "another",
                 PersonId = "pusillus",
                 Job = "copyst",
-                Others = TestHelper.GetDocReferences(1)
+                Others = TestHelper.GetDocReferences(1),
             };
         }
 

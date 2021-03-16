@@ -38,7 +38,24 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             for (int n = 1; n <= count; n++)
             {
                 rubrications.Add(new Faker<MsRubrication>()
-                    .RuleFor(r => r.Locations, f => GetLocations(f.Random.Number(1, 2)))
+                    .RuleFor(r => r.Ranges, new List<MsLocationRange>(new[]
+                    {
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = n,
+                                S = n % 2 == 0 ? "v" : "r",
+                                L = n * 5
+                            },
+                            End = new MsLocation
+                            {
+                                N = n + 1,
+                                S = n % 2 == 0 ? "r" : "v",
+                                L = n * 5
+                            }
+                        }
+                    }))
                     .RuleFor(r => r.Type, f => f.Lorem.Word())
                     .RuleFor(r => r.Description, f => f.Lorem.Sentence())
                     .RuleFor(r => r.Issues, f => f.Lorem.Sentence())

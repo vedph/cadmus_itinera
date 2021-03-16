@@ -60,18 +60,26 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(c => c.ClaimedAuthor,
                         f => f.PickRandom(null, f.Lorem.Word()))
                     .RuleFor(c => c.Work, f => f.Lorem.Word())
-                    .RuleFor(c => c.Start, f => new MsLocation
+                    .RuleFor(c => c.Incipit, f => f.Lorem.Sentence())
+                    .RuleFor(c => c.Explicit, f => f.Lorem.Sentence())
+                    .RuleFor(c => c.Ranges, new List<MsLocationRange>(new[]
                     {
-                        N = sn,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = f.Random.Number(1, 20)
-                    })
-                    .RuleFor(c => c.End, f => new MsLocation
-                    {
-                        N = sn + 1,
-                        S = (sn + 1) % 2 == 0 ? "v" : "r",
-                        L = f.Random.Number(1, 20)
-                    })
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = n,
+                                S = n % 2 == 0 ? "v" : "r",
+                                L = n * 5
+                            },
+                            End = new MsLocation
+                            {
+                                N = n + 1,
+                                S = n % 2 == 0 ? "r" : "v",
+                                L = n * 5
+                            }
+                        }
+                    }))
                     .RuleFor(c => c.State, f => f.PickRandom("partial", "integral"))
                     .RuleFor(c => c.Note, f => f.Lorem.Sentence())
                     .RuleFor(c => c.Units, GetUnits(Randomizer.Seed.Next(1, 3 + 1)))

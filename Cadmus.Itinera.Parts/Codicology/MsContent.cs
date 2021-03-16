@@ -24,14 +24,19 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Work { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional start location.
+        /// Gets or sets the incipit.
         /// </summary>
-        public MsLocation Start { get; set; }
+        public string Incipit { get; set; }
 
         /// <summary>
-        /// Gets or sets the optional end location.
+        /// Gets or sets the explicit.
         /// </summary>
-        public MsLocation End { get; set; }
+        public string Explicit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the location ranges.
+        /// </summary>
+        public List<MsLocationRange> Ranges { get; set; }
 
         /// <summary>
         /// Gets or sets the optional state, usually from a thesaurus.
@@ -67,11 +72,6 @@ namespace Cadmus.Itinera.Parts.Codicology
             StringBuilder sb = new StringBuilder();
             if (!string.IsNullOrEmpty(Author)) sb.Append(Author).Append(", ");
             sb.Append(Work);
-            if (Start != null)
-            {
-                sb.Append(Start);
-                if (End != null) sb.Append('-').Append(End);
-            }
             return sb.ToString();
         }
     }

@@ -13,28 +13,37 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
         {
             List<MsContent> contents = new List<MsContent>();
 
-            for (int i = 0; i < count; i++)
+            for (int n = 1; n <= count; n++)
             {
-                string suffix = i % 2 == 0 ? "even" : "odd";
+                string suffix = n % 2 == 0 ? "even" : "odd";
 
                 contents.Add(new MsContent
                 {
                     Author = $"author-{suffix}",
                     ClaimedAuthor = $"claimed-{suffix}",
                     Work = $"work-{suffix}",
-                    Start = new MsLocation
+                    Ranges = new List<MsLocationRange>(new[]
                     {
-                        N = i + 1,
-                        S = (i + 1) % 2 == 0 ?
-                            "v" : "r",
-                        L = 1
-                    },
-                    End = new MsLocation
-                    {
-                        N = (i + 1),
-                        S = (i + 1) % 2 == 0 ? "v" : "r",
-                        L = 1
-                    },
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 3
+                            },
+                            End = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 5
+                            }
+                        }
+                    }),
                     State = "state",
                     Note = "note",
                     Units = new List<MsContentUnit>(new[]

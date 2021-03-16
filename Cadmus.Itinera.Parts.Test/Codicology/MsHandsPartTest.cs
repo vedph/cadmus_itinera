@@ -78,15 +78,22 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         new MsRubrication
                         {
                             Type = "type",
-                            Locations = new List<MsLocation>(new[]
+                            Ranges = new List<MsLocationRange>(new[]
                             {
-                                new MsLocation
+                                new MsLocationRange
                                 {
-                                    N = 2,
-                                    S = n % 2 == 0
-                                        ? "v"
-                                        : "r",
-                                    L = 3
+                                    Start = new MsLocation
+                                    {
+                                        N = n,
+                                        S = n % 2 == 0 ? "v" : "r",
+                                        L = n * 5
+                                    },
+                                    End = new MsLocation
+                                    {
+                                        N = n + 1,
+                                        S = n % 2 == 0 ? "r" : "v",
+                                        L = n * 5
+                                    }
                                 }
                             }),
                             Description = "Description",

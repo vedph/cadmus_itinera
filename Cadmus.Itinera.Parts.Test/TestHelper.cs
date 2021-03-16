@@ -87,7 +87,7 @@ namespace Cadmus.Itinera.Parts.Test
                     Place = $"place-{n}",
                     Date = HistoricalDate.Parse((1300 + n) + " AD"),
                     IsPlaceDubious = n % 1 != 0,
-                    Sources = TestHelper.GetDocReferences(1),
+                    Sources = GetDocReferences(1),
                     Tag = "tag",
                     TextDate = "text date"
                 });

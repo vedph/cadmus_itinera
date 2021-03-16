@@ -8,9 +8,9 @@ namespace Cadmus.Itinera.Parts.Codicology
     public class MsRubrication
     {
         /// <summary>
-        /// Gets or sets the location(s) of the rubrication in the manuscript.
+        /// Gets or sets the locations ranges of the rubrication in the manuscript.
         /// </summary>
-        public List<MsLocation> Locations { get; set; }
+        public List<MsLocationRange> Ranges { get; set; }
 
         /// <summary>
         /// Gets or sets the rubrication's type.
@@ -32,7 +32,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsRubrication()
         {
-            Locations = new List<MsLocation>();
+            Ranges = new List<MsLocationRange>();
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return Locations?.Count > 0
-                ? $"{Type}: " + string.Join(" ", Locations)
+            return Ranges?.Count > 0
+                ? $"{Type}: " + string.Join(" ", Ranges)
                 : Type;
         }
     }
