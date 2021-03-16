@@ -23,6 +23,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             {
                 part.Attachments.Add(new Attachment
                 {
+                    Id = "a" + n,
                     Type = n % 2 == 0 ? "even" : "odd",
                     Name = $"Attachment {n}",
                     Portion = "portion",
@@ -76,7 +77,7 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(3, pins.Count);
+            Assert.Equal(6, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
@@ -93,6 +94,13 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1", pin.Value);
+
+            for (int n = 1; n <= 3; n++)
+            {
+                pin = pins.Find(p => p.Name == "aid" && p.Value == $"a{n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+            }
         }
     }
 }

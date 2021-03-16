@@ -3,6 +3,7 @@ using Cadmus.Core;
 using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Tools.Config;
 using System;
+using System.Collections.Generic;
 
 namespace Cadmus.Seed.Itinera.Parts.Epistolography
 {
@@ -37,6 +38,13 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Attachments.Add(new Faker<Attachment>()
+                    .RuleFor(a => a.Id, f => f.Lorem.Word())
+                    .RuleFor(a => a.IsLost, f => f.Random.Bool(0.2F))
+                    .RuleFor(a => a.IsUnknown, f => f.Random.Bool(0.2F))
+                    .RuleFor(a => a.ExternalIds,
+                        f => f.Random.Bool(0.2F)
+                            ? new List<string>(new[] { f.Lorem.Word() })
+                            : null)
                     .RuleFor(a => a.Type, f => f.PickRandom("manuscript", "work"))
                     .RuleFor(a => a.Name, f => f.Lorem.Word())
                     .RuleFor(a => a.Portion,

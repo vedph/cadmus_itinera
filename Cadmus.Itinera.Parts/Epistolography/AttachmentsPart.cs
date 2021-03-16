@@ -36,7 +36,8 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// to access further data.</param>
         /// <returns>The pins: <c>att-TYPE-count</c>=count of attachment of
         /// type TYPE (one count for each distinct type found in the part),
-        /// <c>tot-count</c>=total count of attachments.</returns>
+        /// <c>tot-count</c>=total count of attachments; plus a list of
+        /// attachment IDs with key <c>aid</c>.</returns>
         public override IEnumerable<DataPin> GetDataPins(IItem item)
         {
             DataPinBuilder builder = new DataPinBuilder();
@@ -45,6 +46,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             if (Attachments.Count > 0)
             {
+                builder.AddValues("aid", Attachments.Select(a => a.Id));
                 builder.Increase(from a in Attachments
                                  select a.Type, false, "att-");
             }
@@ -65,7 +67,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "The total count of attachments."),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "att-{TYPE}-count",
-                    "The counts for each type of attachment.")
+                    "The counts for each type of attachment."),
+                new DataPinDefinition(DataPinValueType.String,
+                    "aid",
+                    "The list of attachment IDs.",
+                    "M")
             });
         }
 

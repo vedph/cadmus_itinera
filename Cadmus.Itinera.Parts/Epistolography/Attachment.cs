@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {
@@ -7,6 +8,16 @@ namespace Cadmus.Itinera.Parts.Epistolography
     /// </summary>
     public class Attachment
     {
+        /// <summary>
+        /// An arbitrarily assigned ID for this attachment.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of optional external ids.
+        /// </summary>
+        public List<string> ExternalIds { get; set; }
+
         /// <summary>
         /// Gets or sets the type of the attachment (e.g. manuscript, work...).
         /// </summary>
@@ -26,9 +37,27 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public string Portion { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this attachment is lost.
+        /// </summary>
+        public bool IsLost { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this attachment is unknown.
+        /// </summary>
+        public bool IsUnknown { get; set; }
+
+        /// <summary>
         /// Gets or sets an optional note.
         /// </summary>
         public string Note { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Attachment"/> class.
+        /// </summary>
+        public Attachment()
+        {
+            ExternalIds = new List<string>();
+        }
 
         /// <summary>
         /// Converts to string.
@@ -39,6 +68,9 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(Id))
+                sb.Append('#').Append(Id).Append(": ");
 
             sb.Append('[').Append(Type ?? "").Append(']');
 
