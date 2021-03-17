@@ -44,7 +44,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     Tag = oddEven,
                     Label = $"Section {n}",
-                    Era = $"c{n + 10}",
                     Date = HistoricalDate.Parse(n + 1200 + " AD"),
                     Start = new MsLocation
                     {

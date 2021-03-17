@@ -93,9 +93,6 @@ namespace Cadmus.Itinera.Parts.Codicology
                             section.Label, filter: true, filterOptions: true);
                     }
 
-                    if (!string.IsNullOrEmpty(section.Era))
-                        builder.AddValue("section-era", section.Era);
-
                     if (section.Date != null)
                     {
                         builder.AddValue("section-date-value",
@@ -131,10 +128,6 @@ namespace Cadmus.Itinera.Parts.Codicology
                     "section-label",
                     "The list of sections labels.",
                     "Mf"),
-                new DataPinDefinition(DataPinValueType.String,
-                    "section-era",
-                    "The list of sections eras.",
-                    "M"),
                 new DataPinDefinition(DataPinValueType.Decimal,
                     "section-date-value",
                     "The list of sections sortable date values.",
