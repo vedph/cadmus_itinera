@@ -48,7 +48,9 @@ namespace Cadmus.Itinera.Parts.Codicology
             {
                 foreach (MsDecoration decoration in Decorations)
                 {
-                    builder.Increase(decoration.Type, false, "type-");
+                    builder.Increase(
+                        DataPinHelper.DefaultFilter.Apply(decoration.Type, true),
+                        false, "type-");
 
                     foreach (MsDecorationElement element in decoration?.Elements)
                     {

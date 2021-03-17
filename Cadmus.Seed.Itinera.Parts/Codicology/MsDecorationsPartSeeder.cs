@@ -134,7 +134,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Type, f => f.PickRandom(_types))
                     .RuleFor(d => d.Flags,
                         f => new List<string>(new[] { f.PickRandom(_flags) }))
-                    .RuleFor(d => d.Type, f => f.Address.Country())
+                    .RuleFor(d => d.Place, f => f.Address.Country())
                     .RuleFor(d => d.Artist, GetArtist())
                     .RuleFor(d => d.Note, f => f.Random.Bool(0.25f)
                         ? f.Lorem.Sentence() : null)
