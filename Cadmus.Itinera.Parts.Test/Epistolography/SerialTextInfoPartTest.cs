@@ -16,8 +16,8 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
                 ItemId = Guid.NewGuid().ToString(),
                 RoleId = "some-role",
                 TextId = "id-1",
-                Authors = new List<RankedCitedPerson>(new[]{
-                    new RankedCitedPerson
+                Authors = new List<CitedPerson>(new[]{
+                    new CitedPerson
                     {
                         Name = new PersonName
                         {

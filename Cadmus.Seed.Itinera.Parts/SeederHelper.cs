@@ -141,6 +141,7 @@ namespace Cadmus.Seed.Itinera.Parts
                                     Value = f.Lorem.Word(),
                                 }
                             })))
+                    .RuleFor(t => t.Rank, f => f.Random.Short(0, 3))
                     .Generate());
             }
 

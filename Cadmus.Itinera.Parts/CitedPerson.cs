@@ -16,6 +16,12 @@ namespace Cadmus.Itinera.Parts
         public PersonName Name { get; set; }
 
         /// <summary>
+        /// Gets or sets a rank value which can be used to sort several cited
+        /// persons by some confidence rank in their context.
+        /// </summary>
+        public short Rank { get; set; }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <returns>

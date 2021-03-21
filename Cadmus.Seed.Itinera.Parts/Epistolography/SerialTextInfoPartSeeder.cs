@@ -45,23 +45,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                 {
                     "AABBCC", "ABCA"
                 }))
-                .RuleFor(p => p.Authors, f => new List<RankedCitedPerson>(new[]
-                {
-                    new RankedCitedPerson
-                    {
-                        Name = new PersonName
-                        {
-                            Parts = new List<PersonNamePart>(new[]
-                            {
-                                new PersonNamePart
-                                {
-                                    Type = "first",
-                                    Value= f.Name.FirstName()
-                                }
-                            })
-                        }
-                    }
-                }))
+                .RuleFor(p => p.Authors, SeederHelper.GetCitedPersons(1, 3))
                 .RuleFor(p => p.Headings, f =>
                     new List<string>(new[] { f.Lorem.Sentence(3, 5) }))
                 .RuleFor(p => p.Recipients, SeederHelper.GetDecoratedIds(1, 3))

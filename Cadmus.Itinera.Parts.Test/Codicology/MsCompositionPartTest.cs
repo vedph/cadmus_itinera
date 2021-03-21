@@ -84,7 +84,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(19, pins.Count);
+            Assert.Equal(16, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "sheet-count");
@@ -134,11 +134,6 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 // section
                 pin = pins.Find(p => p.Name == "section-label"
                     && p.Value == $"section {n}");
-                Assert.NotNull(pin);
-                TestHelper.AssertPinIds(part, pin);
-
-                pin = pins.Find(p => p.Name == "section-era"
-                    && p.Value == $"c{n + 10}");
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
 

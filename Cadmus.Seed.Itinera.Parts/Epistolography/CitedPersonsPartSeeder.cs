@@ -36,31 +36,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             CitedPersonsPart part = new CitedPersonsPart();
             SetPartMetadata(part, roleId, item);
 
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3); n++)
-            {
-                part.Persons.Add(new Faker<CitedPerson>()
-                    .RuleFor(p => p.Name, f => new PersonName
-                    {
-                        Language = f.PickRandom("lat", "ita"),
-                        Tag = f.PickRandom(null, f.Lorem.Word()),
-                        Parts = new List<PersonNamePart>(new[]
-                        {
-                            new PersonNamePart
-                            {
-                                Type = "first",
-                                Value = f.Lorem.Word()
-                            },
-                            new PersonNamePart
-                            {
-                                Type = "last",
-                                Value = f.Lorem.Word()
-                            }
-                        })
-                    })
-                    .RuleFor(p => p.Ids, SeederHelper.GetDecoratedIds(1, 2))
-                    .RuleFor(p => p.Sources, SeederHelper.GetDocReferences(1, 3))
-                    .Generate());
-            }
+            part.Persons = SeederHelper.GetCitedPersons(1, 3);
 
             return part;
         }

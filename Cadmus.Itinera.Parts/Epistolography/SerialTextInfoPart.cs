@@ -53,7 +53,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         /// <summary>
         /// Gets or sets the authors.
         /// </summary>
-        public List<RankedCitedPerson> Authors { get; set; }
+        public List<CitedPerson> Authors { get; set; }
 
         /// <summary>
         /// Gets or sets the recipient(s) IDs. At least 1 recipient
@@ -89,7 +89,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
         public SerialTextInfoPart()
         {
             Headings = new List<string>();
-            Authors = new List<RankedCitedPerson>();
+            Authors = new List<CitedPerson>();
             Recipients = new List<DecoratedId>();
             ReplyingTo = new List<DecoratedId>();
             Related = new List<DocReference>();
@@ -124,7 +124,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
 
             if (Authors?.Count > 0)
             {
-                foreach (RankedCitedPerson author in Authors)
+                foreach (CitedPerson author in Authors)
                 {
                     pins.Add(CreateDataPin("author",
                         DataPinHelper.DefaultFilter.Apply(
