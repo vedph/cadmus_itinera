@@ -35,23 +35,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
             AttachmentsPart part = new AttachmentsPart();
             SetPartMetadata(part, roleId, item);
 
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
-            {
-                part.Attachments.Add(new Faker<Attachment>()
-                    .RuleFor(a => a.Id, f => f.Lorem.Word())
-                    .RuleFor(a => a.IsLost, f => f.Random.Bool(0.2F))
-                    .RuleFor(a => a.IsUnknown, f => f.Random.Bool(0.2F))
-                    .RuleFor(a => a.ExternalIds,
-                        f => f.Random.Bool(0.2F)
-                            ? new List<string>(new[] { f.Lorem.Word() })
-                            : null)
-                    .RuleFor(a => a.Type, f => f.PickRandom("manuscript", "work"))
-                    .RuleFor(a => a.Name, f => f.Lorem.Word())
-                    .RuleFor(a => a.Portion,
-                        f => f.Random.ReplaceNumbers("#.##-#.##"))
-                    .RuleFor(a => a.Note, f => f.Lorem.Sentence())
-                    .Generate());
-            }
+            part.Attachments = SeederHelper.GetAttachments(1, 3);
 
             return part;
         }

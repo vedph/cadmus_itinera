@@ -16,23 +16,6 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
     [Tag("seed.it.vedph.itinera.corr-exchanges")]
     public sealed class CorrExchangesPartSeeder : PartSeederBase
     {
-        private static List<Attachment> GetAttachments()
-        {
-            List<Attachment> attachments = new List<Attachment>();
-
-            for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
-            {
-                attachments.Add(new Faker<Attachment>()
-                    .RuleFor(a => a.Type, f => f.PickRandom("manuscript", "work"))
-                    .RuleFor(a => a.Name, f => f.Lorem.Word())
-                    .RuleFor(a => a.Portion,
-                        f => $"{f.Random.Number(1,20)}-{f.Random.Number(21, 40)}")
-                    .RuleFor(a => a.Note, f => f.Lorem.Sentence())
-                    .Generate());
-            }
-
-            return attachments;
-        }
 
         /// <summary>
         /// Creates and seeds a new part.
@@ -64,7 +47,7 @@ namespace Cadmus.Seed.Itinera.Parts.Epistolography
                         new List<Chronotope> { SeederHelper.GetChronotope("from", 1200) })
                     .RuleFor(e => e.Participants, SeederHelper.GetDecoratedIds(1, 2))
                     .RuleFor(e => e.Sources, SeederHelper.GetDocReferences(1, 3))
-                    .RuleFor(e => e.Attachments, GetAttachments())
+                    .RuleFor(e => e.Attachments, SeederHelper.GetAttachments(1, 3))
                     .Generate());
             }
 

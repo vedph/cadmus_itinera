@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Cadmus.Itinera.Parts;
+using Cadmus.Itinera.Parts.Epistolography;
 using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
@@ -144,6 +145,32 @@ namespace Cadmus.Seed.Itinera.Parts
             }
 
             return names;
+        }
+
+        public static List<Attachment> GetAttachments(int min, int max)
+        {
+            List<Attachment> attachments = new List<Attachment>();
+            Faker<Attachment> faker = new Faker<Attachment>();
+
+            for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
+            {
+                attachments.Add(new Faker<Attachment>()
+                    .RuleFor(a => a.Id, f => f.Lorem.Word())
+                    .RuleFor(a => a.IsLost, f => f.Random.Bool(0.2F))
+                    .RuleFor(a => a.IsUnknown, f => f.Random.Bool(0.2F))
+                    .RuleFor(a => a.ExternalIds,
+                        f => f.Random.Bool(0.2F)
+                            ? new List<string>(new[] { f.Lorem.Word() })
+                            : null)
+                    .RuleFor(a => a.Type, f => f.PickRandom("ms", "work"))
+                    .RuleFor(a => a.Name, f => f.Lorem.Word())
+                    .RuleFor(a => a.Portion,
+                        f => f.Random.ReplaceNumbers("#.##-#.##"))
+                    .RuleFor(a => a.Note, f => f.Lorem.Sentence())
+                    .Generate());
+            }
+
+            return attachments;
         }
     }
 }
