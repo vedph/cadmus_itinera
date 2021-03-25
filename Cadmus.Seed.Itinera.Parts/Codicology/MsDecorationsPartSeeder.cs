@@ -40,7 +40,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             return new Faker<MsDecorationArtist>()
                 .RuleFor(a => a.Type, f => f.PickRandom("draftsman", "miniator"))
                 .RuleFor(a => a.Id, f => f.Lorem.Word())
-                .RuleFor(a => a.Name, f => f.Lorem.Sentence(2))
+                .RuleFor(a => a.Name, f => f.Person.FirstName)
                 .RuleFor(a => a.Note, f => f.Lorem.Sentence())
                 .RuleFor(a => a.Sources, SeederHelper.GetDocReferences(1, 3))
                 .Generate();
