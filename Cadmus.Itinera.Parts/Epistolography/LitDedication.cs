@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;
+using Cadmus.Parts;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {

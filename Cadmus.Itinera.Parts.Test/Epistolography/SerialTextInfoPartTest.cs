@@ -1,5 +1,6 @@
 ﻿using Cadmus.Core;
 using Cadmus.Itinera.Parts.Epistolography;
+using Cadmus.Parts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

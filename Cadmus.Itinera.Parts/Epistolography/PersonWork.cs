@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cadmus.Parts;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Epistolography

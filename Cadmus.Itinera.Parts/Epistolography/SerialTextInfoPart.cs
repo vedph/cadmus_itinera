@@ -1,4 +1,5 @@
 ﻿using Cadmus.Core;
+using Cadmus.Parts;
 using Fusi.Tools.Config;
 using System.Collections.Generic;
 using System.Text;
