@@ -8,9 +8,10 @@ namespace Cadmus.Itinera.Parts.Codicology
     public class MsPalimpsest
     {
         /// <summary>
-        /// Gets or sets the location of this palimpsest in the manuscript.
+        /// Gets or sets the range of locations of this palimpsest in the
+        /// manuscript.
         /// </summary>
-        public MsLocation Location { get; set; }
+        public MsLocationRange Range { get; set; }
 
         /// <summary>
         /// Gets or sets the date.
@@ -30,7 +31,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"{Location}" + (Date != null? Date.ToString() : "");
+            return $"{Range}" + (Date != null? Date.ToString() : "");
         }
     }
 }

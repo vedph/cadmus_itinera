@@ -43,6 +43,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(w => w.Description, f => f.Lorem.Sentence())
                     .RuleFor(w => w.Place, f => f.Lorem.Word())
                     .RuleFor(w => w.Date, HistoricalDate.Parse($"{1200 + n} AD"))
+                    .RuleFor(w => w.ExternalIds, SeederHelper.GetExternalIds(1, 3))
                     .Generate());
             }
 

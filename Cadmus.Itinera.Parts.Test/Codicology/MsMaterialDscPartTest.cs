@@ -37,11 +37,20 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     new MsPalimpsest
                     {
-                        Location = new MsLocation
+                        Range = new MsLocationRange
                         {
-                            N = 3,
-                            S = "v",
-                            L = 1
+                            Start =new MsLocation
+                            {
+                                N = 3,
+                                S = "v",
+                                L = 1
+                            },
+                            End=new MsLocation
+                            {
+                                N = 4,
+                                S = "r",
+                                L = 20
+                            }
                         },
                         Date = HistoricalDate.Parse("1200 AD"),
                         Note = "Note"

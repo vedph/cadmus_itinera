@@ -31,11 +31,20 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 {
                     IsBack = n % 2 == 0,
                     Material = oddEven,
-                    Location = new MsLocation
+                    Range = new MsLocationRange
                     {
-                        N = 2,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = 1
+                        Start = new MsLocation
+                        {
+                            N = n,
+                            S = n % 2 == 0 ? "v" : "r",
+                            L = 1
+                        },
+                        End = new MsLocation
+                        {
+                            N = n + 1,
+                            S = n % 2 == 0 ? "v" : "r",
+                            L = 1
+                        }
                     },
                     Date = HistoricalDate.Parse(n + 1300 + " AD")
                 });

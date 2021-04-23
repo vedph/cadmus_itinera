@@ -55,11 +55,21 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
                 part.Palimpsests.Add(new Faker<MsPalimpsest>()
-                    .RuleFor(p => p.Location, f => new MsLocation
+                    .RuleFor(p => p.Range, f =>
+                    new MsLocationRange
                     {
-                        N = (short)n,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = (short)(f.Random.Number(1, 20))
+                        Start = new MsLocation
+                        {
+                            N = (short)n,
+                            S = n % 2 == 0 ? "v" : "r",
+                            L = (short)(f.Random.Number(1, 20))
+                        },
+                        End = new MsLocation
+                        {
+                            N = (short)n + 1,
+                            S = (n + 1) % 2 == 0 ? "v" : "r",
+                            L = (short)(f.Random.Number(1, 20))
+                        }
                     })
                     .RuleFor(p => p.Date, HistoricalDate.Parse($"{1300 + n} AD"))
                     .Generate());

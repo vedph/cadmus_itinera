@@ -19,9 +19,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Material { get; set; }
 
         /// <summary>
-        /// Gets or sets the location.
+        /// Gets or sets the location range.
         /// </summary>
-        public MsLocation Location { get; set; }
+        public MsLocationRange Range { get; set; }
 
         /// <summary>
         /// Gets or sets the date.
@@ -41,7 +41,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{(IsBack? 'B':'F')}] {Location} {Material}"
+            return $"[{(IsBack? 'B':'F')}] {Range} {Material}"
                 + (Date != null? Date.ToString() : "");
         }
     }

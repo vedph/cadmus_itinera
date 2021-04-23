@@ -52,7 +52,7 @@ namespace Cadmus.Seed.Itinera.Parts.Test.Codicology
             foreach (MsGuardSheet sheet in cp.GuardSheets)
             {
                 Assert.NotNull(sheet.Material);
-                Assert.NotNull(sheet.Location);
+                Assert.NotNull(sheet.Range);
                 Assert.NotNull(sheet.Date);
                 Assert.NotNull(sheet.Note);
             }

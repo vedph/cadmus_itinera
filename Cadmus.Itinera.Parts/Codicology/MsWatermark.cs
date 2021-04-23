@@ -1,4 +1,5 @@
 ﻿using Fusi.Antiquity.Chronology;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Cadmus.Itinera.Parts.Codicology
@@ -35,6 +36,19 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// Gets or sets the date.
         /// </summary>
         public HistoricalDate Date { get; set; }
+
+        /// <summary>
+        /// Gets or sets an optional list of external IDs.
+        /// </summary>
+        public List<string> ExternalIds { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsWatermark"/> class.
+        /// </summary>
+        public MsWatermark()
+        {
+            ExternalIds = new List<string>();
+        }
 
         /// <summary>
         /// Converts to string.

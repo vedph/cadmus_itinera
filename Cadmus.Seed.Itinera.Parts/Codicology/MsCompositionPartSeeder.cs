@@ -45,11 +45,20 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(s => s.IsBack, n % 2 == 0)
                     .RuleFor(s => s.Material,
                         f => f.PickRandom("paper", "parchment"))
-                    .RuleFor(s => s.Location, f => new MsLocation
+                    .RuleFor(s => s.Range, f => new MsLocationRange
                     {
-                        N = (short)n,
-                        S = n % 2 == 0? "v" : "r",
-                        L = (short)(f.Random.Number(1, 20))
+                        Start = new MsLocation
+                        {
+                            N = (short)n,
+                            S = n % 2 == 0 ? "v" : "r",
+                            L = (short)(f.Random.Number(1, 20))
+                        },
+                        End = new MsLocation
+                        {
+                            N = (short)n + 1,
+                            S = (n + 1) % 2 == 0 ? "v" : "r",
+                            L = (short)(f.Random.Number(1, 20))
+                        }
                     })
                     .RuleFor(s => s.Date,
                         HistoricalDate.Parse((1300 + n)
