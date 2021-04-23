@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Cadmus.Core;
 using Fusi.Tools.Config;
+using System.Text.RegularExpressions;
 
 namespace Cadmus.Itinera.Parts.Codicology
 {
@@ -55,6 +56,28 @@ namespace Cadmus.Itinera.Parts.Codicology
             Restorations = new List<MsRestoration>();
         }
 
+        private static string SanitizeForPinId(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return null;
+
+            StringBuilder sb = new StringBuilder(
+                DataPinHelper.DefaultFilter.Apply(text, options: true)
+                .Replace(' ', '_')
+                .ToLowerInvariant());
+
+            for (int i = sb.Length - 1; i > -1; i--)
+            {
+                char c = sb[i];
+                if (!char.IsDigit(c) &&
+                    (c < 'a' || c > 'z') &&
+                    c != '-' && c != '_' && c != '.')
+                {
+                    sb.Remove(i, 1);
+                }
+            }
+            return sb.Length == 0 ? null : sb.ToString();
+        }
+
         /// <summary>
         /// Get all the key=value pairs (pins) exposed by the implementor.
         /// </summary>
@@ -98,14 +121,18 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (Annotations?.Count > 0)
             {
                 foreach (var annotation in Annotations)
-                    builder.Increase(annotation.Type, false, "ann-");
+                {
+                    string id = SanitizeForPinId(annotation.Type);
+                    if (id != null) builder.Increase(id, false, "ann-");
+                }
             }
 
             if (Restorations?.Count > 0)
             {
                 foreach (var restoration in Restorations)
                 {
-                    builder.Increase(restoration.Type, false, "rest-");
+                    string id = SanitizeForPinId(restoration.Type);
+                    if (id != null) builder.Increase(id, false, "rest-");
 
                     if (restoration.Date != null)
                     {
