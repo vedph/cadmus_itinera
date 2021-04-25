@@ -48,7 +48,7 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 foreach (CitedPerson person in Persons)
                 {
                     builder.AddValue("name",
-                        person.Name.GetFullName(), filter: true);
+                        person.Name?.GetFullName(), filter: true);
 
                     if (person.Ids != null)
                     {

@@ -113,22 +113,22 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("M", pin.Value);
 
-            pin = pins.Find(p => p.Name == "birth-date-value");
+            pin = pins.Find(p => p.Name == "date-value.birth");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1903", pin.Value);
 
-            pin = pins.Find(p => p.Name == "birth-place");
+            pin = pins.Find(p => p.Name == "place.birth");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("indianapolis", pin.Value);
 
-            pin = pins.Find(p => p.Name == "death-date-value");
+            pin = pins.Find(p => p.Name == "date-value.death");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("1934", pin.Value);
 
-            pin = pins.Find(p => p.Name == "death-place");
+            pin = pins.Find(p => p.Name == "place.death");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("chicago", pin.Value);

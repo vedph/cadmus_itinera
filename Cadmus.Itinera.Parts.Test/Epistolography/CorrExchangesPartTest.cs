@@ -147,32 +147,32 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             {
                 HistoricalDate date = HistoricalDate.Parse(n + 1200 + " AD");
                 double value = date.GetSortValue();
-                pin = pins.Find(p => p.Name == "from-date-value"
+                pin = pins.Find(p => p.Name == "date-value.from"
                     && p.Value == value.ToString(CultureInfo.InvariantCulture));
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
 
                 date = HistoricalDate.Parse(n + 1201 + " AD");
                 value = date.GetSortValue();
-                pin = pins.Find(p => p.Name == "to-date-value"
+                pin = pins.Find(p => p.Name == "date-value.to"
                     && p.Value == value.ToString(CultureInfo.InvariantCulture));
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
             }
 
-            pin = pins.Find(p => p.Name == "from-place" && p.Value == "even town");
+            pin = pins.Find(p => p.Name == "place.from" && p.Value == "even town");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "from-place" && p.Value == "odd town");
+            pin = pins.Find(p => p.Name == "place.from" && p.Value == "odd town");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "to-place" && p.Value == "even lake");
+            pin = pins.Find(p => p.Name == "place.to" && p.Value == "even lake");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
-            pin = pins.Find(p => p.Name == "to-place" && p.Value == "odd lake");
+            pin = pins.Find(p => p.Name == "place.to" && p.Value == "odd lake");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
 
@@ -195,6 +195,27 @@ namespace Cadmus.Itinera.Parts.Test.Epistolography
             pin = pins.Find(p => p.Name == "att-tot-count" && p.Value == "6");
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
+        }
+
+        [Fact]
+        public void GetDataPins_EmptyExchange_Ok()
+        {
+            CorrExchangesPart part = GetPart(0);
+            part.Exchanges.Add(new CorrExchange
+            {
+                Participants = new List<DecoratedId>(new[]
+                {
+                    new DecoratedId
+                    {
+                        Id = "barbato",
+                        Rank = 1
+                    }
+                })
+            });
+
+            List<DataPin> pins = part.GetDataPins(null).ToList();
+
+            Assert.Equal(2, pins.Count);
         }
     }
 }

@@ -107,14 +107,18 @@ namespace Cadmus.Itinera.Parts.Epistolography
             {
                 foreach (Chronotope c in Chronotopes)
                 {
-                    pins.Add(CreateDataPin(
-                        c.Tag.ToLowerInvariant() + "-date-value",
+                    string tag = c.Tag?.ToLowerInvariant() ?? "";
+
+                    if (c.Date != null)
+                    {
+                        pins.Add(CreateDataPin("date-value." + tag,
                         c.Date.GetSortValue().ToString(CultureInfo.InvariantCulture)));
+                    }
 
                     if (!string.IsNullOrEmpty(c.Place))
                     {
                         pins.Add(CreateDataPin(
-                            c.Tag.ToLowerInvariant() + "-place",
+                            "place." + tag,
                             DataPinHelper.DefaultFilter.Apply(c.Place, true)));
                     }
                 }
@@ -150,11 +154,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "sex",
                     "The person's sex, if any."),
                 new DataPinDefinition(DataPinValueType.Decimal,
-                    "{TAG}-date-value",
+                    "date-value.{TAG}",
                     "The list of the exchange's sortable date values.",
                     "M"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "{TAG}-place",
+                    "place.{TAG}",
                     "The list of the exchange's places of origin.",
                     "Mf"),
                 new DataPinDefinition(DataPinValueType.Integer,

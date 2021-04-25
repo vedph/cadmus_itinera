@@ -58,11 +58,14 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 {
                     foreach (Chronotope c in exchange.Chronotopes)
                     {
-                        builder.AddValue(c.Tag.ToLowerInvariant() + "-date-value",
-                            c.Date.GetSortValue());
+                        string tag = c.Tag?.ToLowerInvariant() ?? "";
+
+                        if (c.Date != null)
+                            builder.AddValue("date-value." + tag, c.Date.GetSortValue());
+
                         if (!string.IsNullOrEmpty(c.Place))
                         {
-                            builder.AddValue(c.Tag.ToLowerInvariant() + "-place",
+                            builder.AddValue("place." + tag,
                                 c.Place, filter: true, filterOptions: true);
                         }
                     }
@@ -72,12 +75,12 @@ namespace Cadmus.Itinera.Parts.Epistolography
                 {
                     foreach (var p in exchange.Participants)
                     {
-                        builder.AddValue($"participant.{p.Tag}", p.Id,
+                        builder.AddValue($"participant.{p.Tag ?? ""}", p.Id,
                             filter: true, filterOptions: true);
                     }
                 }
 
-                if (exchange?.Attachments.Count > 0)
+                if (exchange.Attachments?.Count > 0)
                 {
                     builder.Increase(from a in exchange.Attachments
                                      select a.Type, true, "att-");
@@ -108,11 +111,11 @@ namespace Cadmus.Itinera.Parts.Epistolography
                     "incoming-count",
                     "The count of exchanges originated from participants."),
                 new DataPinDefinition(DataPinValueType.Decimal,
-                    "{TAG}-date-value",
+                    "date-value.{TAG}",
                     "The list of the exchange's sortable date values.",
                     "M"),
                 new DataPinDefinition(DataPinValueType.String,
-                    "{TAG}-place",
+                    "place.{TAG}",
                     "The list of the exchange's places of origin.",
                     "Mf"),
                 new DataPinDefinition(DataPinValueType.String,
