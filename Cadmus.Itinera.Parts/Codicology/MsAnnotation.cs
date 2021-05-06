@@ -24,16 +24,9 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of the manuscript where the annotation
-        /// starts.
+        /// Gets or sets the ranges of locations where the annotation is found.
         /// </summary>
-        public MsLocation Start { get; set; }
-
-        /// <summary>
-        /// Gets or sets the location of the manuscript where the annotation
-        /// ends.
-        /// </summary>
-        public MsLocation End { get; set; }
+        public List<MsLocationRange> Ranges { get; set; }
 
         /// <summary>
         /// Gets or sets the optional sources for this annotation.
@@ -45,6 +38,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsAnnotation()
         {
+            Ranges = new List<MsLocationRange>();
             Sources = new List<DocReference>();
         }
 
@@ -56,7 +50,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </returns>
         public override string ToString()
         {
-            return $"[{Type}] {Start} - {End}: "
+            return $"[{Type}]: "
                 + (Text?.Length > 60 ? Text.Substring(0, 60) + "..." : Text);
         }
     }

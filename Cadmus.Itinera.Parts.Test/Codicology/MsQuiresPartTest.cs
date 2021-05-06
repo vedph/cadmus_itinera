@@ -21,6 +21,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             for (int n = 1; n <= count; n++)
             {
+                part.Types.Add("t" + n);
                 part.Quires.Add(new MsQuire
                 {
                     Tag = "tag",
@@ -78,7 +79,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(2, pins.Count);
+            Assert.Equal(5, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
@@ -90,6 +91,14 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
             Assert.NotNull(pin);
             TestHelper.AssertPinIds(part, pin);
             Assert.Equal("4", pin.Value);
+
+            // t1 t2 t3
+            for (int n = 1; n <= 3; n++)
+            {
+                pin = pins.Find(p => p.Name == "type" && p.Value == "t" + n);
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
+            }
         }
     }
 }

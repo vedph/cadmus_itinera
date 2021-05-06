@@ -50,18 +50,28 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Type = n % 2 == 0? "even" : "odd",
                     Text = "Annotation.",
                     Language = "eng",
-                    Start = new MsLocation
+                    Ranges = new List<MsLocationRange>(new[]
                     {
-                        N = 2,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = 1
-                    },
-                    End = new MsLocation
-                    {
-                        N = 2,
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = 12
-                    }
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 3
+                            },
+                            End = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 5
+                            }
+                        }
+                    })
                 });
             }
 

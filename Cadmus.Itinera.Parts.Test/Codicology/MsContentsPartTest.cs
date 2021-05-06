@@ -22,6 +22,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Author = $"author-{suffix}",
                     ClaimedAuthor = $"claimed-{suffix}",
                     Work = $"work-{suffix}",
+                    Title = $"title-{suffix}",
                     Ranges = new List<MsLocationRange>(new[]
                     {
                         new MsLocationRange
@@ -52,7 +53,23 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                         {
                             Label = "label",
                             Incipit = "incipit liber alicuius",
-                            Explicit = "explicit liber alicuius"
+                            Explicit = "explicit liber alicuius",
+                            Start = new MsLocation
+                            {
+                                N = 2,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 3
+                            },
+                            End = new MsLocation
+                            {
+                                N = 4,
+                                S = n % 2 == 0
+                                    ? "v"
+                                    : "r",
+                                L = 5
+                            }
                         }
                     })
                 });

@@ -52,6 +52,9 @@ namespace Cadmus.Itinera.Parts.Codicology
                         DataPinHelper.DefaultFilter.Apply(decoration.Type, true),
                         false, "type-");
 
+                    if (decoration.Date != null)
+                        builder.AddValue("date-value", decoration.Date.GetSortValue());
+
                     foreach (MsDecorationElement element in decoration?.Elements)
                     {
                         builder.Increase(
@@ -102,7 +105,11 @@ namespace Cadmus.Itinera.Parts.Codicology
                 new DataPinDefinition(DataPinValueType.String,
                     "artist-id",
                     "The list of decorations artists IDs.",
-                    "Mf")
+                    "Mf"),
+                new DataPinDefinition(DataPinValueType.Decimal,
+                    "date-value",
+                    "The list of decorations sortable date values",
+                    "M")
             });
         }
 

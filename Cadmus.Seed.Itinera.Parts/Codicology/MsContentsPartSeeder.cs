@@ -24,6 +24,18 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(u => u.Label, f => f.Lorem.Sentence(5))
                     .RuleFor(u => u.Incipit, f => f.Lorem.Sentence())
                     .RuleFor(u => u.Explicit, f => f.Lorem.Sentence())
+                    .RuleFor(u => u.Start, new MsLocation
+                    {
+                        N = n,
+                        S = n % 2 == 0 ? "v" : "r",
+                        L = n * 5
+                    })
+                    .RuleFor(u => u.End, new MsLocation
+                    {
+                        N = n + 1,
+                        S = n % 2 == 0 ? "r" : "v",
+                        L = n * 5
+                    })
                     .Generate());
             }
             return units;
@@ -60,6 +72,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(c => c.ClaimedAuthor,
                         f => f.PickRandom(null, f.Lorem.Word()))
                     .RuleFor(c => c.Work, f => f.Lorem.Word())
+                    .RuleFor(c => c.Title, f => f.Lorem.Sentence())
                     .RuleFor(c => c.Incipit, f => f.Lorem.Sentence())
                     .RuleFor(c => c.Explicit, f => f.Lorem.Sentence())
                     .RuleFor(c => c.Ranges, new List<MsLocationRange>(new[]

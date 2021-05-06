@@ -15,6 +15,13 @@ namespace Cadmus.Itinera.Parts.Codicology
     public sealed class MsQuiresPart : PartBase
     {
         /// <summary>
+        /// Gets or sets the list of the prevalent types among the quires
+        /// (e.g. binione, ternione, etc.). Usually the values come from
+        /// a thesaurus.
+        /// </summary>
+        public List<string> Types { get; set; }
+
+        /// <summary>
         /// Gets or sets the entries.
         /// </summary>
         public List<MsQuire> Quires { get; set; }
@@ -24,6 +31,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsQuiresPart()
         {
+            Types = new List<string>();
             Quires = new List<MsQuire>();
         }
 
@@ -40,6 +48,9 @@ namespace Cadmus.Itinera.Parts.Codicology
             DataPinBuilder builder = new DataPinBuilder();
 
             builder.Set("tot", Quires?.Count ?? 0, false);
+
+            if (Types?.Count > 0)
+                builder.AddValues("type", Types);
 
             if (Quires?.Count > 0)
             {
@@ -60,6 +71,10 @@ namespace Cadmus.Itinera.Parts.Codicology
         {
             return new List<DataPinDefinition>(new[]
             {
+                new DataPinDefinition(DataPinValueType.String,
+                    "type",
+                    "The prevalent types.",
+                    "M"),
                 new DataPinDefinition(DataPinValueType.Integer,
                     "tot-count",
                     "The total count of bibliographic entries."),
@@ -81,6 +96,13 @@ namespace Cadmus.Itinera.Parts.Codicology
             StringBuilder sb = new StringBuilder();
 
             sb.Append("[MsQuires]");
+
+            if (Types?.Count > 0)
+            {
+                sb.Append(' ');
+                sb.Append(string.Join(", ", Types));
+                sb.Append('.');
+            }
 
             if (Quires?.Count > 0)
             {

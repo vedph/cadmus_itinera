@@ -1,5 +1,6 @@
 ﻿using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
+using Fusi.Antiquity.Chronology;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +82,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                     Id = $"d{n}",
                     Name = "Decoration " + n,
                     Type = n % 2 == 0? "even" : "odd",
+                    Date = HistoricalDate.Parse($"{1300 + n}"),
                     Flags = new List<string>(new[] { "f-" + alt }),
                     Place = "Paris",
                     Note = "Note",
@@ -142,7 +144,7 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
 
             List<DataPin> pins = part.GetDataPins(null).ToList();
 
-            Assert.Equal(10, pins.Count);
+            Assert.Equal(13, pins.Count);
             TestHelper.AssertValidDataPinNames(pins);
 
             DataPin pin = pins.Find(p => p.Name == "tot-count");
@@ -176,6 +178,11 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                 Assert.NotNull(pin);
                 TestHelper.AssertPinIds(part, pin);
                 Assert.Equal("3", pin.Value);
+
+                pin = pins.Find(p => p.Name == "date-value" &&
+                    p.Value == $"{1300 + n}");
+                Assert.NotNull(pin);
+                TestHelper.AssertPinIds(part, pin);
             }
         }
     }

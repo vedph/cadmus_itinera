@@ -97,18 +97,24 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(a => a.Language, f => f.PickRandom("lat", "ita"))
                     .RuleFor(a => a.Type, f => f.Lorem.Word())
                     .RuleFor(a => a.Text, f => f.Lorem.Sentence())
-                    .RuleFor(s => s.Start, f => new MsLocation
+                    .RuleFor(r => r.Ranges, new List<MsLocationRange>(new[]
                     {
-                        N = (short)((n - 1) * 2),
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = (short)(f.Random.Number(1, 20))
-                    })
-                    .RuleFor(s => s.End, f => new MsLocation
-                    {
-                        N = (short)((n - 1) * 2 + 1),
-                        S = n % 2 == 0 ? "v" : "r",
-                        L = (short)(f.Random.Number(1, 20))
-                    })
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = n,
+                                S = n % 2 == 0 ? "v" : "r",
+                                L = n * 5
+                            },
+                            End = new MsLocation
+                            {
+                                N = n + 1,
+                                S = n % 2 == 0 ? "r" : "v",
+                                L = n * 5
+                            }
+                        }
+                    }))
                     .RuleFor(f => f.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
             }

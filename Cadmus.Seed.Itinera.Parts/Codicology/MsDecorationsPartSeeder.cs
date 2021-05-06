@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using Cadmus.Core;
 using Cadmus.Itinera.Parts.Codicology;
+using Fusi.Antiquity.Chronology;
 using Fusi.Tools.Config;
 using System;
 using System.Collections.Generic;
@@ -132,6 +133,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(d => d.Id, f => "d" + f.UniqueIndex)
                     .RuleFor(d => d.Name, f => f.Lorem.Word())
                     .RuleFor(d => d.Type, f => f.PickRandom(_types))
+                    .RuleFor(d => d.Date, HistoricalDate.Parse($"{1300 + n} AD"))
                     .RuleFor(d => d.Flags,
                         f => new List<string>(new[] { f.PickRandom(_flags) }))
                     .RuleFor(d => d.Place, f => f.Address.Country())

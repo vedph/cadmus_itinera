@@ -1,4 +1,5 @@
 ﻿using Cadmus.Parts;
+using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;
 
 namespace Cadmus.Itinera.Parts.Codicology
@@ -38,6 +39,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// Gets or sets the place of origin for this decoration.
         /// </summary>
         public string Place { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional date.
+        /// </summary>
+        public HistoricalDate Date { get; set; }
 
         /// <summary>
         /// Gets or sets an optional note.

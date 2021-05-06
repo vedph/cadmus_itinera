@@ -35,13 +35,16 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             SetPartMetadata(part, roleId, item);
 
             short nr = 1;
+            string[] types = new[] { "t2", "t3", "t4" };
+
             for (int n = 1; n <= Randomizer.Seed.Next(1, 3 + 1); n++)
             {
+                part.Types.Add(types[Randomizer.Seed.Next(0, types.Length)]);
                 part.Quires.Add(new Faker<MsQuire>()
                     .RuleFor(q => q.Tag, f => f.Lorem.Word())
                     .RuleFor(q => q.StartNr, nr)
                     .RuleFor(q => q.EndNr, (short)(nr + 3))
-                    .RuleFor(q => q.SheetCount, (short)4)
+                    .RuleFor(q => q.SheetCount, 4)
                     .RuleFor(q => q.SheetDelta, f => f.Random.Short(0, 2 + 1))
                     .RuleFor(q => q.Note, f => f.PickRandom(null, f.Lorem.Sentence(2, 3)))
                     .Generate());

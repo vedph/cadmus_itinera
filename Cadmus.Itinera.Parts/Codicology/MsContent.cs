@@ -19,9 +19,15 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string ClaimedAuthor { get; set; }
 
         /// <summary>
-        /// Gets or sets the work.
+        /// Gets or sets the standard work title for this content.
         /// </summary>
         public string Work { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title, as included in the manuscript's initial text
+        /// for this content.
+        /// </summary>
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the incipit.
@@ -73,38 +79,6 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (!string.IsNullOrEmpty(Author)) sb.Append(Author).Append(", ");
             sb.Append(Work);
             return sb.ToString();
-        }
-    }
-
-    /// <summary>
-    /// A unit in a <see cref="MsContent"/>.
-    /// </summary>
-    public class MsContentUnit
-    {
-        /// <summary>
-        /// Gets or sets the label.
-        /// </summary>
-        public string Label { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text of the optional incipit.
-        /// </summary>
-        public string Incipit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text of the optional explicit.
-        /// </summary>
-        public string Explicit { get; set; }
-
-        /// <summary>
-        /// Converts to string.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="string" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return Label;
         }
     }
 }
