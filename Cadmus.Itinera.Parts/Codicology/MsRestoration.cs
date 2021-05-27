@@ -25,6 +25,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         public HistoricalDate Date { get; set; }
 
         /// <summary>
+        /// Gets or sets the optional person identifier.
+        /// </summary>
+        public string PersonId { get; set; }
+
+        /// <summary>
         /// Gets or sets a note about the restoration.
         /// </summary>
         public string Note { get; set; }

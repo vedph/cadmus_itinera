@@ -24,6 +24,11 @@ namespace Cadmus.Itinera.Parts.Codicology
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or sets the optional person identifier.
+        /// </summary>
+        public string PersonId { get; set; }
+
+        /// <summary>
         /// Gets or sets the ranges of locations where the annotation is found.
         /// </summary>
         public List<MsLocationRange> Ranges { get; set; }

@@ -97,6 +97,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(a => a.Language, f => f.PickRandom("lat", "ita"))
                     .RuleFor(a => a.Type, f => f.Lorem.Word())
                     .RuleFor(a => a.Text, f => f.Lorem.Sentence())
+                    .RuleFor(a => a.PersonId, f => f.Person.FirstName)
                     .RuleFor(r => r.Ranges, new List<MsLocationRange>(new[]
                     {
                         new MsLocationRange
@@ -125,7 +126,8 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                 part.Restorations.Add(new Faker<MsRestoration>()
                     .RuleFor(r => r.Type, f => f.Lorem.Word())
                     .RuleFor(r => r.Place, f => f.Lorem.Word())
-                    .RuleFor(p => p.Date, HistoricalDate.Parse($"{1200 + n} AD"))
+                    .RuleFor(r => r.Date, HistoricalDate.Parse($"{1200 + n} AD"))
+                    .RuleFor(r => r.PersonId, f => f.Person.FirstName)
                     .RuleFor(r => r.Note, f => f.PickRandom(null, f.Lorem.Sentence()))
                     .RuleFor(r => r.Sources, SeederHelper.GetDocReferences(1, 3))
                     .Generate());
