@@ -65,13 +65,36 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             return rubrications;
         }
 
-        private MsSubscription GetSubscription()
+        private List<MsSubscription> GetSubscriptions(int count)
         {
-            return new Faker<MsSubscription>()
-                .RuleFor(r => r.Locations, f => GetLocations(f.Random.Number(1, 2)))
+            List<MsSubscription> subscriptions = new List<MsSubscription>();
+
+            for (int n = 1; n <= count; n++)
+            {
+                subscriptions.Add(new Faker<MsSubscription>()
+                    .RuleFor(r => r.Ranges, new List<MsLocationRange>(new[]
+                    {
+                        new MsLocationRange
+                        {
+                            Start = new MsLocation
+                            {
+                                N = n,
+                                S = n % 2 == 0 ? "v" : "r",
+                                L = n * 5
+                            },
+                            End = new MsLocation
+                            {
+                                N = n + 1,
+                                S = n % 2 == 0 ? "r" : "v",
+                                L = n * 5
+                            }
+                        }
+                    }))
                 .RuleFor(r => r.Language, f => f.PickRandom("lat", "ita"))
                 .RuleFor(r => r.Text, f => f.Lorem.Sentence())
-                .Generate();
+                .Generate());
+            }
+            return subscriptions;
         }
 
         private List<MsHandSign> GetSigns(int count)
@@ -116,7 +139,7 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
             for (int n = 1; n <= count; n++)
             {
                 MsHand hand = new Faker<MsHand>()
-                    .RuleFor(h => h.Id, f => f.Lorem.Word())
+                    .RuleFor(h => h.Id, f => f.Person.FirstName)
                     .RuleFor(h => h.Types, f => new List<string>(
                         new[] { f.PickRandom("got", "mea") }))
                     .RuleFor(h => h.PersonId, f => f.Name.FirstName().ToLowerInvariant())
@@ -149,10 +172,12 @@ namespace Cadmus.Seed.Itinera.Parts.Codicology
                     .RuleFor(h => h.ExtentNote, f => f.Lorem.Sentence())
                     .RuleFor(h => h.Rubrications,
                         f => GetRubrications(f.Random.Number(1, 2)))
-                    .RuleFor(h => h.Subscription, GetSubscription())
+                    .RuleFor(h => h.Subscriptions,
+                        f => GetSubscriptions(f.Random.Number(1, 2)))
                     .RuleFor(h => h.Signs, f => GetSigns(f.Random.Number(1, 2)))
                     .RuleFor(h => h.ImageIds,
-                        f => new List<string>(new[] { "img" + f.Random.Number(1, 100) + "-" }))
+                        f => new List<string>(new[]
+                        { "img" + f.Random.Number(1, 100) + "-" }))
                     .Generate();
 
                 part.Hands.Add(hand);

@@ -100,22 +100,32 @@ namespace Cadmus.Itinera.Parts.Test.Codicology
                             Issues = "Issues"
                         }
                     }),
-                    Subscription = new MsSubscription
+                    Subscriptions = new List<MsSubscription>(new[]
                     {
-                        Locations = new List<MsLocation>(new[]
+                        new MsSubscription
+                        {
+                            Ranges = new List<MsLocationRange>(new[]
                             {
-                                new MsLocation
+                                new MsLocationRange
                                 {
-                                    N = 4,
-                                    S = n % 2 == 0
-                                        ? "v"
-                                        : "r",
-                                    L = 5
+                                    Start = new MsLocation
+                                    {
+                                        N = n,
+                                        S = n % 2 == 0 ? "v" : "r",
+                                        L = n * 5
+                                    },
+                                    End = new MsLocation
+                                    {
+                                        N = n + 1,
+                                        S = n % 2 == 0 ? "r" : "v",
+                                        L = n * 5
+                                    }
                                 }
                             }),
                         Language = "eng",
                         Text = "Text"
-                    },
+                        }
+                    }),
                     Signs = GetSigns(1),
                     ImageIds = new List<string>(new string[] { "draco" })
                 });

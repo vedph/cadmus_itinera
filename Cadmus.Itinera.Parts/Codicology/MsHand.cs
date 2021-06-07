@@ -74,7 +74,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// <summary>
         /// Gets or sets the subscriptions description.
         /// </summary>
-        public MsSubscription Subscription { get; set; }
+        public List<MsSubscription> Subscriptions { get; set; }
 
         /// <summary>
         /// Gets or sets the signs description.
@@ -98,6 +98,7 @@ namespace Cadmus.Itinera.Parts.Codicology
             Types = new List<string>();
             Ranges = new List<MsLocationRange>();
             Rubrications = new List<MsRubrication>();
+            Subscriptions = new List<MsSubscription>();
             Signs = new List<MsHandSign>();
             ImageIds = new List<string>();
         }

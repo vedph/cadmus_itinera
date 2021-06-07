@@ -9,9 +9,9 @@ namespace Cadmus.Itinera.Parts.Codicology
     public class MsSubscription
     {
         /// <summary>
-        /// Gets or sets the location(s) of the subscription in the manuscript.
+        /// Gets or sets the locations ranges of the rubrication in the manuscript.
         /// </summary>
-        public List<MsLocation> Locations { get; set; }
+        public List<MsLocationRange> Ranges { get; set; }
 
         /// <summary>
         /// Gets or sets the subscription's language (ISO 639-3).
@@ -28,7 +28,7 @@ namespace Cadmus.Itinera.Parts.Codicology
         /// </summary>
         public MsSubscription()
         {
-            Locations = new List<MsLocation>();
+            Ranges = new List<MsLocationRange>();
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Cadmus.Itinera.Parts.Codicology
             if (!string.IsNullOrEmpty(Language))
                 sb.Append('[').Append(Language).Append(']');
 
-            if (Locations?.Count > 0)
-                sb.Append('@').Append(string.Join(" ", Locations));
+            if (Ranges?.Count > 0)
+                sb.Append('@').Append(string.Join(" ", Ranges));
 
             if (!string.IsNullOrEmpty(Text))
             {
