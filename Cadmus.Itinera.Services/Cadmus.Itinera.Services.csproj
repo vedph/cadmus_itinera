@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Cadmus.Core" Version="2.3.7" />
-    <PackageReference Include="Cadmus.Index.Sql" Version="1.1.14" />
-    <PackageReference Include="Cadmus.Mongo" Version="2.3.10" />
+    <PackageReference Include="Cadmus.Index.Sql" Version="1.1.15" />
+    <PackageReference Include="Cadmus.Mongo" Version="2.3.11" />
     <PackageReference Include="Cadmus.Parts" Version="2.3.10" />
     <PackageReference Include="Cadmus.Philology.Parts" Version="2.3.8" />
     <PackageReference Include="Cadmus.Seed.Parts" Version="1.1.12" />
