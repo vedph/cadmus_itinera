@@ -1,4 +1,5 @@
-﻿using Cadmus.Parts;
+﻿using Cadmus.Bricks;
+using Cadmus.Parts;
 using System.Collections.Generic;
 using System.Text;
 

@@ -1,4 +1,5 @@
-﻿using Cadmus.Core;
+﻿using Cadmus.Bricks;
+using Cadmus.Core;
 using Cadmus.Core.Layers;
 using Cadmus.Parts;
 using Fusi.Antiquity.Chronology;

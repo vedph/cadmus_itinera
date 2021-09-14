@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Cadmus.Bricks;
 using Cadmus.Core;
 using Cadmus.Itinera.Parts;
 using Cadmus.Itinera.Parts.Epistolography;

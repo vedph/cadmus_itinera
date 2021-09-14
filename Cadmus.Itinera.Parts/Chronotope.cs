@@ -1,4 +1,5 @@
-﻿using Cadmus.Itinera.Parts.Epistolography;
+﻿using Cadmus.Bricks;
+using Cadmus.Itinera.Parts.Epistolography;
 using Cadmus.Parts;
 using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;

@@ -2,6 +2,7 @@
 using Fusi.Antiquity.Chronology;
 using System.Collections.Generic;
 using Cadmus.Parts;
+using Cadmus.Bricks;
 
 namespace Cadmus.Itinera.Parts.Epistolography
 {

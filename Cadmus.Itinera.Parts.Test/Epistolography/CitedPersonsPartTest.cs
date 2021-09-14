@@ -1,4 +1,5 @@
-﻿using Cadmus.Core;
+﻿using Cadmus.Bricks;
+using Cadmus.Core;
 using Cadmus.Itinera.Parts.Epistolography;
 using System;
 using System.Collections.Generic;
